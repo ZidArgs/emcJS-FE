@@ -1,0 +1,76 @@
+:host {
+    position: fixed !important;
+    box-sizing: border-box !important;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: default !important;
+    overflow: hidden !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: var(--z-index-keybindeditpanel, 900900);
+    pointer-events: all !important;
+}
+
+#modal {
+    display: flex;
+    flex-direction: column;
+    min-width: min(400px, calc(100dvw - 50px));
+    max-width: min(1000px, calc(100dvw - 50px));
+    min-height: min(200px, calc(100dvh - 50px));
+    max-height: min(800px, calc(100dvh - 50px));
+    color: var(--modal-text-color, #000000);
+    background-color: var(--modal-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--modal-border-width, 2px);
+    border-color: var(--modal-border-color, #cccccc);
+    border-radius: 4px;
+    font-size: 1rem;
+    pointer-events: all;
+    box-shadow: #000000c4 11px 11px 20px 0px;
+}
+
+#modal:focus {
+    outline: none;
+}
+
+#title {
+    height: 2em;
+    color: var(--modal-header-text-color, #000000);
+    background-color: var(--modal-header-back-color, #e4e4e4);
+    border-bottom: solid var(--modal-border-width, 2px) var(--modal-border-color, #cccccc);
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    overflow: hidden;
+    scroll-padding-top: 20px;
+    scroll-padding-bottom: 20px;
+}
+
+#key-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2em;
+    width: 100%;
+    margin-top: 10px;
+    padding: 0px 5px;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+#key-display > emc-keycap {
+    font-size: 1em;
+}

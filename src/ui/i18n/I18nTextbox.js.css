@@ -1,0 +1,6 @@
+:host {
+    display: inline;
+}
+:host(:empty) {
+    display: none;
+}

@@ -1,0 +1,19 @@
+#button {
+    padding: 0px 10px;
+}
+
+#button::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1em;
+    min-width: 1em;
+    font-size: 1.3em;
+    line-height: 1em;
+    font-family: "monospace", monospace;
+    font-weight: bold;
+    transform-origin: center;
+    margin-right: 0.3em;
+    rotate: 270deg;
+    content: "↺";
+}

@@ -1,0 +1,90 @@
+:host {
+    display: inline-block;
+    width: 4em;
+    height: 2em;
+    --button-background-color: var(--switch-button-back-color, #cdcdcd);
+    --button-border-style: solid;
+    --button-border-width: var(--border-width);
+    --button-border-color: var(--input-border-color, #222222);
+    --button-border-radius: calc(var(--border-radius, 6px) / 2);
+}
+
+:host(:hover) {
+    --button-background-color: var(--switch-button-hover-back-color, #444444);
+}
+
+:host([readonly]:not([readonly="false"]):hover) {
+    --button-background-color: var(--switch-button-back-color, #cdcdcd);
+}
+
+:host(:disabled) {
+    --button-background-color: var(--switch-button-disabled-back-color, #696969);
+}
+
+:host(:state(checked)) {
+    --background-color: var(--switch-checked-back-color, #9ee1ec);
+}
+
+:host(:state(indeterminate)) {
+    --background-color: var(--switch-indeterminate-back-color, #ffffff);
+}
+
+#container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+}
+
+#input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2px;
+    margin: 0px;
+    background-color: var(--background-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    appearance: none;
+
+    &:focus {
+        box-shadow: 0 0 2px 3px var(--focus-color, #06b5ff);
+        outline: none;
+        z-index: 1;
+    }
+
+    &:disabled {
+        cursor: default !important;
+        opacity: 1 !important;
+    }
+
+    &::after {
+        box-sizing: border-box;
+        display: block;
+        width: 50%;
+        height: 100%;
+        background-color: var(--button-background-color);
+        border-style: var(--button-border-style);
+        border-width: var(--button-border-width);
+        border-color: var(--button-border-color);
+        border-radius: var(--button-border-radius);
+        content: "";
+    }
+
+    &:checked::after {
+        margin-left: auto;
+    }
+
+    &:indeterminate::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

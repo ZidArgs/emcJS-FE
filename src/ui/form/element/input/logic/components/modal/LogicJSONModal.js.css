@@ -1,0 +1,17 @@
+#modal {
+    width: 80vw;
+    max-width: 80vw;
+    min-width: 20vw;
+}
+
+#content {
+    height: 70vh;
+    min-height: 70vh;
+    max-height: 70vh;
+}
+
+#json {
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+}

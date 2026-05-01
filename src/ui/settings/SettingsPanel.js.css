@@ -1,0 +1,124 @@
+:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--page-text-color, #000000);
+    background-color: var(--page-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--page-border-width, 2px);
+    border-color: var(--page-border-color, #222222);
+    border-radius: var(--page-border-radius, 6px);
+    container-type: inline-size;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    container-name: panel;
+}
+
+.form-wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 0px;
+    flex: 1;
+    padding: 0 6px;
+
+    #form-section-navigation {
+        position: relative;
+        flex-shrink: 0;
+        flex-grow: 0;
+        width: 300px;
+        min-width: 300px;
+        margin: 0px;
+        border-right-style: solid;
+        border-right-width: var(--page-border-width, 2px);
+        border-right-color: var(--page-border-color, #222222);
+    }
+
+    #form-container {
+        position: relative;
+        height: 100%;
+        flex-grow: 1;
+
+        --form-back-color: transparent;
+        --form-border-width: 0px;
+        --form-border-radius: 0px;
+        --form-section-header-text-color: var(--page-marked-text-color, #ffffff);
+        --form-section-header-back-color: var(--page-marked-back-color, #222222);
+    }
+}
+
+.header {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+#hamburger-button {
+    position: relative;
+    display: none;
+    left: 0px;
+    margin: 6px;
+    transition: left 0.2s ease-in-out;
+    --hamburger-button-back-color: var(--page-back-color, #ffffff);
+    --hamburger-button-back-image: var(--page-back-image, none);
+    --hamburger-button-focus-color: var(--button-focus-color, #06b5ff);
+}
+
+#search {
+    margin: 6px;
+    flex: 1;
+}
+
+#settings-form .hidden:not(:focus-within) {
+    display: none;
+}
+
+@container panel (width < 800px) {
+
+    #hamburger-button {
+        display: inline-block;
+        z-index: 99;
+    }
+
+    #search {
+        opacity: 1;
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    #hamburger-button[open]:not([open="false"]) {
+        left: calc(100% - 52px);
+
+        & ~ #search {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .form-wrapper #form-section-navigation {
+        position: absolute;
+        width: 100%;
+        left: -100%;
+        height: 100%;
+        max-width: 100%;
+        border: none;
+        opacity: 0;
+        transition: left 0.2s ease-in-out, opacity 0.2s linear;
+        z-index: 99;
+    }
+
+    #form-section-navigation.open {
+        left: 0;
+        opacity: 1;
+    }
+
+}

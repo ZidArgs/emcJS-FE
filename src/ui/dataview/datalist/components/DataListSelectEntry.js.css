@@ -1,0 +1,49 @@
+#container {
+    padding: 6px;
+    cursor: pointer;
+}
+
+#content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    width: 100%;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+
+#container:focus-within {
+    color: var(--datalist-entry-hover-text-color, #000000);
+    background-color: var(--datalist-entry-hover-back-color, #d6f7fd);
+}
+
+:host([disabled]:not([disabled="false"])) #container {
+    user-select: none !important;
+    pointer-events: none !important;
+    color: var(--datagrid-disabled-text-color, #757575) !important;
+    background-color: var(--datagrid-disabled-back-color, #999999) !important;
+    background-image: var(--datagrid-disabled-back-image, none) !important;
+    border-color: var(--datagrid-disabled-row-seperator-color, #757575) !important;
+}
+
+:host([readonly]:not([readonly="false"])) #container {
+    cursor: default;
+}
+
+#checkbox {
+    width: 22px;
+    height: 22px;
+    margin: 0px 8px;
+    flex-shrink: 0;
+    pointer-events: none;
+
+    &:first-child {
+        margin-left: 0px;
+    }
+
+    &:last-child {
+        margin-right: 0px;
+    }
+}

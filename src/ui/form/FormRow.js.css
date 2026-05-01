@@ -1,0 +1,59 @@
+:host {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    padding: 2px;
+}
+
+#fieldset {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex: 1;
+    box-sizing: border-box;
+    padding: 0px 2px;
+    margin: 0px;
+    background-color: transparent;
+    border: none;
+}
+
+:host([align="end"]) #fieldset {
+    justify-content: flex-end;
+}
+
+:host([align="center"]) #fieldset {
+    justify-content: center;
+}
+
+:host([align="between"]) #fieldset {
+    justify-content: space-between;
+}
+
+:host([align="even"]) #fieldset {
+    justify-content: space-evenly;
+}
+
+* {
+    position: relative;
+    box-sizing: border-box;
+    margin: 0px;
+    font-size: 1em;
+}
+
+::slotted(*) {
+    width: auto;
+    margin: 4px 2px;
+}
+
+::slotted(:nth-last-child(1 of [align="left"])) {
+    margin-right: auto !important;
+}
+
+::slotted(:nth-child(1 of [align="right"])) {
+    margin-left: auto !important;
+}

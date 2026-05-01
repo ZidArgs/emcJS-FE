@@ -1,0 +1,134 @@
+:host {
+    --tooltip-scale: 1;
+    position: absolute;
+    display: none;
+    padding: 5px;
+    color: var(--tooltip-text-color, #000000);
+    background-color: var(--tooltip-back-color, #ffffff);
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px var(--tooltip-border-color, #000000);
+    pointer-events: none;
+    z-index: var(--z-index-tooltop, 900800);
+}
+
+:host([position="topleft"]) {
+    right: 100%;
+    bottom: 100%;
+    transform-origin: calc(100% + 4px) calc(100% + 4px);
+    transform: translate(-4px, -4px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="top"]) {
+    left: 50%;
+    bottom: 100%;
+    transform-origin: center calc(100% + 10px);
+    transform: translate(-50%, -10px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="topright"]) {
+    left: 100%;
+    bottom: 100%;
+    transform-origin: -4px calc(100% + 4px);
+    transform: translate(4px, -4px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="right"]) {
+    left: 100%;
+    top: 50%;
+    transform-origin: -10px center;
+    transform: translate(10px, -50%) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="bottomright"]) {
+    left: 100%;
+    top: 100%;
+    transform-origin: -4px -4px;
+    transform: translate(4px, 4px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="bottom"]) {
+    left: 50%;
+    top: 100%;
+    transform-origin: center -10px;
+    transform: translate(-50%, 10px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="bottomleft"]) {
+    right: 100%;
+    top: 100%;
+    transform-origin: calc(100% + 4px) -4px;
+    transform: translate(-4px, 4px) scale(var(--tooltip-scale, 1));
+}
+
+:host([position="left"]) {
+    right: 100%;
+    top: 50%;
+    transform-origin: calc(100% + 10px) center;
+    transform: translate(-10px, -50%) scale(var(--tooltip-scale, 1));
+}
+
+:host::after {
+    position: absolute;
+    display: block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent var(--tooltip-back-color, #ffffff) var(--tooltip-back-color, #ffffff) transparent;
+    box-shadow: 2px 2px 0px -1px var(--tooltip-border-color, #000000);
+    content: " ";
+}
+
+:host([position="topleft"])::after {
+    display: block;
+    right: -1px;
+    bottom: -1px;
+    transform: rotate(0) skew(10deg, 10deg);
+}
+
+:host([position="top"])::after {
+    display: block;
+    left: calc(50% - 5px);
+    bottom: -4px;
+    transform: rotate(45deg);
+}
+
+:host([position="topright"])::after {
+    display: block;
+    left: -1px;
+    bottom: -1px;
+    transform: rotate(90deg) skew(10deg, 10deg);
+}
+
+:host([position="right"])::after {
+    display: block;
+    top: calc(50% - 5px);
+    left: -4px;
+    transform: rotate(135deg);
+}
+
+:host([position="bottomright"])::after {
+    display: block;
+    left: -1px;
+    top: -1px;
+    transform: rotate(180deg) skew(10deg, 10deg);
+}
+
+:host([position="bottom"])::after {
+    display: block;
+    left: calc(50% - 5px);
+    top: -4px;
+    transform: rotate(-135deg);
+}
+
+:host([position="bottomleft"])::after {
+    display: block;
+    right: -1px;
+    top: -1px;
+    transform: rotate(-90deg) skew(10deg, 10deg);
+}
+
+:host([position="left"])::after {
+    display: block;
+    top: calc(50% - 5px);
+    right: -4px;
+    transform: rotate(-45deg);
+}

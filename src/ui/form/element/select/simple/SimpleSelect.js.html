@@ -1,0 +1,17 @@
+<div id="container">
+    <div id="input" tabindex="0">
+        <emc-i18n-label id="value"></emc-i18n-label>
+        <emc-i18n-label id="placeholder"></emc-i18n-label>
+    </div>
+    <div id="button">
+        <emc-font-icon icon="direction-down"></emc-font-icon>
+    </div>
+    <div id="scroll-container">
+        <div id="options-container"></div>
+        <emc-i18n-label id="empty" i18n-value="no entries"></emc-i18n-label>
+    </div>
+    <select id="native-select">
+        <option is="emc-i18n-option" id="native-empty" i18n-value="no entries" disabled></option>
+    </select>
+    <slot id="options-slot"></slot>
+</div>

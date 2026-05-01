@@ -1,0 +1,25 @@
+#container {
+    display: block;
+    flex-shrink: 0;
+    max-width: 100%;
+    padding: 4px;
+    margin: 2px;
+    color: var(--form-invalid-text-color, #a70000);
+    background-color: var(--form-invalid-back-color, #ffeeee);
+    font-size: 0.9em;
+    line-height: 1.4em;
+    cursor: pointer;
+    user-select: none;
+
+
+    #error-list {
+        margin: 0px;
+        padding-inline-start: 8px;
+        list-style-type: "•";
+    }
+
+}
+
+::slotted(li) {
+    padding-left: 4px;
+}

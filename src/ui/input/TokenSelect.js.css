@@ -1,0 +1,158 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 200px;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border: solid 1px var(--input-border-color, #222222);
+    border-radius: 2px;
+    user-select: none;
+}
+
+:host(:focus) {
+    box-shadow: 0 0 2px 2px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+
+:host(:focus:not(:focus-visible)) {
+    box-shadow: none;
+    outline: none;
+}
+
+:focus {
+    outline: none;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--list-color-front, #000000);
+    background-color: transparent;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#view,
+#input {
+    flex: 1;
+    padding: 0px 7px;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border: none;
+    font-size: 1rem;
+}
+
+#input {
+    height: 2rem;
+}
+
+#input::placeholder {
+    font-style: italic;
+}
+
+#view {
+    display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+#view:empty::after {
+    content: "...";
+}
+
+#view[mode="edit"] {
+    display: none;
+}
+
+#view[mode="view"] + #input {
+    display: none;
+}
+
+#view:empty + #search-reset {
+    display: none;
+}
+
+#scroll-container {
+    position: fixed;
+    display: none;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--input-back-color, #ffffff);
+    border: solid 1px var(--input-border-color, #222222);
+    z-index: var(--z-index-element-popups, 1000);
+    box-shadow: black 2px 2px 2px;
+}
+
+slot {
+    display: block;
+    width: 100%;
+}
+
+::slotted([value]) {
+    display: flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 5px 5px 5px 35px;
+    white-space: normal;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border-bottom: solid 1px var(--input-button-color, #cccccc);
+    font-size: 1rem;
+}
+
+::slotted([value][disabled]) {
+    display: none;
+}
+
+::slotted([value]:hover),
+::slotted([value].marked) {
+    background-color: var(--input-button-color, #cccccc);
+}
+
+::slotted([value])::before {
+    position: absolute;
+    left: 0;
+    margin: 0px 10px 0px 9px;
+    font-size: 1.2rem;
+    line-height: 1em;
+    content: "☐";
+}
+
+::slotted([value].active)::before {
+    content: "☑";
+}
+
+:host(:not([readonly])) ::slotted([value]:not(.active)),
+:host([readonly="false"]) ::slotted([value]:not(.active)),
+:host([multiple]:not([multiple="false"]):not([readonly])) ::slotted([value].active),
+:host([readonly="false"][multiple]:not([multiple="false"])) ::slotted([value].active) {
+    cursor: pointer;
+}
+
+#empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    min-height: 2rem;
+    padding: 5px;
+    margin: 5px 2px;
+    white-space: normal;
+}
+
+.token {
+    display: inline-block;
+    padding: 0px 5px;
+    margin-right: 5px;
+    color: var(--input-back-color, #ffffff);
+    background-color: var(--input-text-color, #000000);
+    border-radius: 4px;
+    overflow: hidden;
+}

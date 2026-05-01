@@ -1,0 +1,20 @@
+@import "./theme.css";
+@import "./prestyle.css";
+@import "./scrollbar.css";
+@import "./fonts.css";
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+    color: var(--page-text-color);
+    background-color: var(--page-back-color);
+}
+
+/* debug focus */
+/* :focus,
+:focus-within,
+:focus-visible {
+    outline: red 2px solid !important;
+} */

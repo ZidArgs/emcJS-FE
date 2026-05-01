@@ -1,0 +1,25 @@
+:host {
+    display: flex;
+}
+
+::slotted(*) {
+    margin: 0px;
+}
+
+::slotted(:not(:first-child)) {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    --border-top-left-radius: 0px;
+    --border-bottom-left-radius: 0px;
+}
+
+::slotted(:not(:last-child)) {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    --border-top-right-radius: 0px;
+    --border-bottom-right-radius: 0px;
+}
+
+::slotted(:nth-child(n + 2)) {
+    margin-left: calc(-1 * var(--border-width, 0px));
+}

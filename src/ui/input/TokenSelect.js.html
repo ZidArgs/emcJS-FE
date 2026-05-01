@@ -1,0 +1,15 @@
+<div id="view" mode="view" tabindex="0"></div>
+<input is="emc-i18n-input" id="input" i18n-value="search..." autocomplete="off">
+<emc-i18n-tooltip i18n-tooltip="Reset search">
+    <div id="search-reset" class="button">
+        <emc-symbol-clear></emc-symbol-clear>
+    </div>
+</emc-i18n-tooltip>
+<div class="button">
+    <emc-symbol-chevron-down></emc-symbol-chevron-down>
+</div>
+<div id="scroll-container">
+    <slot id="container">
+        <div id="empty">no entries</div>
+    </slot>
+</div>

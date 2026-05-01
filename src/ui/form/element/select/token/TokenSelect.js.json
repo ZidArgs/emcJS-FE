@@ -1,0 +1,26 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "SwitchInput",
+        "name": "multiple",
+        "label": "Multiple",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "chooseonly",
+        "label": "Choose only",
+        "value": false
+    },
+    {
+        "type": "StringInput",
+        "name": "tokengroup",
+        "label": "Token Group",
+        "value": ""
+    }
+]

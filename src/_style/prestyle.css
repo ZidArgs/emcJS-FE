@@ -1,0 +1,362 @@
+/*
+To prestyle custom elements that might be defined later on, use the following selector:
+<tag-name>:not(:defined)
+*/
+
+/* === page === */
+emc-layout:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    flex-shrink: 0;
+    width: min-content;
+    height: min-content;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+/* === navigation === */
+emc-navbar:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    top: 0;
+    width: 100%;
+    min-height: calc(var(--navigation-button-height, 1.5em) + 2 * var(--navigation-button-margin-y, 2px));
+    background-color: var(--navigation-back-color, #ffffff);
+    color: var(--navigation-text-color, #000000);
+    flex-grow: 0;
+    flex-shrink: 0;
+    z-index: var(--z-index-navbar, 900400);
+
+    @media (max-width: 500px) {
+        & {
+            display: block;
+            min-height: var(--navigation-button-touch-height, 3em);
+
+            * {
+                display: none !important;
+            }
+        }
+    }
+
+    @media (min-width: 501px) {
+        * {
+            box-sizing: border-box;
+            display: inline-block;
+            height: var(--navigation-button-height, 1.5em);
+            margin: var(--navigation-button-margin-y, 2px);
+            color: var(--navigation-button-text-color, #000000);
+            background-color: var(--navigation-button-back-color, #ffffff);
+            border-style: solid;
+            border-width: var(--navigation-button-border-width, 1px);
+            border-color: var(--navigation-button-border-color, #000000);
+            border-radius: var(--navigation-button-border-radius, 0px);
+
+            &.nav-button {
+                cursor: pointer;
+
+                &:hover {
+                    box-shadow: var(--navigation-button-marker-color, #000000) inset 0px 0px 2px 1px;
+                }
+
+                &:active {
+                    box-shadow: var(--navigation-button-marker-color, #000000) inset 0px 0px 4px 3px;
+                }
+
+                &:focus-visible {
+                    box-shadow: var(--navigation-button-marker-color, #000000) 0px 0px 4px 3px;
+                }
+            }
+        }
+    }
+
+}
+
+/* === modal === */
+emc-modal:not(:defined) {
+    position: fixed !important;
+    box-sizing: border-box !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: default !important;
+    overflow: hidden !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: var(--z-index-modal, 900600);
+    pointer-events: all !important;
+}
+
+emc-modal-dialog:not(:defined) {
+    position: fixed !important;
+    box-sizing: border-box !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: default !important;
+    overflow: hidden !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: var(--z-index-modal, 900600);
+    pointer-events: all !important;
+}
+
+/* === tabpanel === */
+emc-panel-tabpanel:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* === panel === */
+emc-panel-hbox:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: fit-content;
+    min-height: min-content;
+    min-width: min-content;
+    overflow: hidden;
+}
+
+emc-panel-vbox:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: fit-content;
+    min-height: min-content;
+    min-width: min-content;
+    overflow: hidden;
+}
+
+/* === form === */
+emc-form-container:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+emc-form-fieldset:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+}
+
+emc-form-row:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    flex-wrap: wrap;
+    padding: 2px;
+}
+
+emc-form-field:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-width: 100%;
+    width: 100%;
+}
+
+/* === input === */
+
+/* === input-button === */
+
+/* === select === */
+
+/* === button === */
+
+/* === switch === */
+
+/* === range === */
+
+/* === progress === */
+
+/* === image/icon === */
+emc-icon:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+}
+
+emc-fa-icon:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+}
+
+emc-labeledicon:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+}
+
+/* === tree === */
+
+/* === datagrid === */
+emc-datagrid:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 200px;
+    min-width: 300px;
+    margin: 8px;
+    color: var(--datagrid-text-color, #000000);
+    background-color: var(--datagrid-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--datagrid-border-width, 2px);
+    border-color: var(--datagrid-border-color, #000000);
+    border-radius: var(--datagrid-border-radius, 6px);
+    line-height: normal;
+    overflow: hidden;
+
+    &::before {
+        position: absolute;
+        box-sizing: border-box;
+        display: flex;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 2.5em;
+        background-color: var(--datagrid-header-back-color, #333333);
+        content: "";
+    }
+
+    &::after {
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 100px;
+        padding: 20px;
+        height: 30px;
+        color: var(--datagrid-empty-text-color, #666666);
+        background-color: var(--datagrid-empty-back-color, #dadada);
+        border-style: solid;
+        border-width: var(--datagrid-empty-border-width, 2px);
+        border-color: var(--datagrid-empty-border-color, #666666);
+        border-radius: var(--datagrid-empty-border-radius, 6px);
+        font-size: 16px;
+        font-style: italic;
+        white-space: nowrap;
+        content: "loading...";
+    }
+}
+
+/* === datalist === */
+emc-datalist:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    min-width: 300px;
+    margin: 8px;
+    background-color: var(--datalist-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--datalist-border-width, 2px);
+    border-color: var(--datalist-border-color, #000000);
+    border-radius: var(--datalist-border-radius, 6px);
+    overflow: hidden;
+    line-height: normal;
+
+    &::after {
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 100px;
+        padding: 20px;
+        height: 30px;
+        color: var(--datalist-empty-text-color, #666666);
+        background-color: var(--datalist-empty-back-color, #dadada);
+        border-style: solid;
+        border-width: var(--datalist-empty-border-width, 2px);
+        border-color: var(--datalist-empty-border-color, #666666);
+        border-radius: var(--datalist-empty-border-radius, 6px);
+        font-size: 16px;
+        font-style: italic;
+        white-space: nowrap;
+        content: "loading...";
+    }
+}
+
+/* === dataview control toolbar === */
+emc-dataview-control-toolbar:not(:defined) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin: 8px;
+
+    &::after {
+        position: relative;
+        box-sizing: border-box;
+        display: block;
+        flex-shrink: 0;
+        min-width: 300px;
+        max-width: 650px;
+        width: 100%;
+        height: 2em;
+        color: var(--button-text-color, #000000);
+        background-color: var(--button-back-color, #eaeaea);
+        border-style: solid;
+        border-width: var(--dataview-control-toolbar-border-width, 2px);
+        border-color: var(--dataview-control-toolbar-border-color, #222222);
+        border-radius: var(--dataview-control-toolbar-border-radius, 6px);
+        content: "";
+    }
+}

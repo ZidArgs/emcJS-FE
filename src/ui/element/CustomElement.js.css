@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box;
+}
+
+:host {
+    position: relative;
+    box-sizing: border-box;
+}
+
+:host([disabled]:not([disabled="false"])) {
+    cursor: default !important;
+    pointer-events: none !important;
+}
+
+:host([hidden]:not([hidden="false"])) {
+    display: none !important;
+}

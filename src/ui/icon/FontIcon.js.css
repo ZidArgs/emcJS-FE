@@ -1,0 +1,32 @@
+:host {
+    display: inline-flex;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+}
+
+#icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    pointer-events: none;
+}
+
+#icon:before {
+    font-family: "emcjs-icons";
+    font-size: min(100cqw, 100cqh);
+    font-style: normal;
+    font-weight: normal;
+    speak: never;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

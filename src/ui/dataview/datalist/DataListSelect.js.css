@@ -1,0 +1,6 @@
+:host([disabled]:not([disabled="false"])) #scroll-container {
+    color: var(--datagrid-disabled-text-color, #757575) !important;
+    background-color: var(--datagrid-disabled-back-color, #999999) !important;
+    background-image: var(--datagrid-disabled-back-image, none) !important;
+    border-color: var(--datagrid-disabled-row-seperator-color, #757575) !important;
+}

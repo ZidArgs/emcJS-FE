@@ -1,0 +1,56 @@
+[
+    {
+        "type": "StringInput",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+    },
+    {
+        "type": "TextInput",
+        "name": "tooltip",
+        "label": "Tooltip",
+        "value": ""
+    },
+    {
+        "type": "TextInput",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+    },
+    {
+        "type": "TextInput",
+        "name": "subtext",
+        "label": "Subtext",
+        "value": ""
+    },
+    {
+        "type": "ListSelect",
+        "name": "controlButtons",
+        "label": "Activate Control Buttons",
+        "multiple": true,
+        "sorted": true,
+        "options": {
+            "copy": "Copy",
+            "reset": "Reset"
+        },
+        "value": []
+    },
+    {
+        "type": "SwitchInput",
+        "name": "hideErrors",
+        "label": "Hide Error-Label",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "noHover",
+        "label": "Remove hover background effect",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "noPad",
+        "label": "Remove padding",
+        "value": false
+    }
+]

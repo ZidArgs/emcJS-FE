@@ -1,0 +1,18 @@
+:host {
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-origin: content-box;
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-height: auto;
+    white-space: normal;
+    padding: 0;
+    user-select: none;
+    cursor: pointer;
+}
+:host(:not([value])),
+:host([value][disabled]) {
+    display: none;
+}

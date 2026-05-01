@@ -1,0 +1,84 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    min-height: 200px;
+    min-width: 300px;
+    margin: 8px;
+    background-color: var(--datalist-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--datalist-border-width, 2px);
+    border-color: var(--datalist-border-color, #000000);
+    border-radius: var(--datalist-border-radius, 6px);
+    overflow: hidden;
+    line-height: normal;
+}
+
+#scroll-container {
+    flex-grow: 1;
+    flex-shrink: 0;
+    width: 100%;
+    height: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+::slotted(*) {
+    flex-shrink: 0;
+}
+
+#empty-container {
+    position: sticky;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    top: 50px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    min-width: calc(200px - var(--scrollbar-size, 0px) - 4px);
+    /* --datagrid-border-width * 2 */
+    min-height: 2rem;
+    pointer-events: none;
+    user-select: none;
+    animation: popInLater 0ms ease-in 100ms forwards;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+#empty-container #empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 20px;
+    height: 30px;
+    color: var(--datalist-empty-text-color, #666666);
+    background-color: var(--datalist-empty-back-color, #dadada);
+    border-style: solid;
+    border-width: var(--datalist-empty-border-width, 2px);
+    border-color: var(--datalist-empty-border-color, #666666);
+    border-radius: var(--datalist-empty-border-radius, 6px);
+    font-size: 16px;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+#empty-container.hidden {
+    display: none;
+}
+
+@keyframes popInLater {
+    to {
+        opacity: 1;
+    }
+}

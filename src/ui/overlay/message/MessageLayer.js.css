@@ -1,0 +1,79 @@
+:host {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        "top-left top-center top-right"
+        "bottom-left bottom-center bottom-right";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 5px;
+    z-index: var(--z-index-tooltop, 900800);
+    cursor: default;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    flex: 1;
+    padding: 5px;
+    pointer-events: none;
+}
+
+.container.top {
+    justify-content: flex-start;
+}
+
+.container.bottom {
+    justify-content: flex-end;
+}
+
+.container.left {
+    align-items: flex-start;
+}
+
+.container.center {
+    align-items: center;
+}
+
+.container.right {
+    align-items: flex-end;
+}
+
+.container.top.left {
+    grid-area: top-left;
+}
+
+.container.top.center {
+    grid-area: top-center;
+}
+
+.container.top.right {
+    grid-area: top-right;
+}
+
+.container.bottom.left {
+    grid-area: bottom-left;
+}
+
+.container.bottom.center {
+    grid-area: bottom-center;
+}
+
+.container.bottom.right {
+    grid-area: bottom-right;
+}
+
+::slotted(*) {
+    pointer-events: all;
+}

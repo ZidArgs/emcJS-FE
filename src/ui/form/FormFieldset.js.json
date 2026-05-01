@@ -1,0 +1,32 @@
+[
+    {
+        "type": "StringInput",
+        "name": "label",
+        "label": "Label",
+        "value": ""
+    },
+    {
+        "type": "TextInput",
+        "name": "desc",
+        "label": "Description",
+        "value": ""
+    },
+    {
+        "type": "TextInput",
+        "name": "tooltip",
+        "label": "Tooltip",
+        "value": ""
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "enabled",
+        "label": "Enabled",
+        "value": true
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "visible",
+        "label": "Visible",
+        "value": true
+    }
+]

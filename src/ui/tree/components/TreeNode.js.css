@@ -1,0 +1,88 @@
+:host {
+    white-space: nowrap;
+}
+
+#node {
+    list-style-type: none;
+}
+
+#content {
+    display: flex;
+    height: 2em;
+    cursor: pointer;
+}
+
+:host(:empty:not([forcecollapsible])) #content,
+:host(:empty[forcecollapsible="false"]) #content {
+    padding-left: 1.5em;
+}
+
+#collapse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.5em;
+    height: 2em;
+}
+
+:host(:empty:not([forcecollapsible])) #collapse,
+:host(:empty[forcecollapsible="false"]) #collapse {
+    display: none;
+}
+
+#collapse:after {
+    position: relative;
+    display: block;
+    border: solid 0.25em transparent;
+    border-bottom-color: var(--tree-text-color, #000000);
+    border-right-color: var(--tree-text-color, #000000);
+    transform: translate(0em, -0.125em) rotate(45deg);
+    content: " ";
+}
+
+.collapsed #collapse:after {
+    transform: translate(-0.25em, 0em) rotate(-45deg);
+}
+
+#tree {
+    padding-inline-start: 0.4em;
+    margin-inline-start: 0.6em;
+    border-left: solid 1px gray;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+.collapsed #tree {
+    display: none;
+}
+
+#content {
+    color: var(--tree-text-color, #000000);
+    background-color: var(--tree-back-color, #ffffff);
+}
+
+#content:hover,
+:host(.ctx-marked) #content {
+    color: var(--tree-hover-text-color, #000000);
+    background-color: var(--tree-hover-back-color, #cccccc);
+}
+
+#content:hover #collapse:after,
+:host(.ctx-marked) #collapse:after {
+    border-bottom-color: var(--tree-hover-text-color, #000000);
+    border-right-color: var(--tree-hover-text-color, #000000);
+}
+
+:host(.marked) #content {
+    color: var(--tree-marked-text-color, #ffffff);
+    background-color: var(--tree-marked-back-color, #000000);
+}
+
+:host(.marked) #content #collapse:after {
+    border-bottom-color: var(--tree-marked-text-color, #ffffff);
+    border-right-color: var(--tree-marked-text-color, #ffffff);
+}
+
+:host(.keyboard-marked) #content {
+    box-shadow: inset 0 0 2px 2px var(--input-focus-color, #06b5ff);
+}

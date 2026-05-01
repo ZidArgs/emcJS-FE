@@ -1,0 +1,11 @@
+#modal {
+    min-height: min(150px, calc(100vh - 50px));
+}
+
+#modal.error {
+    min-height: min(260px, calc(100vh - 50px));
+}
+
+#content {
+    padding: 10px;
+}

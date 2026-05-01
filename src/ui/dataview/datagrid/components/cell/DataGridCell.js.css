@@ -1,0 +1,40 @@
+:host {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 2.5em;
+    padding: 3px 6px;
+    overflow: hidden;
+}
+
+p {
+    margin: 0px;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    text-align: left;
+    width: 100%;
+    line-height: normal;
+}
+
+:host([valign="top"]) #content {
+    align-items: start;
+}
+
+:host([valign="bottom"]) #content {
+    align-items: end;
+}
+
+:host([halign="right"]) p {
+    text-align: right;
+}
+
+:host([halign="center"]) p {
+    text-align: center;
+}

@@ -1,0 +1,62 @@
+[
+    {
+        "type": "SwitchSelect",
+        "name": "sorted",
+        "label": "Sorted",
+        "options": {
+            "false": "No",
+            "true": "Yes",
+            "manual": "Manually"
+        },
+        "value": "false"
+    },
+    {
+        "type": "SimpleSelect",
+        "name": "resize",
+        "label": "Resize",
+        "value": "none",
+        "options": {
+            "none": "None",
+            "vertical": "Vertical",
+            "horizontal": "Horizontal",
+            "both": "Both"
+        }
+    },
+    {
+        "type": "GridInput",
+        "name": "columns",
+        "label": "Columns",
+        "stretched": "key",
+        "sorted": "manual",
+        "columns": [
+            {
+                "key": "type",
+                "type": "string",
+                "label": "Type",
+                "width": 300,
+                "editable": true
+            },
+            {
+                "key": "label",
+                "type": "string",
+                "label": "Label",
+                "width": 300,
+                "editable": true
+            },
+            {
+                "key": "width",
+                "type": "number",
+                "label": "Width",
+                "width": 150,
+                "editable": true
+            },
+            {
+                "key": "editable",
+                "type": "boolean",
+                "label": "Editable",
+                "width": 100,
+                "editable": true
+            }
+        ]
+    }
+]

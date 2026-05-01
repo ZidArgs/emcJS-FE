@@ -1,0 +1,12 @@
+#modal {
+    width: 100%;
+    min-width: 20vw;
+}
+
+#elements {
+    margin: 5px;
+}
+
+#elements [template] {
+    cursor: pointer;
+}

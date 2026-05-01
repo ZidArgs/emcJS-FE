@@ -1,0 +1,20 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "ListInput",
+        "name": "types",
+        "label": "Accepted Types",
+        "value": []
+    },
+    {
+        "type": "SwitchInput",
+        "name": "sorted",
+        "label": "Sorted",
+        "value": false
+    }
+]

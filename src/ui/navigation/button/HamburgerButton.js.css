@@ -1,0 +1,66 @@
+:host {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    padding: 0px;
+}
+
+/*
+TODO add navigation button variables
+*/
+button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    background-color: var(--hamburger-button-back-color, #ffffff);
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+}
+
+button:hover {
+    box-shadow: var(--hamburger-button-focus-color, #000000) inset 0px 0px 2px 1px;
+}
+
+button:active {
+    box-shadow: var(--hamburger-button-focus-color, #000000) inset 0px 0px 4px 3px;
+}
+
+div {
+    position: relative;
+    width: 30px;
+    height: 4px;
+    background-color: var(--hamburger-button-text-color, #000000);
+    transition: transform 0.4s ease-in-out;
+}
+
+#bar1 {
+    transform: translateY(-4px);
+}
+
+#bar2 {
+    transform-origin: left;
+}
+
+#bar3 {
+    transform: translateY(4px);
+}
+
+:host([open]:not([open="false"])) #bar1 {
+    transform: translateY(4px) rotate(45deg);
+}
+
+:host([open]:not([open="false"])) #bar2 {
+    transform: scaleX(0);
+}
+
+:host([open]:not([open="false"])) #bar3 {
+    transform: translateY(-4px) rotate(-45deg);
+}

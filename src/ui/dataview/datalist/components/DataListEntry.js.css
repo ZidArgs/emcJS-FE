@@ -1,0 +1,33 @@
+/* TODO use variables to determine colors, etc. (see form inputs)
+*/
+:host {
+    margin: 4px;
+}
+
+:host(:not(:first-child)) {
+    margin-top: 0px;
+}
+
+#container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 6px;
+    color: var(--datalist-entry-text-color, #000000);
+    background-color: var(--datalist-entry-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--datalist-entry-border-width, 2px);
+    border-color: var(--datalist-entry-border-color, #000000);
+    border-radius: var(--datalist-entry-border-radius, 4px);
+    font-size: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+
+#container:hover {
+    color: var(--datalist-entry-hover-text-color, #000000);
+    background-color: var(--datalist-entry-hover-back-color, #d6f7fd);
+}

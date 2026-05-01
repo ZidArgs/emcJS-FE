@@ -1,0 +1,68 @@
+[
+    {
+        "type": "SwitchInput",
+        "name": "multiple",
+        "label": "Multiple",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "allowDeselect",
+        "label": "Allow deselecting entries in single select mode",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "selectEnd",
+        "label": "Move select boxes to the end",
+        "value": false
+    },
+    {
+        "type": "SimpleSelect",
+        "name": "resize",
+        "label": "Resize",
+        "value": "none",
+        "options": {
+            "none": "None",
+            "vertical": "Vertical",
+            "horizontal": "Horizontal",
+            "both": "Both"
+        }
+    },
+    {
+        "type": "GridInput",
+        "name": "columns",
+        "label": "Columns",
+        "stretched": "key",
+        "sorted": "manual",
+        "columns": [
+            {
+                "key": "type",
+                "type": "string",
+                "label": "Type",
+                "width": 300,
+                "editable": true
+            },
+            {
+                "key": "label",
+                "type": "string",
+                "label": "Label",
+                "width": 300,
+                "editable": true
+            },
+            {
+                "key": "width",
+                "type": "number",
+                "label": "Width",
+                "width": 150,
+                "editable": true
+            }
+        ]
+    },
+    {
+        "type": "GridInput",
+        "name": "options",
+        "label": "Data",
+        "sorted": true
+    }
+]

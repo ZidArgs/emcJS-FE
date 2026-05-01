@@ -1,0 +1,22 @@
+#content {
+    justify-content: center;
+}
+
+p {
+    text-align: center;
+}
+
+:host([editable]:not([editable="false"])) #value {
+    display: none;
+}
+
+:host([editable]:not([editable="false"])) #input {
+    display: flex;
+}
+
+/* --- */
+#input {
+    display: none;
+    width: 100%;
+    font-size: inherit;
+}

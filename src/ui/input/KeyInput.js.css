@@ -1,0 +1,28 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    min-width: 200px;
+    height: 2rem;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border: solid 1px var(--input-border-color, #222222);
+    border-radius: 2px;
+    user-select: none;
+}
+:host(:focus) {
+    box-shadow: 0 0 2px 2px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+:host(:focus:not(:focus-visible)) {
+    box-shadow: none;
+    outline: none;
+}
+:focus {
+    outline: none;
+}
+#display {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

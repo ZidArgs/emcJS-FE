@@ -1,0 +1,175 @@
+:host {
+    display: block;
+    margin: 8px;
+}
+
+#content {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
+    --button-border-width: var(--dataview-control-toolbar-border-width, 2px);
+    --button-border-radius: var(--dataview-control-toolbar-border-radius, 6px);
+    --button-border-color: var(--dataview-control-toolbar-border-color, #222222);
+    --button-disabled-border-color: var(--dataview-control-toolbar-border-color, #222222);
+    --button-hover-border-color: var(--dataview-control-toolbar-border-color, #222222);
+    --input-focus-color: var(--dataview-control-toolbar-focus-color, #06b5ff);
+    --button-focus-color: var(--dataview-control-toolbar-focus-color, #06b5ff);
+}
+
+.control-container {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+}
+
+.control-container > * {
+    margin: 0px;
+    font-size: 1em;
+}
+
+:host([controls~="pagination"]) #pagination-control {
+    display: inline-flex;
+}
+
+:host([controls~="page-size"]) #page-size-control {
+    display: inline-flex;
+}
+
+:host([controls~="entries-count"]) #entries-count-control {
+    display: inline-flex;
+}
+
+:host([controls~="total-count"]) #total-count-control {
+    display: inline-flex;
+}
+
+#current,
+#size {
+    height: 2em;
+    padding: 0px 10px;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--dataview-control-toolbar-border-width, 2px);
+    border-color: var(--dataview-control-toolbar-border-color, #000000);
+    font-size: 1em;
+    text-align: end;
+}
+
+#current:focus,
+#size:focus {
+    box-shadow: 0 0 2px 3px var(--input-focus-color, #06b5ff);
+    outline: none;
+    z-index: 1;
+}
+
+#current {
+    appearance: textfield;
+}
+
+#current::placeholder {
+    color: var(--input-placeholder-text-color, #757575);
+}
+
+#current::-webkit-outer-spin-button,
+#current::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+#max,
+#max-text {
+    display: flex;
+}
+
+#size-text,
+#entries-text,
+#entries,
+#total-text,
+#total {
+    display: flex;
+}
+
+#max-text,
+#max,
+#size-text,
+#entries-text,
+#entries,
+#total-text,
+#total {
+    justify-content: center;
+    align-items: center;
+    width: min-content;
+    height: 2em;
+    padding: 0px 10px;
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #eaeaea);
+    border-style: solid;
+    border-width: var(--dataview-control-toolbar-border-width, 2px);
+    border-color: var(--dataview-control-toolbar-border-color, #222222);
+    white-space: nowrap;
+    user-select: none;
+    overflow: hidden;
+    font-size: 1em;
+}
+
+#size,
+#entries,
+#total {
+    border-top-right-radius: var(--dataview-control-toolbar-border-radius, 6px);
+    border-bottom-right-radius: var(--dataview-control-toolbar-border-radius, 6px);
+}
+
+#max-text {
+    margin-left: calc(var(--dataview-control-toolbar-border-width, 2px) * -1);
+    margin-right: calc(var(--dataview-control-toolbar-border-width, 2px) * -1);
+}
+
+#decrease,
+#first {
+    margin-left: 0px;
+    margin-right: calc(var(--dataview-control-toolbar-border-width, 2px) * -1);
+}
+
+#increase,
+#last {
+    margin-left: calc(var(--dataview-control-toolbar-border-width, 2px) * -1);
+    margin-right: 0px;
+}
+
+#size-text,
+#entries-text,
+#total-text {
+    margin-left: 0px;
+    margin-right: calc(var(--dataview-control-toolbar-border-width, 2px) * -1);
+    border-top-left-radius: var(--dataview-control-toolbar-border-radius, 6px);
+    border-bottom-left-radius: var(--dataview-control-toolbar-border-radius, 6px);
+}
+
+#current:disabled {
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #eaeaea);
+}
+
+#size {
+    display: inline-block;
+    cursor: pointer;
+}
+
+#size:disabled {
+    cursor: default;
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #eaeaea);
+    opacity: 1;
+    appearance: none;
+}

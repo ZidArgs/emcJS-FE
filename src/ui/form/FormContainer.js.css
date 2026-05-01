@@ -1,0 +1,102 @@
+:host {
+    display: flex;
+    max-height: 100%;
+    max-width: 100%;
+    --border-style: solid;
+    --border-width: var(--form-border-width, 2px);
+    --border-color: var(--form-border-color, #222222);
+    --border-top-left-radius: var(--form-border-radius, 6px);
+    --border-top-right-radius: var(--form-border-radius, 6px);
+    --border-bottom-left-radius: var(--form-border-radius, 6px);
+    --border-bottom-right-radius: var(--form-border-radius, 6px);
+    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+:host([noborder]:not([noborder="false"])) #container {
+    border: none;
+}
+
+#content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100%;
+    width: 100%;
+    min-width: max(100%, 300px);
+    max-width: min(100%, 500px);
+    padding-top: var(--form-header-height, 0px);
+    padding-bottom: var(--form-footer-height, 0px);
+}
+
+:host([noscroll]:not([noscroll="false"])) #content {
+    max-height: 100%;
+}
+
+::slotted(form) {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-height: 2em;
+    width: 100%;
+    min-width: min-content;
+    margin: 0px;
+    padding: 0px;
+    color: var(--form-text-color, #000000);
+    background-color: var(--form-back-color, #cccccc);
+    border-style: none;
+    border-width: 0;
+    border-color: transparent;
+    border-radius: 0;
+}
+
+::slotted(form:nth-last-child(1 of :not([slot="header"]):not([slot="footer"]))) {
+    flex-grow: 1;
+}
+
+/* firefox */
+#header:has-slotted {
+    display: flex;
+    border-bottom-style: solid;
+    border-bottom-width: var(--form-header-border-width, 2px);
+    border-bottom-color: var(--form-header-border-color, #222222);
+    z-index: 100 !important;
+}
+
+#footer:has-slotted {
+    display: flex;
+    border-top-style: solid;
+    border-top-width: var(--form-footer-border-width, 2px);
+    border-top-color: var(--form-footer-border-color, #222222);
+    z-index: 100 !important;
+}
+
+/* others */
+#header.has-slotted {
+    display: flex;
+    border-bottom-style: solid;
+    border-bottom-width: var(--form-header-border-width, 2px);
+    border-bottom-color: var(--form-header-border-color, #222222);
+    z-index: 100 !important;
+}
+
+#footer.has-slotted {
+    display: flex;
+    border-top-style: solid;
+    border-top-width: var(--form-footer-border-width, 2px);
+    border-top-color: var(--form-footer-border-color, #222222);
+    z-index: 100 !important;
+}

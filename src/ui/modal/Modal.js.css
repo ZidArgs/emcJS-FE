@@ -1,0 +1,281 @@
+:host {
+    position: fixed !important;
+    box-sizing: border-box !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: default !important;
+    overflow: hidden !important;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    z-index: var(--z-index-modal, 900600);
+    pointer-events: all !important;
+}
+
+:host(.inactive) {
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    z-index: calc(var(--z-index-modal, 900600) - 1);
+}
+
+:host,
+.button {
+    display: flex;
+}
+
+#modal {
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    height: min-content;
+    min-width: min(400px, calc(100dvw - 50px));
+    max-width: min(1000px, calc(100dvw - 50px));
+    min-height: min(200px, calc(100dvh - 50px));
+    max-height: min(800px, calc(100dvh - 50px));
+    margin-top: min(100px, calc(25px + max(0px, calc(55dvh - 480px))));
+    color: var(--modal-text-color, #000000);
+    background-color: var(--modal-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--modal-border-width, 2px);
+    border-color: var(--modal-border-color, #cccccc);
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: none;
+    overflow: hidden;
+    pointer-events: all;
+    box-shadow: #000000c4 11px 11px 20px 0px;
+}
+
+:host([resize="horizontal"]) #modal {
+    resize: horizontal;
+}
+
+:host([resize="vertical"]) #modal {
+    resize: vertical;
+}
+
+:host([resize="both"]) #modal {
+    resize: both;
+}
+
+:host([streched="horizontal"]) #modal {
+    width: 100dvw;
+}
+
+:host([streched="vertical"]) #modal {
+    height: 100dvh;
+}
+
+:host([streched="both"]) #modal {
+    width: 100dvw;
+    height: 100dvh;
+}
+
+@media (max-height: 1000px) {
+    #modal {
+        margin-top: 25px;
+    }
+}
+
+:host(.inactive) #modal {
+    pointer-events: none;
+    filter: blur(2px);
+}
+
+:host([busy]:not([busy=false])) #modal:after {
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    content: "";
+}
+
+#header {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--modal-header-text-color, #000000);
+    background-color: var(--modal-header-back-color, #e4e4e4);
+    border-bottom: solid var(--modal-border-width, 2px) var(--modal-border-color, #cccccc);
+}
+
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    min-height: 16px;
+    padding: 5px;
+    color: var(--modal-footer-text-color, #000000);
+    background-color: var(--modal-footer-back-color, #e4e4e4);
+    border-top: solid var(--modal-border-width, 2px) var(--modal-border-color, #cccccc);
+
+    &:empty {
+        display: none;
+    }
+
+    & > * {
+        margin: 0px 5px;
+
+        &.button {
+            min-width: 100px;
+        }
+    }
+
+
+}
+
+:host([resize="horizontal"]) #footer,
+:host([resize="vertical"]) #footer,
+:host([resize="both"]) #footer {
+    display: flex;
+}
+
+#close {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--modal-close-text-color, #222222);
+    background-color: var(--modal-close-back-color, #ffb9b9);
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    font-size: 1.5em;
+    line-height: 1em;
+
+    &:hover {
+        color: var(--modal-close-hover-text-color, #ffffff);
+        background-color: var(--modal-close-hover-back-color, #ff0000);
+    }
+
+    &:focus {
+        box-shadow: inset var(--modal-close-focus-color, #000000) 0 0px 3px 4px;
+        outline: none;
+    }
+}
+
+#title {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    height: 40px;
+    padding: 0 10px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1em;
+    line-height: 1em;
+}
+
+#title-icon-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin-left: 4px;
+    color: var(--modal-icon-default-color, #000000);
+    font-size: 32px;
+}
+
+#title-icon-container:not([icon-type]),
+#title-icon-container[icon-type=""] {
+    display: none;
+}
+
+#title-icon {
+    display: none;
+}
+
+#title-icon-container[icon-type="char"] #title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1em;
+    min-width: 1em;
+    line-height: 1em;
+    font-family: "monospace", monospace;
+    font-weight: bold;
+    transform-origin: center;
+}
+
+#title-icon-container[icon-type="image"] #title-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    background-image: var(--icon-image);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-origin: content-box;
+    pointer-events: none;
+    content: "";
+}
+
+#title-font-icon,
+#title-fa-icon {
+    display: none;
+    position: relative;
+    height: 1em;
+    width: 1em;
+}
+
+#title-icon-container[icon-type="font"] #title-font-icon,
+#title-icon-container[icon-type="fa"] #title-fa-icon {
+    display: inline-flex;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: auto;
+    scroll-padding-top: 20px;
+    scroll-padding-bottom: 20px;
+    background-color: var(--modal-back-color, #ffffff);
+}
+
+#text {
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.3em;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    resize: none;
+
+    &:empty {
+        display: none;
+    }
+}
+
+a {
+    color: var(--modal-link-text-color, #004472);
+    text-decoration: none;
+    border-radius: var(--button-border-radius, 4px);
+
+    &:hover {
+        color: var(--modal-link-hover-text-color, #003597);
+    }
+
+    &:focus {
+        box-shadow: 0 0 2px 3px var(--button-focus-color, #06b5ff);
+        outline: none;
+    }
+}
+
+.text-icon {
+    margin-right: 0.5em;
+}

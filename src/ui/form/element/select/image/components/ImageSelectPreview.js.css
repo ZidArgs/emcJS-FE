@@ -1,0 +1,76 @@
+:host {
+    width: calc(var(--icon-preview-size, 100px) + 20px);
+    height: calc(var(--icon-preview-size, 100px) + 50px);
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #eaeaea);
+    border-style: solid;
+    border-width: var(--button-border-width, 2px);
+    border-color: var(--button-border-color, #222222);
+    border-radius: var(--button-border-radius, 6px);
+    user-select: none;
+    overflow: hidden;
+}
+
+:host(:focus) {
+    box-shadow: 0 0 2px 3px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#container:hover {
+    color: var(--button-hover-text-color, #ffffff);
+    background-color: var(--button-hover-back-color, #353935);
+}
+
+:host(.selected) #container {
+    color: var(--button-active-text-color, #000000);
+    background-color: var(--button-active-back-color, #00dbd0);
+    border-color: var(--button-active-border-color, #007b75);
+}
+
+:host(.selected) #container:hover {
+    color: var(--button-active-hover-text-color, #ffffff);
+    background-color: var(--button-active-hover-back-color, #353935);
+}
+
+#icon-background {
+    width: var(--icon-preview-size, 100px);
+    height: var(--icon-preview-size, 100px);
+    background-color: var(--input-back-color, #ffffff);
+    background-image:
+        linear-gradient(45deg, var(--image-checker-back-color) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--image-checker-back-color) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--image-checker-back-color) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--image-checker-back-color) 75%);
+    background-size: 10px 10px;
+    background-position: 0 0, 0 5px, 5px -5px, -5px 0px;
+}
+
+#icon {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-origin: content-box;
+    pointer-events: none;
+}
+
+#text {
+    width: 100%;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}

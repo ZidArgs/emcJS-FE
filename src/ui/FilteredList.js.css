@@ -1,0 +1,47 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 200px;
+    user-select: none;
+}
+
+:focus {
+    outline: none;
+}
+
+#scroll-container {
+    flex: 1;
+    margin-top: calc(-1 * var(--panel-border-width, 2px));
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--panel-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--panel-border-width, 2px);
+    border-color: var(--panel-border-color, #000000);
+    border-radius: 0px 0px var(--panel-border-radius, 6px) var(--panel-border-radius, 6px);
+}
+
+slot {
+    display: block;
+    width: 100%;
+}
+
+#empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    min-height: 30px;
+    padding: 5px;
+    margin: 5px 2px;
+    white-space: normal;
+}
+
+#header {
+    --input-text-color: var(--panel-input-text-color, #000000);
+    --input-back-color: var(--panel-input-back-color, #ffffff);
+    --form-border-color: var(--panel-border-color, #000000);
+    --form-border-width: var(--panel-border-width, 2px);
+    --form-border-radius: var(--panel-border-radius, 6px);
+}

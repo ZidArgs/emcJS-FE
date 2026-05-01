@@ -1,0 +1,27 @@
+#modal {
+    width: 80vw;
+    height: 70dvh;
+    max-width: 80vw;
+    min-width: min-content;
+    min-height: min-content;
+}
+
+#content {
+    min-width: min(90dvw, 600px);
+    min-height: 200px;
+}
+
+#slot {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+::slotted(emc-select-image-preview) {
+    margin: 5px;
+    cursor: pointer;
+}
+
+#search {
+    width: auto;
+    margin: 6px;
+}

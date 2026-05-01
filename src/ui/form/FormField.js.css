@@ -1,0 +1,149 @@
+:host {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-shrink: 0;
+    width: auto;
+    min-width: 100px;
+    padding: 6px;
+    color: var(--form-text-color, #000000);
+    font-size: 1rem;
+}
+
+:host(:not([nohover]):hover),
+:host([nohover="false"]:hover) {
+    color: var(--form-hover-text-color, #000000);
+    background-color: var(--form-hover-back-color, #eeeeee);
+}
+
+:host([nopad]:not([nopad="false"])) {
+    padding: 0px;
+}
+
+#field-container {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-grow: 1;
+    width: 100%;
+    max-height: 100%;
+}
+
+#field {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-shrink: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    width: 0px;
+}
+
+::slotted(:not(.compact)) {
+    flex-grow: 1;
+}
+
+#control-container {
+    display: none;
+    margin: 0px 0px 0px 5px;
+    --control-button-border-radius: var(--button-border-radius, 6px);
+}
+
+#control-container.visible {
+    display: flex;
+}
+
+#control-container > * {
+    display: none;
+    width: 2em;
+    height: 2em;
+    margin: 0px;
+    margin-left: calc(-1 * var(--button-border-width, 2px));
+    --border-top-right-radius: 0px;
+    --border-bottom-right-radius: 0px;
+    --border-top-left-radius: 0px;
+    --border-bottom-left-radius: 0px;
+}
+
+#control-container > .visible {
+    display: block;
+}
+
+#control-container > :nth-child(1 of .visible) {
+    margin-left: 0px;
+    --border-top-left-radius: var(--control-button-border-radius);
+    --border-bottom-left-radius: var(--control-button-border-radius);
+}
+
+#control-container > :nth-last-child(1 of .visible) {
+    --border-top-right-radius: var(--control-button-border-radius);
+    --border-bottom-right-radius: var(--control-button-border-radius);
+}
+
+#reset.inactive {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 1;
+    width: 100%;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 4px 4px;
+}
+
+:host(:disabled) #label {
+    cursor: default;
+}
+
+#label:has(#label-text:empty) {
+    display: none;
+}
+
+#error {
+    display: block;
+    flex-shrink: 0;
+    max-width: 100%;
+    padding: 0px 5px;
+    margin: 4px 0 0;
+    color: var(--form-invalid-text-color, #a70000);
+    background-color: var(--form-invalid-back-color, #ffeeee);
+    font-size: 0.9em;
+    line-height: 1.4em;
+    font-style: italic;
+    cursor: pointer;
+    user-select: none;
+}
+
+:host([hideerrors]:not([hideerrors="false"])) #error,
+#error:empty {
+    display: none;
+}
+
+#description,
+#subtext {
+    display: block;
+    flex-shrink: 0;
+    max-width: 100%;
+    padding: 0px 5px;
+    margin: 0 0 4px;
+    font-size: 0.9em;
+    line-height: 1.4em;
+    font-style: italic;
+    cursor: default;
+    user-select: none;
+}
+
+#description:empty,
+#subtext:empty {
+    display: none;
+}

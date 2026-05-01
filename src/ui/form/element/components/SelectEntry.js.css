@@ -1,0 +1,48 @@
+:host {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: calc(1em + 16px);
+    padding: 8px;
+    color: var(--select-option-text-color, #000000);
+    background-color: var(--select-option-back-color, #ffffff);
+    user-select: none;
+    white-space: normal;
+    cursor: pointer;
+}
+
+:host(:hover),
+:host(.marked) {
+    color: var(--select-option-marked-text-color, #000000);
+    background-color: var(--select-option-marked-back-color, #cccccc);
+}
+
+:host([selected]:not([selected="false"])) {
+    color: var(--select-option-selected-text-color, #000000);
+    background-color: var(--select-option-selected-back-color, #b1f4ff);
+}
+
+:host([selected]:not([selected="false"]):hover),
+:host([selected]:not([selected="false"]).marked) {
+    color: var(--select-option-selected-marked-text-color, #000000);
+    background-color: var(--select-option-selected-marked-back-color, #26e0ff);
+}
+
+#checkbox {
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+}
+
+#label {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 0px 0px 0px 12px;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}

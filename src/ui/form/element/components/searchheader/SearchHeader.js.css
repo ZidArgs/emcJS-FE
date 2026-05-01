@@ -1,0 +1,51 @@
+:host {
+    all: initial;
+    font-family: inherit;
+    font-size: inherit;
+    --color: var(--input-text-color, #000000);
+    --background-color: var(--input-back-color, #ffffff);
+    --border-style: solid;
+    --border-width: var(--input-border-width, 2px);
+    --border-color: var(--input-border-color, #222222);
+    --border-radius: var(--input-border-radius, 6px);
+    --focus-color: var(--input-focus-color, #06b5ff);
+}
+
+:host(:disabled) {
+    user-select: none !important;
+    pointer-events: none !important;
+    --color: var(--input-disabled-text-color, #757575) !important;
+    --background-color: var(--input-disabled-back-color, #999999) !important;
+    --border-color: var(--input-disabled-border-color, #6a6a6a) !important;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    padding: 6px;
+
+    #select {
+        flex-grow: 0;
+        width: 22px;
+        height: 22px;
+        margin-right: 6px;
+    }
+
+    #search {
+        flex: 1;
+    }
+}
+
+:host([selectend]:not([selectend="false"])) #container {
+    flex-direction: row-reverse;
+
+    #select {
+        margin-left: 6px;
+        margin-right: 0px;
+    }
+}
+
+:host(:not([selectable])) #select,
+:host([selectable="false"]) #select {
+    display: none;
+}

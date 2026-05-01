@@ -1,0 +1,50 @@
+:host {
+    position: absolute;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    cursor: wait;
+    pointer-events: none;
+    z-index: var(--z-index-busy-indicator, 1000000000);
+    background: rgba(0, 0, 0, 0.3);
+    transform: translateZ(0);
+    animation-name: popInLater;
+    animation-timing-function: ease-in;
+    animation-duration: 0s;
+    animation-delay: 100ms;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+#default-animation {
+    width: 5vmin;
+    height: 5vmin;
+    border-radius: 50%;
+    background: conic-gradient(rgba(255, 255, 255, 0) 220deg, rgba(255, 255, 255, 1) 360deg);
+    animation-name: rotate;
+    animation-timing-function: linear;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes popInLater {
+    to {
+        opacity: 1;
+        pointer-events: all;
+    }
+}

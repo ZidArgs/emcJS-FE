@@ -1,0 +1,79 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    min-height: 100px;
+    user-select: none;
+    overflow: hidden;
+}
+:host(:focus) {
+    box-shadow: 0 0 2px 2px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+:host(:focus:not(:focus-visible)) {
+    box-shadow: none;
+    outline: none;
+}
+:focus {
+    outline: none;
+}
+#scroll-container {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: var(--list-color-back, #ffffff);
+}
+slot {
+    display: block;
+    width: 100%;
+}
+::slotted([value]) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 32px;
+    padding: 5px 5px 5px 35px;
+    white-space: normal;
+    color: var(--list-color-front, #000000);
+    background-color: var(--list-color-back, #ffffff);
+    border-bottom: solid 1px #eee;
+    font-size: 1rem;
+    line-height: 1.3em;
+}
+::slotted([value]:last-child) {
+    border-bottom: none 0px transparent;
+}
+::slotted([value][disabled]) {
+    display: none;
+}
+::slotted([value]:hover),
+::slotted([value].marked) {
+    background-color: var(--input-button-color, #cccccc);
+}
+::slotted([value])::before {
+    position: absolute;
+    left: 0;
+    margin: -1px 10px -4px 9px;
+    font-size: 1.2rem;
+    line-height: 1em;
+    content: "☐";
+}
+::slotted([value].active)::before {
+    content: "☑";
+}
+:host(:not([readonly])) ::slotted([value]:not(.active)),
+:host([readonly="false"]) ::slotted([value]:not(.active)),
+:host([multiple]:not([multiple="false"]):not([readonly])) ::slotted([value].active),
+:host([readonly="false"][multiple]:not([multiple="false"])) ::slotted([value].active) {
+    cursor: pointer;
+}
+#empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    min-height: 32px;
+    padding: 5px;
+    margin: 5px 2px;
+    white-space: normal;
+}

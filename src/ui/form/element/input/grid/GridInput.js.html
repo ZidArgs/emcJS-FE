@@ -1,0 +1,11 @@
+<div id="container">
+    <emc-form-header-search id="search-header"></emc-form-header-search>
+    <emc-datagrid id="grid" sortable>
+        <emc-datagrid-column name="key" label="Key" type="string" width="200" fixed="start"></emc-datagrid-column>
+        <slot></slot>
+        <emc-datagrid-column name="delete" label="" type="button" width="50" text="" icon-type="font" icon="trash" tooltip="Delete" action="delete" fixed="end"></emc-datagrid-column>
+    </emc-datagrid>
+    <emc-form-row id="footer" align="end">
+        <emc-button id="add" text="Add entry" icon-type="font" icon="add"></emc-button>
+    </emc-form-row>
+</div>

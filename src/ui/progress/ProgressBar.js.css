@@ -1,0 +1,59 @@
+:host {
+    all: initial;
+    display: inline-block;
+    width: 200px;
+    min-width: 200px;
+    height: 2em;
+    font-family: inherit;
+    font-size: inherit;
+    /* INPUT */
+    --track-color: var(--progress-track-color, #ffffff);
+    --fill-color: var(--progress-fill-color, #00eeff);
+    --border-style: solid;
+    --border-width: var(--progress-border-width, 2px);
+    --border-color: var(--progress-border-color, #222222);
+    --border-top-left-radius: var(--progress-border-radius, 6px);
+    --border-top-right-radius: var(--progress-border-radius, 6px);
+    --border-bottom-left-radius: var(--progress-border-radius, 6px);
+    --border-bottom-right-radius: var(--progress-border-radius, 6px);
+    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
+
+#track {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: var(--track-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    container-type: size;
+
+    #progress {
+        --value: 0;
+        font-size: 100cqh;
+        width: calc(1% * var(--value, 0));
+        height: 100%;
+        background-color: var(--fill-color);
+        background-size: 1em;
+        background-position-y: center;
+        transition: width 0.2s ease;
+    }
+}
+
+:host([animated]:not([animated="false"])) #progress {
+    background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgb(255, 255, 255, 0.5) 50%, rgb(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+    animation: drive .5s linear infinite;
+}
+
+@keyframes drive {
+    0% {
+        background-position-x: 0em;
+    }
+
+    100% {
+        background-position-x: 1em;
+    }
+}

@@ -1,0 +1,11 @@
+#modal {
+    width: 80dvw;
+    height: max-content;
+    max-width: 80dvw;
+    min-width: 20dvw;
+}
+
+#input {
+    width: 100%;
+    height: 100%;
+}

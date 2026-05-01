@@ -1,0 +1,277 @@
+:host {
+    display: flex;
+    width: min-content;
+    min-width: 2rem;
+    min-height: 2rem;
+    margin: 6px;
+    user-select: none;
+    font-size: 1rem;
+    cursor: pointer;
+    --border-top-left-radius: var(--button-border-radius, 6px);
+    --border-top-right-radius: var(--button-border-radius, 6px);
+    --border-bottom-left-radius: var(--button-border-radius, 6px);
+    --border-bottom-right-radius: var(--button-border-radius, 6px);
+    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+}
+
+:host(:disabled) {
+    pointer-events: none !important;
+}
+
+:host(:focus) {
+    outline: none;
+    z-index: 1;
+}
+
+#slot {
+    display: inline-flex;
+}
+
+#button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 2rem;
+    width: 100%;
+    min-width: 2rem;
+    margin: 0px;
+    padding: 0px 4px;
+    color: var(--color);
+    background-color: var(--background-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    appearance: none;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1em;
+    text-decoration: none;
+    white-space: pre;
+    word-break: keep-all;
+    cursor: inherit;
+    --icon-image: unset;
+}
+
+:host([text]:not([text=""])) #button,
+:host(:not(:empty)) #button {
+    padding: 0px 10px;
+}
+
+:host([slim]:not([slim="false"])) #button {
+    padding: 0px 4px;
+}
+
+:host([text-transform="lowercase"]) #button {
+    text-transform: lowercase;
+}
+
+:host([text-transform="uppercase"]) #button {
+    text-transform: uppercase;
+}
+
+:host([text-transform="capitalize"]) #button {
+    text-transform: capitalize;
+}
+
+#button:focus,
+:host(:focus) #button {
+    box-shadow: 0 0 2px 3px var(--focus-color);
+    outline: none;
+}
+
+#text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#button[icon-type="char"][icon]:not([icon=""])::before,
+#button:not([icon-type])[icon]:not([icon=""])::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 1em;
+    min-width: 1em;
+    font-size: 1.3em;
+    line-height: 1em;
+    font-family: "monospace", monospace;
+    font-weight: bold;
+    transform-origin: center;
+    content: attr(icon);
+}
+
+#button[icon-type="image"]::before {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    background-image: var(--icon-image);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    background-origin: content-box;
+    pointer-events: none;
+    content: "";
+}
+
+#font-icon {
+    display: none;
+    position: relative;
+    flex-shrink: 0;
+    height: 1.3em;
+    width: 1.3em;
+}
+
+#button[icon-type="font"] #font-icon {
+    display: inline-flex;
+}
+
+::slotted(.icon) {
+    display: inline-flex;
+    position: relative;
+    height: 1em;
+    width: 1em;
+}
+
+:host([text]:not([text=""])) #button::before,
+:host([text]:not([text=""])) #font-icon,
+:host(:not(:empty)) #button::before,
+:host(:not(:empty)) #font-icon,
+:host([text]:not([text=""])) ::slotted(:last-child) {
+    margin-right: 0.3em;
+}
+
+:host(.rotate-icon-0) #button::before,
+:host(.rotate-icon-0) #font-icon {
+    rotate: 0deg;
+}
+
+:host(.rotate-icon-90) #button::before,
+:host(.rotate-icon-90) #font-icon {
+    rotate: 90deg;
+}
+
+:host(.rotate-icon-180) #button::before,
+:host(.rotate-icon-180) #font-icon {
+    rotate: 180deg;
+}
+
+:host(.rotate-icon-270) #button::before,
+:host(.rotate-icon-270) #font-icon {
+    rotate: 270deg;
+}
+
+#button[count-value]::after {
+    box-sizing: border-box;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    height: 1em;
+    width: 1.5em;
+    border-radius: 1em;
+    color: var(--button-count-text-color, #ffffff);
+    background-color: var(--button-count-back-color, #222222);
+    font-family: monospace;
+    font-size: 1.4em;
+    line-height: 0.8em;
+    content: attr(count-value);
+}
+
+:host(:hover) #button[count-value]::after {
+    color: var(--button-hover-count-text-color, #000000);
+    background-color: var(--button-hover-count-back-color, #ffffff);
+}
+
+:host([border-flat~="left"]) #button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+:host([border-flat~="right"]) #button {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+:host([border-flat~="top"]) #button {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+:host([border-flat~="bottom"]) #button {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+:host([border-flat~="all"]) #button {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+:host([border-open~="left"]) #button {
+    border-left-style: none;
+}
+
+:host([border-open~="right"]) #button {
+    border-right-style: none;
+}
+
+:host([border-open~="top"]) #button {
+    border-top-style: none;
+}
+
+:host([border-open~="bottom"]) #button {
+    border-bottom-style: none;
+}
+
+:host([border-open~="all"]) #button {
+    border-style: none;
+}
+
+#button[count-value][count-type="alert"]::after {
+    color: var(--button-count-alert-text-color, #ffffff);
+    background-color: var(--button-count-alert-back-color, #e98e2d);
+}
+
+#button[count-value][count-type="info"]::after {
+    color: var(--button-count-info-text-color, #ffffff);
+    background-color: var(--button-count-info-back-color, #0000ff);
+}
+
+#button[count-value][count-type="success"]::after {
+    color: var(--button-count-success-text-color, #ffffff);
+    background-color: var(--button-count-success-back-color, #009952);
+}
+
+#button[count-value][count-type="error"]::after {
+    color: var(--button-count-error-text-color, #ffffff);
+    background-color: var(--button-count-error-back-color, #c50000);
+}
+
+:host(:hover) #button[count-value][count-type="alert"]::after {
+    color: var(--button-hover-count-alert-text-color, #000000);
+    background-color: var(--button-hover-count-alert-back-color, #ffd7ac);
+}
+
+:host(:hover) #button[count-value][count-type="info"]::after {
+    color: var(--button-hover-count-info-text-color, #000000);
+    background-color: var(--button-hover-count-info-back-color, #b9b9ff);
+}
+
+:host(:hover) #button[count-value][count-type="success"]::after {
+    color: var(--button-hover-count-success-text-color, #000000);
+    background-color: var(--button-hover-count-success-back-color, #aefffb);
+}
+
+:host(:hover) #button[count-value][count-type="error"]::after {
+    color: var(--button-hover-count-error-text-color, #000000);
+    background-color: var(--button-hover-count-error-back-color, #ffb7b7);
+}

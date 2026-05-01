@@ -1,0 +1,48 @@
+#ref {
+    align-self: flex-start;
+    margin: 5px;
+}
+
+#input {
+    flex-grow: 1;
+    height: 2em;
+    padding: 0px 7px;
+    margin: 5px;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--input-border-width, 2px);
+    border-color: var(--input-border-color, #222222);
+    border-radius: var(--input-border-radius, 6px);
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#input:focus {
+    box-shadow: 0 0 2px 3px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+
+#input:disabled {
+    opacity: 1;
+}
+
+:host(:invalid) #input {
+    background-color: var(--input-invalid-back-color, #ffebeb);
+    border-color: var(--input-invalid-border-color, #ff4444);
+}
+
+:host(:invalid) #input:focus {
+    box-shadow: 0 0 2px 3px var(--input-invalid-focus-color, #ff2500);
+}
+
+:host([readonly]:not([readonly="false"])) #input {
+    pointer-events: none;
+    cursor: default;
+    appearance: none;
+}
+
+#ref:empty::after {
+    font-style: italic;
+    content: "empty";
+}

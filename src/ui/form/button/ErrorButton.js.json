@@ -1,0 +1,8 @@
+[
+    {
+        "type": "StringInput",
+        "name": "action",
+        "label": "Action",
+        "value": ""
+    }
+]

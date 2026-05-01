@@ -1,0 +1,116 @@
+:host {
+    position: relative;
+    display: table;
+    min-width: 200px;
+    margin: 0.2em;
+    color: var(--logic-color-text, black);
+    background: var(--logic-color-back, white);
+    border: solid 2px var(--logic-color-border, black);
+    border-radius: 5px;
+    font-family: monospace;
+    font-size: 1rem;
+    cursor: move;
+    user-select: none;
+    word-break: break-word;
+    box-sizing: border-box;
+}
+
+:host(:focus) {
+    box-shadow: 0 0 2px 3px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 2em;
+    padding: 0.5em 1em;
+    font-weight: bold;
+    user-select: none;
+    text-transform: uppercase;
+}
+
+#header[value]::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 12px;
+    height: 12px;
+    font-size: 12px;
+    line-height: 1em;
+    margin-right: 5px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: solid 2px black;
+    background-color: #85ff85;
+    content: attr(value);
+}
+
+#header[value="0"]::before {
+    background-color: #ff8585;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-color: var(--logic-color-border, black);
+}
+
+.content:empty {
+    display: none;
+}
+
+.placeholder {
+    display: table;
+    margin: 0.2em;
+    padding: 0.2em 1.5em;
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #cccccc);
+    border-style: solid;
+    border-width: var(--input-border-width, 2px);
+    border-color: var(--input-border-color, #222222);
+    border-radius: var(--input-border-radius, 6px);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.placeholder:hover {
+    color: var(--button-hover-text-color, #ffffff);
+    background-color: var(--button-hover-back-color, #000000);
+}
+
+.placeholder:disabled {
+    color: var(--input-disabled-text-color, #757575);
+    background-color: var(--button-disabled-back-color, #999999);
+    cursor: default;
+}
+
+.placeholder:focus {
+    box-shadow: 0 0 2px 2px var(--input-focus-color, #06b5ff);
+    outline: none;
+}
+
+:host([disabled]:not([disabled="false"])),
+:host([readonly]:not([readonly="false"])) {
+    cursor: default;
+}
+
+:host([readonly]:not([readonly="false"])) .placeholder {
+    display: none;
+}
+
+:host([readonly]:not([readonly="false"])) input,
+:host([readonly]:not([readonly="false"])) select,
+:host([readonly]:not([readonly="false"])) .placeholder,
+:host([template]:not([template="false"])) input,
+:host([template]:not([template="false"])) select,
+:host([template]:not([template="false"])) .placeholder,
+:host([disabled]:not([disabled="false"])) input,
+:host([disabled]:not([disabled="false"])) select,
+:host([disabled]:not([disabled="false"])) .placeholder {
+    pointer-events: none;
+}

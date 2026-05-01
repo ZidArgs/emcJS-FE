@@ -1,0 +1,270 @@
+/* BUTTON VARIANT - DEFAULT */
+:host {
+    --color: var(--button-text-color, #000000);
+    --background-color: var(--button-back-color, #cdcdcd);
+    --border-style: solid;
+    --border-width: var(--button-border-width, 2px);
+    --border-color: var(--button-border-color, #222222);
+    --focus-color: var(--button-focus-color, #06b5ffb0);
+}
+
+:host(:hover) {
+    --color: var(--button-hover-text-color, #ffffff);
+    --background-color: var(--button-hover-back-color, #444444);
+    --border-color: var(--button-hover-border-color, #222222);
+}
+
+:host(:active),
+:host([active]:not([active="false"])) {
+    --color: var(--button-active-text-color, #000000);
+    --background-color: var(--button-active-back-color, #00dbd0);
+    --border-color: var(--button-active-border-color, #006863);
+}
+
+:host(:disabled) {
+    opacity: 0.65;
+    --color: var(--button-disabled-text-color, #222222);
+    --background-color: var(--button-disabled-back-color, #999999);
+    --border-color: var(--button-disabled-border-color, #222222);
+}
+
+/* BUTTON VARIANT - LABEL */
+:host([variant="label"]) {
+    user-select: none;
+    pointer-events: none;
+    --color: var(--input-text-color, #000000);
+    --background-color: var(--input-back-color, #ffffff);
+    --border-width: var(--input-border-width, 2px);
+    --border-color: var(--input-border-color, #222222);
+    --border-top-left-radius: var(--input-border-radius, 6px);
+    --border-top-right-radius: var(--input-border-radius, 6px);
+    --border-bottom-left-radius: var(--input-border-radius, 6px);
+    --border-bottom-right-radius: var(--input-border-radius, 6px);
+}
+
+:host([variant="label"]:active),
+:host([variant="label"][active]:not([active="false"])) {
+    --color: var(--input-text-color, #000000);
+    --background-color: var(--input-back-color, #ffffff);
+    --border-color: var(--input-border-color, #222222);
+}
+
+:host([variant="label"]:disabled) {
+    opacity: 1;
+}
+
+/* BUTTON VARIANT - PRIMARY */
+:host([variant="primary"]) {
+    --color: var(--button-primary-text-color);
+    --background-color: var(--button-primary-back-color);
+    --border-color: var(--button-primary-border-color);
+    --focus-color: var(--button-primary-focus-color);
+}
+
+:host([variant="primary"]:hover) {
+    --color: var(--button-primary-hover-text-color);
+    --background-color: var(--button-primary-hover-back-color);
+    --border-color: var(--button-primary-hover-border-color);
+}
+
+:host([variant="primary"]:active),
+:host([variant="primary"][active]:not([active="false"])) {
+    --color: var(--button-primary-active-text-color);
+    --background-color: var(--button-primary-active-back-color);
+    --border-color: var(--button-primary-active-border-color);
+}
+
+:host([variant="primary"]:disabled) {
+    --color: var(--button-primary-disabled-text-color);
+    --background-color: var(--button-primary-disabled-back-color);
+    --border-color: var(--button-primary-disabled-border-color);
+}
+
+/* BUTTON VARIANT - SECONDARY */
+:host([variant="secondary"]) {
+    --color: var(--button-secondary-text-color);
+    --background-color: var(--button-secondary-back-color);
+    --border-color: var(--button-secondary-border-color);
+    --focus-color: var(--button-secondary-focus-color);
+}
+
+:host([variant="secondary"]:hover) {
+    --color: var(--button-secondary-hover-text-color);
+    --background-color: var(--button-secondary-hover-back-color);
+    --border-color: var(--button-secondary-hover-border-color);
+}
+
+:host([variant="secondary"]:active),
+:host([variant="secondary"][active]:not([active="false"])) {
+    --color: var(--button-secondary-active-text-color);
+    --background-color: var(--button-secondary-active-back-color);
+    --border-color: var(--button-secondary-active-border-color);
+}
+
+:host([variant="secondary"]:disabled) {
+    --color: var(--button-primary-secondary-text-color);
+    --background-color: var(--button-secondary-disabled-back-color);
+    --border-color: var(--button-secondary-disabled-border-color);
+}
+
+/* BUTTON VARIANT - SUCCESS */
+:host([variant="success"]) {
+    --color: var(--button-success-text-color);
+    --background-color: var(--button-success-back-color);
+    --border-color: var(--button-success-border-color);
+    --focus-color: var(--button-success-focus-color);
+}
+
+:host([variant="success"]:hover) {
+    --color: var(--button-success-hover-text-color);
+    --background-color: var(--button-success-hover-back-color);
+    --border-color: var(--button-success-hover-border-color);
+}
+
+:host([variant="success"]:active),
+:host([variant="success"][active]:not([active="false"])) {
+    --color: var(--button-success-active-text-color);
+    --background-color: var(--button-success-active-back-color);
+    --border-color: var(--button-success-active-border-color);
+}
+
+:host([variant="success"]:disabled) {
+    --color: var(--button-primary-success-text-color);
+    --background-color: var(--button-success-disabled-back-color);
+    --border-color: var(--button-success-disabled-border-color);
+}
+
+/* BUTTON VARIANT - DANGER */
+:host([variant="danger"]) {
+    --color: var(--button-danger-text-color);
+    --background-color: var(--button-danger-back-color);
+    --border-color: var(--button-danger-border-color);
+    --focus-color: var(--button-danger-focus-color);
+}
+
+:host([variant="danger"]:hover) {
+    --color: var(--button-danger-hover-text-color);
+    --background-color: var(--button-danger-hover-back-color);
+    --border-color: var(--button-danger-hover-border-color);
+}
+
+:host([variant="danger"]:active),
+:host([variant="danger"][active]:not([active="false"])) {
+    --color: var(--button-danger-active-text-color);
+    --background-color: var(--button-danger-active-back-color);
+    --border-color: var(--button-danger-active-border-color);
+}
+
+:host([variant="danger"]:disabled) {
+    --color: var(--button-primary-danger-text-color);
+    --background-color: var(--button-danger-disabled-back-color);
+    --border-color: var(--button-danger-disabled-border-color);
+}
+
+/* BUTTON VARIANT - WARN */
+:host([variant="warn"]) {
+    --color: var(--button-warn-text-color);
+    --background-color: var(--button-warn-back-color);
+    --border-color: var(--button-warn-border-color);
+    --focus-color: var(--button-warn-focus-color);
+}
+
+:host([variant="warn"]:hover) {
+    --color: var(--button-warn-hover-text-color);
+    --background-color: var(--button-warn-hover-back-color);
+    --border-color: var(--button-warn-hover-border-color);
+}
+
+:host([variant="warn"]:active),
+:host([variant="warn"][active]:not([active="false"])) {
+    --color: var(--button-warn-active-text-color);
+    --background-color: var(--button-warn-active-back-color);
+    --border-color: var(--button-warn-active-border-color);
+}
+
+:host([variant="warn"]:disabled) {
+    --color: var(--button-primary-warn-text-color);
+    --background-color: var(--button-warn-disabled-back-color);
+    --border-color: var(--button-warn-disabled-border-color);
+}
+
+/* BUTTON VARIANT - INFO */
+:host([variant="info"]) {
+    --color: var(--button-info-text-color);
+    --background-color: var(--button-info-back-color);
+    --border-color: var(--button-info-border-color);
+    --focus-color: var(--button-info-focus-color);
+}
+
+:host([variant="info"]:hover) {
+    --color: var(--button-info-hover-text-color);
+    --background-color: var(--button-info-hover-back-color);
+    --border-color: var(--button-info-hover-border-color);
+}
+
+:host([variant="info"]:active),
+:host([variant="info"][active]:not([active="false"])) {
+    --color: var(--button-info-active-text-color);
+    --background-color: var(--button-info-active-back-color);
+    --border-color: var(--button-info-active-border-color);
+}
+
+:host([variant="info"]:disabled) {
+    --color: var(--button-primary-info-text-color);
+    --background-color: var(--button-info-disabled-back-color);
+    --border-color: var(--button-info-disabled-border-color);
+}
+
+/* BUTTON VARIANT - LIGHT */
+:host([variant="light"]) {
+    --color: var(--button-light-text-color);
+    --background-color: var(--button-light-back-color);
+    --border-color: var(--button-light-border-color);
+    --focus-color: var(--button-light-focus-color);
+}
+
+:host([variant="light"]:hover) {
+    --color: var(--button-light-hover-text-color);
+    --background-color: var(--button-light-hover-back-color);
+    --border-color: var(--button-light-hover-border-color);
+}
+
+:host([variant="light"]:active),
+:host([variant="light"][active]:not([active="false"])) {
+    --color: var(--button-light-active-text-color);
+    --background-color: var(--button-light-active-back-color);
+    --border-color: var(--button-light-active-border-color);
+}
+
+:host([variant="light"]:disabled) {
+    --color: var(--button-primary-light-text-color);
+    --background-color: var(--button-light-disabled-back-color);
+    --border-color: var(--button-light-disabled-border-color);
+}
+
+/* BUTTON VARIANT - DARK */
+:host([variant="dark"]) {
+    --color: var(--button-dark-text-color);
+    --background-color: var(--button-dark-back-color);
+    --border-color: var(--button-dark-border-color);
+    --focus-color: var(--button-dark-focus-color);
+}
+
+:host([variant="dark"]:hover) {
+    --color: var(--button-dark-hover-text-color);
+    --background-color: var(--button-dark-hover-back-color);
+    --border-color: var(--button-dark-hover-border-color);
+}
+
+:host([variant="dark"]:active),
+:host([variant="dark"][active]:not([active="false"])) {
+    --color: var(--button-dark-active-text-color);
+    --background-color: var(--button-dark-active-back-color);
+    --border-color: var(--button-dark-active-border-color);
+}
+
+:host([variant="dark"]:disabled) {
+    --color: var(--button-primary-dark-text-color);
+    --background-color: var(--button-dark-disabled-back-color);
+    --border-color: var(--button-dark-disabled-border-color);
+}

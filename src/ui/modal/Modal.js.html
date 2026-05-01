@@ -1,0 +1,23 @@
+<div id="focus_catcher_top" tabindex="0"></div>
+<emc-contextmenu-layer>
+    <div id="modal" role="modal" aria-modal="true" aria-labelledby="title" aria-describedby="title">
+        <div id="header">
+            <div id="title-icon-container">
+                <div id="title-icon"></div>
+                <emc-font-icon id="title-font-icon"></emc-font-icon>
+            </div>
+            <div id="title">
+                <emc-i18n-label id="title-text"></emc-i18n-label>
+            </div>
+            <button id="close" aria-label="close">
+                <emc-font-icon icon="cross"></emc-font-icon>
+            </button>
+        </div>
+        <div id="content">
+            <div id="text"></div>
+            <slot id="slot"></slot>
+        </div>
+        <div id="footer"></div>
+    </div>
+</emc-contextmenu-layer>
+<div id="focus_catcher_bottom" tabindex="0"></div>

@@ -1,0 +1,9 @@
+#ref {
+    align-self: flex-start;
+    margin: 5px;
+}
+
+#ref:empty::after {
+    font-style: italic;
+    content: "empty";
+}

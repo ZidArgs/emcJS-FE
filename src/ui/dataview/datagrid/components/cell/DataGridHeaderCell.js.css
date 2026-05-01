@@ -1,0 +1,103 @@
+:host {
+    display: table-cell;
+    padding: 0px 25px;
+    color: var(--datagrid-header-text-color, #ffffff);
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5em;
+    margin: 0px 4px;
+    overflow: hidden;
+}
+
+#content {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+:host([hidelabel]:not([hidelabel="false"])) .container {
+    display: none;
+}
+
+:host([sortable]:not([sortable="false"])) {
+    cursor: pointer;
+}
+
+:host([sortable]:not([sortable="false"])) .container {
+    margin: 0px 24px;
+    text-decoration: underline;
+}
+
+#sort-indicator {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 24px;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+
+#sort-indicator:hover {
+    color: transparent;
+}
+
+:host([sortdir]:not([sortdir=""])) #sort-indicator {
+    display: flex;
+}
+
+:host([sortdir="dec"]) #sort-indicator {
+    flex-direction: column-reverse;
+}
+
+#sort-indicator:before {
+    position: relative;
+    display: block;
+    border: solid 0.3em transparent;
+    border-bottom-color: var(--datagrid-header-text-color, #ffffff);
+    border-right-color: var(--datagrid-header-text-color, #ffffff);
+}
+
+:host([sortdir="inc"]) #sort-indicator:before {
+    transform: translateY(0.125em) rotate(225deg);
+    content: " ";
+}
+
+:host([sortdir="dec"]) #sort-indicator:before {
+    transform: translateY(-0.125em) rotate(45deg);
+    content: " ";
+}
+
+#sort-indicator:hover:before {
+    display: none;
+}
+
+#sort-indicator:hover:after {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 24px;
+    color: var(--datagrid-header-text-color, #ffffff);
+    line-height: 1em;
+    content: "✖";
+}

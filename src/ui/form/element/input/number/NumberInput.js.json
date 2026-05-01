@@ -1,0 +1,24 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "NumberInput",
+        "name": "min",
+        "label": "Min"
+    },
+    {
+        "type": "NumberInput",
+        "name": "max",
+        "label": "Max"
+    },
+    {
+        "type": "SwitchInput",
+        "name": "spinner",
+        "label": "Show Spinner",
+        "value": false
+    }
+]

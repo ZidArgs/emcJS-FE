@@ -1,0 +1,35 @@
+#input-wrapper {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+#number {
+    flex-shrink: 0;
+    height: 2em;
+    width: 5em;
+    padding: 0px 7px;
+    margin-right: calc(-1 * var(--border-width));
+    color: var(--color);
+    background-color: var(--background-color);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    font-size: 1em;
+    text-align: end;
+    appearance: textfield;
+
+    &:focus {
+        box-shadow: 0 0 2px 3px var(--focus-color);
+        outline: none;
+        z-index: 1;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        appearance: none;
+        margin: 0;
+    }
+}

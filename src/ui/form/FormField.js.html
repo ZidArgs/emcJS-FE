@@ -1,0 +1,15 @@
+<emc-i18n-tooltip id="tooltip">
+    <label id="label" for="input">
+        <emc-i18n-label id="label-text"></emc-i18n-label>
+    </label>
+    <emc-i18n-textbox id="description"></emc-i18n-textbox>
+    <div id="field-container">
+        <slot id="field"></slot>
+        <div id="control-container">
+            <emc-button id="copy" icon-type="font" icon="copy" tooltip="Copy"></emc-button>
+            <emc-button id="reset" icon="↺" tooltip="Reset" class="rotate-icon-270 inactive" tabindex="-1"></emc-button>
+        </div>
+    </div>
+    <emc-i18n-textbox id="error" aria-live="polite"></emc-i18n-textbox>
+    <emc-i18n-textbox id="subtext"></emc-i18n-textbox>
+</emc-i18n-tooltip>

@@ -1,0 +1,429 @@
+/* TODO use variables to determine colors, etc. (see form inputs)
+*/
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    min-width: 300px;
+    margin: 8px;
+    color: var(--datagrid-text-color, #000000);
+    background-color: var(--datagrid-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--datagrid-border-width, 2px);
+    border-color: var(--datagrid-border-color, #000000);
+    border-radius: var(--datagrid-border-radius, 6px);
+    line-height: normal;
+    overflow: hidden;
+
+    --scrollbar-track-border-radius: 0px;
+    --scrollbar-thumb-border-radius: 0px;
+}
+
+#scroll-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    scroll-padding-top: 3em;
+    scroll-padding-bottom: 0.5em;
+}
+
+:host([nohead]:not([nohead="false"])) {
+    scroll-padding-top: 0.5em;
+
+    #head #header > .cell {
+        font-size: 0px;
+
+        * {
+            display: none;
+        }
+    }
+}
+
+:host([disabled]:not([disabled="false"])) {
+    pointer-events: none;
+
+    color: var(--datagrid-disabled-text-color, #999999) !important;
+    background-color: var(--datagrid-disabled-back-color, #757575) !important;
+    background-image: var(--datagrid-disabled-back-image, none) !important;
+
+    #head .cell {
+        color: var(--datagrid-disabled-header-text-color, #999999) !important;
+        background-color: var(--datagrid-disabled-header-back-color, #4d4d4d) !important;
+        background-image: var(--datagrid-disabled-header-back-image, none) !important;
+        border-left-color: var(--datagrid-disabled-header-seperator-color, #696969) !important;
+        border-right-color: var(--datagrid-disabled-header-seperator-color, #696969) !important;
+    }
+
+    #foot .cell {
+        color: var(--datagrid-disabled-footer-text-color, #999999) !important;
+        background-color: var(--datagrid-disabled-footer-back-color, #757575) !important;
+        background-image: var(--datagrid-disabled-footer-back-image, none) !important;
+        border-left-color: var(--datagrid-disabled-footer-seperator-color, #696969) !important;
+        border-right-color: var(--datagrid-disabled-footer-seperator-color, #696969) !important;
+    }
+
+    #body .cell {
+        color: var(--datagrid-disabled-text-color, #757575) !important;
+        background-color: var(--datagrid-disabled-back-color, #999999) !important;
+        background-image: var(--datagrid-disabled-back-image, none) !important;
+        border-left-color: var(--datagrid-disabled-column-seperator-color, #696969) !important;
+        border-right-color: var(--datagrid-disabled-column-seperator-color, #696969) !important;
+        border-bottom-color: var(--datagrid-disabled-row-seperator-color, #757575) !important;
+    }
+}
+
+:host([stretch="last"]) .cell:last-child {
+    width: 100%;
+}
+
+#table {
+    position: relative;
+    min-width: 100%;
+    border-spacing: 0px;
+
+    tr {
+        position: relative;
+        z-index: 0;
+    }
+
+    .cell {
+        position: relative;
+        box-sizing: border-box;
+        min-width: 50px;
+        padding: 0;
+
+        &.select-cell {
+            width: 36px;
+            min-width: 36px;
+            max-width: 36px;
+        }
+
+        &.sort-cell {
+            width: 30px;
+            min-width: 30px;
+            max-width: 30px;
+        }
+
+        &.last-cell {
+            padding: 0px;
+            width: 100%;
+            min-width: 0px;
+        }
+
+        &.fixed-cell {
+            position: sticky;
+
+            &.stuck {
+                z-index: 2;
+            }
+
+            &.fixed-cell-start {
+                left: 0px;
+            }
+
+            &.fixed-cell-end {
+                right: 0px;
+            }
+        }
+    }
+
+    #head,
+    #body,
+    #foot {
+
+        .cell:not(:first-child):not(.last-cell) {
+            border-left-style: solid;
+            border-left-width: var(--datagrid-column-seperator-width, 2px);
+        }
+
+        .cell.fixed-cell-end:not(:nth-last-child(1 of .fixed-cell-end)):after {
+            position: absolute;
+            display: block;
+            top: 0px;
+            right: -2px;
+            width: 4px;
+            height: 100%;
+            background-color: inherit;
+            content: " ";
+        }
+
+        .cell.fixed-cell:nth-last-child(1 of .fixed-cell-start.stuck) {
+
+            &::after {
+                position: absolute;
+                content: "";
+                height: 100%;
+                width: var(--datagrid-fixed-column-shadow-width, 4px);
+                top: 0px;
+                left: 100%;
+                background-image: linear-gradient(to right, var(--datagrid-fixed-column-shadow-start-color, #00000030), #00000000);
+                border-left-style: solid;
+                border-left-width: var(--datagrid-fixed-column-seperator-width, 2px);
+            }
+
+            & + .cell {
+                border-left: none;
+
+                &.last-cell {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .cell.fixed-cell:nth-child(1 of .fixed-cell-end.stuck)::before {
+            position: absolute;
+            content: "";
+            height: 100%;
+            width: var(--datagrid-fixed-column-shadow-width, 4px);
+            top: 0px;
+            right: 100%;
+            background-image: linear-gradient(to left, var(--datagrid-fixed-column-shadow-start-color, #00000030), #00000000);
+            border-right-style: solid;
+            border-right-width: var(--datagrid-fixed-column-seperator-width, 2px);
+        }
+
+        &.last-cell {
+            border-left: none;
+        }
+    }
+}
+
+#head,
+#foot {
+    position: sticky;
+    z-index: 4;
+}
+
+#head {
+    top: 0px;
+
+    .cell {
+        color: var(--datagrid-header-text-color, #ffffff);
+        background-color: var(--datagrid-header-back-color, #333333);
+        border-left-color: var(--datagrid-header-seperator-color, #ffffff);
+        border-right-color: var(--datagrid-header-seperator-color, #ffffff);
+
+        &.fixed-cell:nth-last-child(1 of .fixed-cell-start.stuck)::after {
+            border-color: var(--datagrid-fixed-header-seperator-color, #afafaf);
+        }
+
+        &.fixed-cell:nth-child(1 of .fixed-cell-end.stuck)::before {
+            border-color: var(--datagrid-fixed-header-seperator-color, #afafaf);
+        }
+
+        &.last-cell:not(:first-child) {
+            box-shadow: inset var(--datagrid-header-seperator-color, #ffffff) var(--datagrid-column-seperator-width, 2px) 0px 0px;
+        }
+    }
+}
+
+#foot {
+    bottom: 0px;
+
+    .cell {
+        color: var(--datagrid-footer-text-color, #ffffff);
+        background-color: var(--datagrid-footer-back-color, #666666);
+        border-left-color: var(--datagrid-footer-seperator-color, #ffffff);
+        border-right-color: var(--datagrid-footer-seperator-color, #ffffff);
+
+        &.fixed-cell:nth-last-child(1 of .fixed-cell-start.stuck)::after {
+            border-color: var(--datagrid-fixed-footer-seperator-color, #afafaf);
+        }
+
+        &.fixed-cell:nth-child(1 of .fixed-cell-end.stuck)::before {
+            border-color: var(--datagrid-fixed-footer-seperator-color, #afafaf);
+        }
+
+        &.last-cell:not(:first-child) {
+            box-shadow: inset var(--datagrid-footer-seperator-color, #ffffff) var(--datagrid-column-seperator-width, 2px) 0px 0px;
+        }
+
+        #content {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+#body {
+    position: relative;
+
+    .cell {
+        padding: 0;
+        color: var(--datagrid-text-color, #000000);
+        background-color: var(--datagrid-back-color, #ffffff);
+        border-left-color: var(--datagrid-column-seperator-color, #ffffff);
+        border-right-color: var(--datagrid-column-seperator-color, #ffffff);
+
+        &.sort-cell {
+            cursor: grab;
+
+            div {
+                background-image: radial-gradient(10px 10px at 50% 50%, var(--datagrid-sort-grabber-indicator-color, #bbbbbb) 0%, var(--datagrid-sort-grabber-indicator-color, #bbbbbb) 17%, #00000000 30%);
+            }
+        }
+
+        &.fixed-cell:nth-last-child(1 of .fixed-cell-start.stuck)::after {
+            border-color: var(--datagrid-fixed-column-seperator-color, #afafaf);
+        }
+
+        &.fixed-cell:nth-child(1 of .fixed-cell-end.stuck)::before {
+            border-color: var(--datagrid-fixed-column-seperator-color, #afafaf);
+        }
+
+        &.last-cell:not(:first-child) {
+            box-shadow: inset var(--datagrid-column-seperator-color, #ffffff) var(--datagrid-column-seperator-width, 2px) 0px 0px;
+        }
+    }
+
+    tr {
+        outline-style: solid;
+        outline-width: var(--datagrid-row-seperator-width, 1px);
+        outline-color: var(--datagrid-row-seperator-color, #696969);
+
+        &.dragging {
+            box-shadow: 0 3px 9px 2px #00000069;
+            z-index: 1;
+
+            & ~ tr {
+                top: var(--datagrid-row-seperator-width, 1px);
+            }
+
+            .cell {
+                color: var(--datagrid-row-hover-text-color, #000000);
+                background-color: var(--datagrid-row-hover-back-color, #d6f7fd);
+            }
+        }
+
+        &:not(:last-child):not(.dragging) .cell {
+            border-bottom-style: solid;
+            border-bottom-width: var(--datagrid-row-seperator-width, 1px);
+            border-bottom-color: var(--datagrid-row-seperator-color, #696969);
+        }
+    }
+
+    &:not(:has(tr.dragging)) tr:hover .cell {
+        color: var(--datagrid-row-hover-text-color, #000000);
+        background-color: var(--datagrid-row-hover-back-color, #d6f7fd);
+
+        &.sort-cell div {
+            background-image: radial-gradient(10px 10px at 50% 50%, var(--datagrid-row-hover-sort-grabber-indicator-color, #bbbbbb) 0%, var(--datagrid-row-hover-sort-grabber-indicator-color, #bbbbbb) 17%, #00000000 30%);
+        }
+    }
+}
+
+#empty-container,
+#nocolumns-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    left: 0px;
+    width: 100%;
+    min-width: calc(200px - var(--scrollbar-size, 0px) - 4px);
+    margin-top: 3em;
+    pointer-events: none;
+    user-select: none;
+    animation: popInLater 0ms ease-in 100ms forwards;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+:host([nohead]:not([nohead="false"])) #empty-container,
+:host([nohead]:not([nohead="false"])) #nocolumns-container {
+    margin-top: 0.5em;
+}
+
+#empty-container #empty,
+#nocolumns-container #nocolumns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 20px;
+    height: 30px;
+    color: var(--datagrid-empty-text-color, #666666);
+    background-color: var(--datagrid-empty-back-color, #dadada);
+    border-style: solid;
+    border-width: var(--datagrid-empty-border-width, 2px);
+    border-color: var(--datagrid-empty-border-color, #666666);
+    border-radius: var(--datagrid-empty-border-radius, 6px);
+    font-size: 16px;
+    font-style: italic;
+    white-space: nowrap;
+}
+
+#empty-container.hidden,
+#nocolumns-container.hidden {
+    display: none;
+}
+
+#nocolumns-container:not(.hidden) + #empty-container {
+    display: none;
+}
+
+.sort-cell {
+    display: none;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    --dot-size: 0.5em;
+
+    div {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(2 * var(--dot-size));
+        height: calc(3 * var(--dot-size));
+        margin: auto;
+        background-size: var(--dot-size) var(--dot-size);
+        background-position: 0px 0px;
+    }
+}
+
+.select-cell {
+    padding: 0px;
+    display: none;
+    text-align: center;
+
+    .checkbox {
+        display: block;
+        width: 22px;
+        height: 22px;
+        margin: auto;
+    }
+}
+
+#head .select-cell .checkbox,
+#foot .select-cell .checkbox {
+    display: none;
+}
+
+:host([sortable]:not([sortable="false"])) #head .sort-cell,
+:host([sortable]:not([sortable="false"])) #body .sort-cell,
+:host([sortable]:not([sortable="false"])) #foot .sort-cell {
+    display: table-cell;
+}
+
+:host([selectable]:not([selectable="false"])) #head .select-cell,
+:host([selectable]:not([selectable="false"])) #body .select-cell,
+:host([selectable]:not([selectable="false"])) #foot .select-cell {
+    display: table-cell;
+}
+
+:host([multiple]:not([multiple="false"])) #head .select-cell .checkbox,
+:host([multiple]:not([multiple="false"])) #foot .select-cell .checkbox {
+    display: flex;
+}
+
+@keyframes popInLater {
+    to {
+        opacity: 1;
+    }
+}

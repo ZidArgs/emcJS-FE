@@ -1,0 +1,51 @@
+#scroll-container {
+    position: fixed;
+    display: none;
+    max-height: 300px;
+    margin: 4px 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    color: var(--input-text-color, #000000);
+    background-color: var(--input-back-color, #ffffff);
+    border-style: solid;
+    border-width: var(--input-border-width, 2px);
+    border-color: var(--input-border-color, #222222);
+    border-radius: var(--input-border-radius, 6px);
+    z-index: var(--z-index-element-popups, 1000);
+    box-shadow: #000000 4px 4px 8px -4px;
+    text-align: left;
+}
+
+#error-container {
+    display: block;
+    width: 100%;
+    padding: 2px;
+}
+
+#error-container:not(:empty) + #empty {
+    display: none;
+}
+
+#empty {
+    padding: 20px;
+}
+
+#button[count-type="success"] {
+    color: var(--button-count-success-text-color, #ffffff);
+    background-color: var(--button-count-success-back-color, #009952);
+}
+
+#button[count-type="error"] {
+    color: var(--button-count-error-text-color, #ffffff);
+    background-color: var(--button-count-error-back-color, #c50000);
+}
+
+:host(:hover) #button[count-type="success"] {
+    color: var(--button-hover-count-success-text-color, #000000);
+    background-color: var(--button-hover-count-success-back-color, #aefffb);
+}
+
+:host(:hover) #button[count-type="error"] {
+    color: var(--button-hover-count-error-text-color, #000000);
+    background-color: var(--button-hover-count-error-back-color, #ffb7b7);
+}

@@ -1,0 +1,38 @@
+[
+    {
+        "type": "StringInput",
+        "name": "name",
+        "label": "Name",
+        "value": ""
+    },
+    {
+        "type": "SwitchInput",
+        "name": "required",
+        "label": "Required",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "noValidate",
+        "label": "Don't include this input in the auto validation",
+        "value": false
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "visible",
+        "label": "Visible (will not influence preview)",
+        "value": true
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "editable",
+        "label": "Editable (will not influence preview)",
+        "value": true
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "enabled",
+        "label": "Enabled (will not influence preview)",
+        "value": true
+    }
+]

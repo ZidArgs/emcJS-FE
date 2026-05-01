@@ -1,0 +1,17 @@
+<div id="focus_catcher_top" tabindex="0"></div>
+<div id="panel">
+    <div id="title-color">
+    </div>
+    <div id="container">
+        <div id="title">
+            <emc-i18n-label id="title-text"></emc-i18n-label>
+            <button id="close" aria-label="close">
+                <emc-font-icon icon="cross"></emc-font-icon>
+            </button>
+        </div>
+        <div id="content">
+            <slot></slot>
+        </div>
+    </div>
+</div>
+<div id="focus_catcher_bottom" tabindex="0"></div>

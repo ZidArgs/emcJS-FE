@@ -1,0 +1,125 @@
+:host {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+#scroll-to {
+    position: absolute;
+    opacity: 0;
+
+    &.level-1 {
+        top: calc(-1 * (0px + var(--form-header-height, 0px)));
+    }
+
+    &.level-2 {
+        top: calc(-1 * (1.6em + 20px + var(--form-header-height, 0px)));
+    }
+
+    &.level-3 {
+        top: calc(-1 * (3.1em + 40px + var(--form-header-height, 0px)));
+    }
+
+    &.level-4 {
+        top: calc(-1 * (4.5em + 60px + var(--form-header-height, 0px)));
+    }
+
+    &.level-5 {
+        top: calc(-1 * (5.8em + 80px + var(--form-header-height, 0px)));
+    }
+
+    &.level-6 {
+        top: calc(-1 * (7em + 100px + var(--form-header-height, 0px)));
+    }
+}
+
+#header {
+    position: sticky;
+    padding: 0;
+    color: var(--form-section-header-text-color, #000000);
+    background-color: var(--form-section-header-back-color, #000000);
+
+    &.level-1 {
+        top: calc(0px + var(--form-header-height, 0px));
+        z-index: 6;
+    }
+
+    &.level-2 {
+        top: calc(1.6em + 20px + var(--form-header-height, 0px));
+        z-index: 5;
+    }
+
+    &.level-3 {
+        top: calc(3.1em + 40px + var(--form-header-height, 0px));
+        z-index: 4;
+    }
+
+    &.level-4 {
+        top: calc(4.5em + 60px + var(--form-header-height, 0px));
+        z-index: 3;
+    }
+
+    &.level-5 {
+        top: calc(5.8em + 80px + var(--form-header-height, 0px));
+        z-index: 2;
+    }
+
+    &.level-6 {
+        top: calc(7em + 100px + var(--form-header-height, 0px));
+        z-index: 1;
+    }
+}
+
+#header.stuck:after {
+    position: absolute;
+    content: "";
+    height: var(--form-section-header-fixed-shadow-width, 4px);
+    width: 100%;
+    bottom: calc(-1 * var(--form-section-header-fixed-shadow-width, 4px));
+    left: 0px;
+    background-image: linear-gradient(to bottom, var(--form-section-header-fixed-shadow-start-color, #00000030), #00000000);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 1.6em;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.4em;
+}
+
+h4 {
+    font-size: 1.3em;
+}
+
+h5 {
+    font-size: 1.2em;
+}
+
+h6 {
+    font-size: 1.1em;
+}
+
+#body {
+    display: flex;
+    flex-direction: column;
+}

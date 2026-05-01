@@ -1,0 +1,53 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+#title {
+    margin: 10px 0;
+    font-size: 2em;
+    line-height: 1em;
+}
+#container {
+    display: block;
+    flex: 1;
+    padding: 5px;
+    resize: none;
+    overflow: scroll;
+    background-color: var(--edit-back-color, #ffffff);
+    color: var(--edit-text-color, #000000);
+    word-wrap: unset;
+    white-space: pre;
+    user-select: text;
+    font-family: monospace;
+}
+::slotted(*) {
+    display: block;
+    padding: 2px;
+    user-select: text;
+    border: transparent;
+    border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+::slotted(:first-child) {
+    border-top: solid 1px rgba(255,255,255,0.1);
+}
+:host([log-types]:not([log-types=""])) ::slotted(*) {
+    display: none;
+}
+:host([log-types~="severe" i]) ::slotted([log-type="severe" i]) {
+    display: block;
+}
+:host([log-types~="error" i]) ::slotted([log-type="error" i]) {
+    display: block;
+}
+:host([log-types~="warn" i]) ::slotted([log-type="warn" i]) {
+    display: block;
+}
+:host([log-types~="info" i]) ::slotted([log-type="info" i]) {
+    display: block;
+}
+:host([log-types~="log" i]) ::slotted([log-type="log" i]) {
+    display: block;
+}

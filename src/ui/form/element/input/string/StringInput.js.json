@@ -1,0 +1,54 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "NumberInput",
+        "name": "minLength",
+        "label": "Minimum Length",
+        "value": null
+    },
+    {
+        "type": "NumberInput",
+        "name": "maxLength",
+        "label": "Maximum Length",
+        "value": null
+    },
+    {
+        "type": "SwitchInput",
+        "name": "showTextLength",
+        "label": "Show Text Length Indicator",
+        "value": false
+    },
+    {
+        "type": "SwitchInput",
+        "name": "spellcheck",
+        "label": "Check spelling",
+        "value": false
+    },
+    {
+        "type": "SimpleSelect",
+        "name": "autocorrect",
+        "label": "Activate autocorrect",
+        "options": {
+            "off": "Disable automatic correction",
+            "on": "Enable automatic correction of spelling and punctuation errors"
+        },
+        "value": "off"
+    },
+    {
+        "type": "SimpleSelect",
+        "name": "autocapitalize",
+        "label": "Activate autocapitalize",
+        "options": {
+            "off": "Do not automatically capitalize any text",
+            "on": "Automatically capitalize the first character of each sentence",
+            "words": "Automatically capitalize the first character of each word",
+            "characters": "Automatically capitalize every character"
+        },
+        "value": "off"
+    }
+]

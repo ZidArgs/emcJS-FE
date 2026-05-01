@@ -1,0 +1,15 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "TokenSelect",
+        "name": "accept",
+        "label": "Accepted MIME-types",
+        "multiple": true,
+        "value": ""
+    }
+]

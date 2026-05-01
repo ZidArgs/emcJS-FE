@@ -1,0 +1,68 @@
+:host {
+    all: initial;
+    font-family: inherit;
+    font-size: inherit;
+    width: max-content;
+    height: max-content;
+    /* INPUT */
+    --color: var(--input-text-color, #000000);
+    --background-color: var(--input-back-color, #ffffff);
+    --border-style: solid;
+    --border-width: var(--input-border-width, 2px);
+    --border-color: var(--input-border-color, #222222);
+    --border-top-left-radius: var(--input-border-radius, 6px);
+    --border-top-right-radius: var(--input-border-radius, 6px);
+    --border-bottom-left-radius: var(--input-border-radius, 6px);
+    --border-bottom-right-radius: var(--input-border-radius, 6px);
+    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+    --placeholder-color: var(--input-placeholder-text-color, #757575);
+    --focus-color: var(--input-focus-color, #06b5ffb0);
+    /* BUTTONS */
+    --button-color: var(--input-button-text-color, #000000);
+    --button-background-color: var(--input-button-back-color, #ffffff);
+    --button-hover-color: var(--input-button-hover-text-color, #000000);
+    --button-hover-background-color: var(--input-button-hover-back-color, #b3e5ec);
+    --button-active-color: var(--input-button-active-text-color, #000000);
+    --button-active-background-color: var(--input-button-active-back-color, #b3e5ec);
+}
+
+:host([readonly]:not([readonly="false"])) {
+    /* BUTTONS */
+    --button-hover-color: var(--input-button-text-color, #000000);
+    --button-hover-background-color: var(--input-button-back-color, #ffffff);
+}
+
+:host(:invalid) {
+    /* INPUT */
+    --background-color: var(--input-invalid-back-color, #ffebeb);
+    --border-color: var(--input-invalid-border-color, #ff4444);
+    --focus-color: var(--input-invalid-focus-color, #ff2500b0);
+    /* BUTTONS */
+    --button-color: var(--input-button-invalid-text-color, #000000);
+    --button-background-color: var(--input-button-invalid-back-color, #ffebeb);
+    --button-hover-color: var(--input-button-invalid-hover-text-color, #000000);
+    --button-hover-background-color: var(--input-button-invalid-hover-back-color, #ff4444);
+}
+
+:host([readonly]:not([readonly="false"]):invalid) {
+    /* BUTTONS */
+    --button-hover-color: var(--input-button-invalid-text-color, #000000);
+    --button-hover-background-color: var(--input-button-invalid-back-color, #ffebeb);
+}
+
+:host(:disabled),
+:host(:invalid:disabled),
+:host([readonly]:not([readonly="false"]):disabled),
+:host([readonly]:not([readonly="false"]):invalid:disabled) {
+    user-select: none !important;
+    pointer-events: none !important;
+    /* INPUT */
+    --color: var(--input-disabled-text-color, #757575);
+    --background-color: var(--input-disabled-back-color, #999999);
+    --border-color: var(--input-disabled-border-color, #6a6a6a);
+    /* BUTTONS */
+    --button-color: var(--input-button-disabled-text-color, #757575);
+    --button-background-color: var(--input-button-disabled-back-color, #999999);
+    --button-active-color: var(--input-button-active-disabled-text-color, #757575);
+    --button-active-background-color: var(--input-button-active-disabled-back-color, #3f3f3f);
+}

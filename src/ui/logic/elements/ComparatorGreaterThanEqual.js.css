@@ -1,0 +1,4 @@
+:host {
+    --logic-color-back: repeating-linear-gradient(145deg, #fbd9bc, #fbd9bc 20px, #dff6ff 20px, #dff6ff 40px);
+    --logic-color-border: #ff9d37;
+}

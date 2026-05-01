@@ -1,0 +1,103 @@
+:host {
+    position: fixed !important;
+    box-sizing: border-box !important;
+    top: 0 !important;
+    left: -100% !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    cursor: default !important;
+    overflow: hidden !important;
+    z-index: var(--z-index-overlay, 900500);
+    pointer-events: all !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    --max-width: 100dvw;
+}
+
+:host(.active) {
+    left: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    color: var(--modal-text-color, #000000);
+    background-color: var(--modal-back-color, #ffffff);
+    container-type: inline-size;
+    container-name: panel;
+    overflow: hidden;
+}
+
+#title-color {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: var(--modal-header-back-color, #e4e4e4);
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100dvw;
+    max-width: var(--max-width, 100dvw);
+}
+
+#title {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 100%;
+    height: 40px;
+    color: var(--modal-header-text-color, #000000);
+    background-color: var(--modal-header-back-color, #e4e4e4);
+    font-weight: bold;
+}
+
+#title-text {
+    padding: 0px 10px;
+    font-size: 1.5em;
+}
+
+#close {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--modal-close-text-color, #222222);
+    background-color: var(--modal-close-back-color, #ffb9b9);
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    font-size: 1.5em;
+    line-height: 1em;
+
+    &:hover {
+        color: var(--modal-close-hover-text-color, #ffffff);
+        background-color: var(--modal-close-hover-back-color, #ff0000);
+    }
+
+    &:focus {
+        box-shadow: inset var(--modal-close-focus-color, #000000) 0 0px 3px 4px;
+        outline: none;
+    }
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 0px;
+    width: 100%;
+    overflow: auto;
+}

@@ -1,0 +1,26 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: fit-content;
+    min-height: min-content;
+    min-width: min-content;
+}
+
+:host > ::slotted(*) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    min-width: 100%;
+    max-width: fit-content;
+}
+
+:host(.stretchlast) > ::slotted(:last-child),
+:host > ::slotted(.autosize) {
+    flex-grow: 1;
+}
+
+:host > ::slotted(.panel) {
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--page-border-color, #ffffff);
+}

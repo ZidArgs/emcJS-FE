@@ -1,0 +1,21 @@
+:host {
+    margin: 0px;
+}
+
+#container {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-width: var(--select-option-divider-width, 1px);
+    border-color: var(--select-option-divider-color, #222222);
+    border-radius: 0px;
+}
+
+:host(:last-child) #container {
+    border-bottom: none;
+}
+
+#text {
+    flex: 1;
+    justify-content: flex-start;
+}

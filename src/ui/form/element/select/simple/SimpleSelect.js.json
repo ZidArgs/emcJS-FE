@@ -1,0 +1,26 @@
+[
+    {
+        "type": "StringInput",
+        "name": "placeholder",
+        "label": "Placeholder",
+        "value": ""
+    },
+    {
+        "type": "SwitchInput",
+        "name": "sorted",
+        "label": "Sorted",
+        "value": false
+    },
+    {
+        "type": "KeyValueListInput",
+        "name": "options",
+        "label": "Options",
+        "value": {}
+    },
+    {
+        "type": "StringInput",
+        "name": "optiongroup",
+        "label": "Option Group",
+        "value": ""
+    }
+]

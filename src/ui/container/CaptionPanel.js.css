@@ -1,0 +1,29 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    border-style: solid;
+    border-width: var(--panel-border-width, 2px);
+    border-color: var(--panel-border-color, #000000);
+    border-radius: var(--panel-border-radius, 6px);
+    overflow: hidden;
+    user-select: none;
+}
+
+#title {
+    display: flex;
+    padding: 8px;
+    color: var(--panel-header-text-color, #000000);
+    background-color: var(--panel-header-back-color, #ffffff);
+    border-bottom: solid var(--panel-border-width, 2px) var(--panel-border-color, #000000);
+}
+
+#body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    color: var(--panel-text-color, #000000);
+    background-color: var(--panel-back-color, #ffffff);
+    overflow-x: auto;
+    overflow-y: auto;
+}

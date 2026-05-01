@@ -1,0 +1,110 @@
+:host {
+    all: initial;
+    font-family: inherit;
+    font-size: inherit;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+    --color: var(--checkbox-checked-back-color, #505050);
+    --background-color: var(--checkbox-unchecked-back-color, #ffffff);
+    --border-style: solid;
+    --border-width: var(--input-border-width, 2px);
+    --border-color: var(--input-border-color, #222222);
+    --border-top-left-radius: var(--input-border-radius, 6px);
+    --border-top-right-radius: var(--input-border-radius, 6px);
+    --border-bottom-left-radius: var(--input-border-radius, 6px);
+    --border-bottom-right-radius: var(--input-border-radius, 6px);
+    --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius) var(--border-bottom-left-radius);
+    --focus-color: var(--input-focus-color, #06b5ffb0);
+
+}
+
+:host([disabled]:not([disabled="false"])) {
+    pointer-events: none !important;
+    --color: var(--input-disabled-text-color, #757575);
+    --background-color: var(--input-disabled-back-color, #999999);
+    --border-color: var(--input-disabled-border-color, #6a6a6a);
+}
+
+:host([readonly]:not([readonly="false"])) {
+    pointer-events: none;
+}
+
+#container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    container-type: size;
+    user-select: none;
+}
+
+#checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    container-type: size;
+    cursor: pointer;
+    appearance: none;
+    --checkbox-color: var(--color);
+    --checkbox-background-color: var(--background-color);
+
+    &:focus {
+        outline: none;
+        z-index: 1;
+    }
+
+    &.checked {
+        --checkbox-color: var(--background-color);
+        --checkbox-background-color: var(--color);
+    }
+
+    &::before {
+        position: absolute;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: min(100cqw, 100cqh);
+        height: min(100cqw, 100cqh);
+        background-color: var(--checkbox-background-color);
+        border-style: var(--border-style);
+        border-width: var(--border-width);
+        border-color: var(--border-color);
+        border-radius: var(--border-radius);
+        font-weight: bold;
+        content: "";
+    }
+
+    &:focus::before {
+        box-shadow: 0 0 2px 3px var(--focus-color, #06b5ff);
+    }
+
+    &::after {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: min(100cqw, 100cqh);
+        height: min(100cqw, 100cqh);
+        background-color: var(--checkbox-color);
+    }
+
+    &.checked::after {
+        mask: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPgo8cGF0aCBkPSJtIDgxMi44Njc0NSw3MTcuNDYyNjQgLTk1LjQwNDgzLDk1LjQwNDgxIGMgLTguODg2MTYsOC44ODYxNiAtMjIuMzQzNTcsOS43MzM0MyAtMzAuMTc1NDUsMS45MDE1NiBMIDQ5OS45OTk5OSw2MjcuNDgxODQgMzEyLjcxMjgxLDgxNC43NjkwMSBjIC03LjgzMTg2LDcuODMxODYgLTIxLjI4OTI3LDYuOTg0NiAtMzAuMTc1NDQsLTEuOTAxNTcgbCAtOTUuNDA0ODIsLTk1LjQwNDggYyAtOC44ODYxNywtOC44ODYxNiAtOS43MzM0MiwtMjIuMzQzNTkgLTEuOTAxNTYsLTMwLjE3NTQ3IEwgMzcyLjUxODE3LDUwMC4wMDAwMSAxODUuMjMwOTksMzEyLjcxMjgzIGMgLTcuODMxODYsLTcuODMxODggLTYuOTg0NjEsLTIxLjI4OTMgMS45MDE1NiwtMzAuMTc1NDcgbCA5NS40MDQ4MSwtOTUuNDA0ODEgYyA4Ljg4NjE2LC04Ljg4NjE2IDIyLjM0MzU5LC05LjczMzQyIDMwLjE3NTQ1LC0xLjkwMTU0IEwgNTAwLDM3Mi41MTgxOCA2ODcuMjg3MTksMTg1LjIzMTAxIGMgNy44MzE4NiwtNy44MzE4OSAyMS4yODkyNywtNi45ODQ2MiAzMC4xNzU0MywxLjkwMTU0IGwgOTUuNDA0ODMsOTUuNDA0ODEgYyA4Ljg4NjE3LDguODg2MTcgOS43MzM0MywyMi4zNDM1OCAxLjkwMTU2LDMwLjE3NTQ3IEwgNjI3LjQ4MTgyLDUwMCA4MTQuNzY5LDY4Ny4yODcxOCBjIDcuODMxODgsNy44MzE4OCA2Ljk4NDYxLDIxLjI4OTMgLTEuOTAxNTUsMzAuMTc1NDYgeiIgZmlsbD0id2hpdGUiLz4KPC9zdmc+') 0 0/100% 100%;
+        content: "";
+    }
+
+    &.indeterminate::after {
+        mask: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAwIiBoZWlnaHQ9IjEwMDAiIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPgo8cGF0aCBkPSJtIDg1NS4wMDczMyw0MDkuODU2NzQgYyAxMS4wNzU5MywwIDE5Ljk5MjY3LDEwLjExNDkzIDE5Ljk5MjY3LDIyLjY4MTg3IFYgNTY3LjQ2MTQgYyAwLDEyLjU2NjkzIC04LjkxNjc0LDIyLjY4MTg2IC0xOS45OTI2NywyMi42ODE4NiAtMjM2LjY3MTU2LDAgLTQ3My4zNDMxLDAgLTcxMC4wMTQ2NSwwIC0xMS4wNzU5NCwwIC0xOS45OTI2NywtMTAuMTE0OTMgLTE5Ljk5MjY3LC0yMi42ODE4NiBWIDQzMi41Mzg2MSBjIDAsLTEyLjU2Njk0IDguOTE2NzMsLTIyLjY4MTg3IDE5Ljk5MjY3LC0yMi42ODE4NyAyMzYuNjcxNTUsMCA0NzMuMzQzMDksMCA3MTAuMDE0NjUsMCB6IiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4=') 0 0/100% 100%;
+        content: "";
+    }
+}

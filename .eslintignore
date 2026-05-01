@@ -1,0 +1,6 @@
+# default lint exclusion
+node_modules
+.idea
+.vscode
+
+# Add any directories, files, or patterns you don't want to be linted

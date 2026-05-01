@@ -1,0 +1,27 @@
+[
+    {
+        "type": "SimpleSelect",
+        "name": "align",
+        "label": "Align Content",
+        "value": "start",
+        "options": {
+            "start": "Start",
+            "end": "End",
+            "center": "Center",
+            "between": "Space between",
+            "even": "Space evenly"
+        }
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "enabled",
+        "label": "Enabled",
+        "value": true
+    },
+    {
+        "type": "BoolOrLogicInput",
+        "name": "visible",
+        "label": "Visible",
+        "value": true
+    }
+]

@@ -1,0 +1,20 @@
+:host {
+    display: inline-flex;
+    pointer-events: none;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    line-height: normal;
+}
+
+:host(.header) {
+    margin: 5px 0px 2px;
+    font-size: 1.5em;
+}
+
+#target {
+    display: inherit;
+    overflow: inherit;
+    text-overflow: inherit;
+    white-space: inherit;
+}
