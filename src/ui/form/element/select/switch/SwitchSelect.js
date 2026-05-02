@@ -5,7 +5,7 @@ import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
 import {debounce} from "emcjs/util/Debouncer.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import {
     nodeTextComparator,

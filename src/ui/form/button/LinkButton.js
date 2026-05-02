@@ -1,5 +1,5 @@
 import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {registerFocusable} from "../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import Button from "./Button.js";
 import "../../i18n/I18nTooltip.js";
 import "../../i18n/I18nLabel.js";

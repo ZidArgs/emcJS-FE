@@ -1,7 +1,7 @@
 
 import CustomActionRegistry from "emcjs/data/registry/CustomActionRegistry.js";
 import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {registerFocusable} from "../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import Button from "./Button.js";
 import CONFIG_FIELDS from "./ActionButton.js.json" assert {type: "json"};
 

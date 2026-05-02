@@ -33,6 +33,7 @@
   "scripts": {
     "lint": "yarn eslint .",
     "lintfix": "yarn eslint --fix .",
-    "build": "gulp build"
+    "build": "gulp build",
+    "watch": "gulp watch"
   }
 }

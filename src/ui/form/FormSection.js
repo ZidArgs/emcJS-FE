@@ -5,7 +5,7 @@ import {findAllParentsBySelector} from "../../util/node/FindParentBySelector.js"
 import {
     scrollIntoView, scrollIntoViewIfNeeded
 } from "../../util/node/Scroll.js";
-import {getBoundingContentRect} from "../../util/element/ElementSizeHelper.js";
+import {getBoundingContentRect} from "../../util/element/ElementSizeRetriever.js";
 import "../i18n/I18nLabel.js";
 import TPL from "./FormSection.js.html" assert {type: "html"};
 import STYLE from "./FormSection.js.css" assert {type: "css"};

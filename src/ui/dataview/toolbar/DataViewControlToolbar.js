@@ -1,9 +1,11 @@
 import {debounce} from "emcjs/util/Debouncer.js";
+import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
 import CustomElementDelegating from "../../element/CustomElementDelegating.js";
 import "../../i18n/I18nLabel.js";
 import "../../form/button/Button.js";
 import TPL from "./DataViewControlToolbar.js.html" assert {type: "html"};
 import STYLE from "./DataViewControlToolbar.js.css" assert {type: "css"};
+import AbstractDataProvider from "emcjs/util/dataprovider/AbstractDataProvider.js";
 
 // TODO add sort manager (modal with two lists, one contains available columns, the other the sort order)
 
@@ -12,6 +14,8 @@ import STYLE from "./DataViewControlToolbar.js.css" assert {type: "css"};
 - add abstract control as base class
 - controls should each be added individually
 - DataViewControlToolbar as optional container (?)
+
+- updates should be more instant and not one at a time (page, pagesize, total, currernt)
 */
 
 export default class DataViewControlToolbar extends CustomElementDelegating {
@@ -44,6 +48,10 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
     #totalEl;
 
     #infiniteSizeOpt = document.createElement("option");
+
+    #dataProvider;
+
+    #dataProviderEventManager = new EventTargetManager();
 
     constructor() {
         super();
@@ -100,6 +108,10 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
         this.#infiniteSizeOpt.value = "0";
         this.#infiniteSizeOpt.innerText = "inf";
         this.#sizeEl.append(this.#infiniteSizeOpt);
+        /* --- */
+        this.#dataProviderEventManager.set("result", (event) => {
+            this.#updateFromData(event.data);
+        });
     }
 
     set value(value) {
@@ -208,6 +220,11 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
                 if (oldValue != newValue) {
                     const currentValue = this.value ?? 1;
                     this.#currentEl.value = currentValue;
+                    /* --- */
+                    if (this.#dataProvider) {
+                        this.#dataProvider.updateConfig({page: currentValue - 1});
+                    }
+                    /* --- */
                     const ev = new Event("page");
                     ev.data = currentValue;
                     this.dispatchEvent(ev);
@@ -218,7 +235,9 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
                     this.#increaseEl.disabled = currentValue === maxValue;
                     this.#lastEl.disabled = currentValue === maxValue;
                     /* --- */
-                    this.#updateEntries();
+                    if (this.#dataProvider == null) {
+                        this.#updateEntries();
+                    }
                 } else {
                     this.#currentEl.value = oldValue;
                 }
@@ -246,24 +265,29 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
             } break;
             case "size": {
                 if (oldValue != newValue) {
-                    const pageSize = this.size;
-                    if (pageSize != null && pageSize > 0) {
-                        this.#sizeEl.value = pageSize;
-                        const ev = new Event("size");
-                        ev.data = pageSize;
-                        this.dispatchEvent(ev);
-                    } else {
-                        this.#sizeEl.value = 0;
-                        const ev = new Event("size");
-                        ev.data = 0;
-                        this.dispatchEvent(ev);
+                    const pageSize = Math.max(0, this.size ?? 0) || 0;
+                    this.#sizeEl.value = pageSize;
+                    /* --- */
+                    if (this.#dataProvider) {
+                        this.#dataProvider.updateConfig({
+                            page: 0,
+                            pageSize
+                        });
                     }
-                    this.#updateEntries();
+                    /* --- */
+                    const ev = new Event("size");
+                    ev.data = pageSize;
+                    this.dispatchEvent(ev);
+                    if (this.#dataProvider == null) {
+                        this.#updateEntries();
+                    }
                 }
             } break;
             case "entries": {
                 if (oldValue != newValue) {
-                    this.#updateEntries();
+                    if (this.#dataProvider == null) {
+                        this.#updateEntries();
+                    }
                 }
             } break;
             case "total": {
@@ -283,23 +307,6 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
             } break;
         }
     }
-
-    #updateEntries = debounce(() => {
-        const shownEntries = this.entries;
-        if (shownEntries != null && shownEntries > 0) {
-            const pageSize = this.size;
-            if (pageSize != null && pageSize > 0) {
-                const currentValue = this.value ?? 1;
-                const currentStart = (currentValue - 1) * pageSize;
-                const currentEnd = currentStart + shownEntries;
-                this.#entriesEl.innerText = `${currentStart + 1} - ${currentEnd} (${shownEntries})`;
-            } else {
-                this.#entriesEl.innerText = shownEntries;
-            }
-        } else {
-            this.#entriesEl.innerText = "0";
-        }
-    });
 
     #fillSizes() {
         const sizes = this.sizes.split(",");
@@ -334,6 +341,57 @@ export default class DataViewControlToolbar extends CustomElementDelegating {
             this.#sizeEl.disabled = true;
         }
     }
+
+    setDataProvider(dataProvider) {
+        if (!(dataProvider instanceof AbstractDataProvider)) {
+            throw new Error("dataProvider must be an instance of AbstractDataProvider");
+        }
+        this.#dataProvider = dataProvider;
+        this.#dataProviderEventManager.switchTarget(this.#dataProvider);
+        const data = this.#dataProvider.getConfig();
+        this.#updateFromData(data);
+    }
+
+    unsetDataProvider() {
+        this.#dataProvider = null;
+        this.#dataProviderEventManager.switchTarget(null);
+    }
+
+    #updateFromData(data) {
+        const {
+            pageSize, page, resultSize, totalSize
+        } = data;
+        this.entries = resultSize;
+        this.total = totalSize;
+        if (pageSize != null && pageSize > 0) {
+            const maxPages = Math.ceil(totalSize / pageSize);
+            this.size = pageSize;
+            this.max = maxPages;
+            this.value = (page ?? 0) + 1;
+        } else {
+            this.size = null;
+            this.max = 1;
+            this.value = 1;
+        }
+        this.#updateEntries();
+    }
+
+    #updateEntries = debounce(() => {
+        const shownEntries = this.entries;
+        if (shownEntries != null && shownEntries > 0) {
+            const pageSize = this.size;
+            if (pageSize != null && pageSize > 0) {
+                const currentValue = this.value ?? 1;
+                const currentStart = (currentValue - 1) * pageSize;
+                const currentEnd = currentStart + shownEntries;
+                this.#entriesEl.innerText = `${currentStart + 1} - ${currentEnd} (${shownEntries})`;
+            } else {
+                this.#entriesEl.innerText = shownEntries;
+            }
+        } else {
+            this.#entriesEl.innerText = "0";
+        }
+    });
 
 }
 

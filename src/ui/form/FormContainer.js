@@ -3,7 +3,7 @@ import {throttle} from "emcjs/util/Throttle.js";
 import CustomElement from "../element/CustomElement.js";
 import MutationObserverManager from "../../util/observer/manager/MutationObserverManager.js";
 import {nodeOccurenceComparator} from "../../util/node/NodeListSort.js";
-import {getFocusableElements} from "../../util/element/ElementFocusHelper.js";
+import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
 import FormSection from "./FormSection.js";
 import TPL from "./FormContainer.js.html" assert {type: "html"};
 import STYLE from "./FormContainer.js.css" assert {type: "css"};

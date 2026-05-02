@@ -1,5 +1,5 @@
 import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {getBoundingContentRect} from "../element/ElementSizeHelper.js";
+import {getBoundingContentRect} from "../element/ElementSizeRetriever.js";
 import StyleChangeObserver from "./StyleChangeObserver.js";
 
 const OBSERVED_STYLES = [

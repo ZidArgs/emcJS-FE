@@ -7,7 +7,7 @@ import {
 } from "emcjs/util/helper/CheckType.js";
 import CustomElement from "../element/CustomElement.js";
 import Direction from "../../enum/Direction.js";
-import {getFocusableElements} from "../../util/element/ElementFocusHelper.js";
+import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
 import BusyIndicatorController from "../../util/busy/BusyIndicatorController.js";
 import BusyIndicator from "../BusyIndicator.js";
 import "../i18n/I18nLabel.js";

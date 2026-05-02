@@ -7,7 +7,7 @@ import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import ModalDialog from "../../../../modal/ModalDialog.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import {setAttributes} from "../../../../../util/node/NodeAttributes.js";
 import Column from "../../../../dataview/datagrid/Column.js";

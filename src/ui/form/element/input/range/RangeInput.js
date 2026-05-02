@@ -1,6 +1,6 @@
 import SliderInput from "../slider/SliderInput.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {
     setBooleanAttribute, setNumberAttribute
 } from "../../../../../util/node/NodeAttributes.js";

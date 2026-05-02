@@ -3,7 +3,7 @@ import {deepClone} from "emcjs/util/helper/DeepClone.js";
 import CustomFormElement from "../../element/CustomFormElement.js";
 import ButtonVariants from "../../../enum/form/ButtonVariants.js";
 import ButtonBorderPositions from "../../../enum/form/ButtonBorderPositions.js";
-import {registerFocusable} from "../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import "../../i18n/I18nTooltip.js";
 import "../../i18n/I18nLabel.js";
 import "../../icon/FAIcon.js";

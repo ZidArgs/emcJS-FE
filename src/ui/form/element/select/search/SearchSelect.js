@@ -6,7 +6,7 @@ import CharacterSearch from "emcjs/util/search/CharacterSearch.js";
 import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import {nodeTextComparator} from "../../../../../util/node/NodeListSort.js";
 import {

@@ -1,8 +1,8 @@
 import path from "path";
 import gulp from "gulp";
 import changed, {compareContents} from "gulp-changed";
-import ImportAnalyzer from "emcjs/_build_tools/ImportAnalyzer.js";
-import sourceImport from "./src/_build_tools/SourceImport.js";
+import ImportAnalyzer from "emcjs/build_tools/ImportAnalyzer.js";
+import sourceImport from "./build_tools/SourceImport.js";
 
 const __dirname = path.resolve();
 
@@ -15,13 +15,11 @@ console.log({REBUILD});
 
 function copyJS() {
     const FILES = [
-        `${IN_PATH}/**/*.js`,
-        `!${IN_PATH}/*.js`,
-        `!${IN_PATH}/_build_tools/*.js`
+        `${IN_PATH}/**/*.js`
     ];
     let res = gulp.src(FILES);
     res = res.pipe(ImportAnalyzer.register(IN_PATH, OUT_PATH, __dirname));
-    res = res.pipe(sourceImport());
+    res = res.pipe(sourceImport("/emcjs-fe"));
     if (!REBUILD) {
         res = res.pipe(changed(OUT_PATH, {hasChanged: compareContents}));
     }
@@ -65,3 +63,25 @@ function finish(done) {
 }
 
 export const build = gulp.series(gulp.parallel(copyJS, copyCSS, copyFonts), finish);
+
+export const watch = function() {
+    // JS
+    gulp.watch([
+        `src/**/*.js`,
+        `src/ui/**/*.css`,
+        `src/ui/**/*.html`
+    ], copyJS);
+    // CSS
+    gulp.watch([
+        `src/_style/**/*.css`
+    ], copyCSS);
+    // Fonts
+    gulp.watch([
+        `src/_fonts/**/*.ttf`,
+        `src/_fonts/**/*.eot`,
+        `src/_fonts/**/*.otf`,
+        `src/_fonts/**/*.woff`,
+        `src/_fonts/**/*.woff2`,
+        `src/_fonts/**/*.svg`
+    ], copyFonts);
+};

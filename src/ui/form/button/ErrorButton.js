@@ -1,7 +1,7 @@
 import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
 import {deepClone} from "emcjs/util/helper/DeepClone.js";
 import {debounce} from "emcjs/util/Debouncer.js";
-import {registerFocusable} from "../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import ErrorButtonItemsElementManager from "../../../util/form/manager/errorbutton/ErrorButtonItemsElementManager.js";
 import Button from "./Button.js";
 import "../../i18n/I18nLabel.js";

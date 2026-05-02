@@ -4,3 +4,4 @@ node_modules
 .vscode
 
 # Add any directories, files, or patterns you don't want to be linted
+lib

@@ -4,7 +4,7 @@ import {isEqual} from "emcjs/util/helper/Comparator.js";
 import {debounce} from "emcjs/util/Debouncer.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import DragDropMemory from "../../../../../data/DragDropMemory.js";
 import ContextMenuManagerMixin from "../../../../mixin/ContextMenuManagerMixin.js";

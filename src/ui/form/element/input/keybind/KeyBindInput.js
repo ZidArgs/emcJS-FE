@@ -5,7 +5,7 @@ import {I18nValueObserver} from "emcjs/util/observer/i18n/I18nValueObserver.js";
 import {toStartUppercaseEndLowercase} from "emcjs/util/helper/string/ConvertCase.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {
     setBooleanAttribute, setStringAttribute
 } from "../../../../../util/node/NodeAttributes.js";

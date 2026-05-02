@@ -1,7 +1,7 @@
 import {debounce} from "emcjs/util/Debouncer.js";
 import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
 import CustomFormElement from "../../../../../element/CustomFormElement.js";
-import {registerFocusable} from "../../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../../util/node/NodeAttributes.js";
 import TPL from "./CodeArea.js.html" assert {type: "html"};
 import STYLE from "./CodeArea.js.css" assert {type: "css"};

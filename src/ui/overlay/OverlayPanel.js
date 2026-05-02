@@ -1,7 +1,7 @@
 import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
 import CustomElement from "../element/CustomElement.js";
 import Modal from "../modal/Modal.js";
-import {getFocusableElements} from "../../util/element/ElementFocusHelper.js";
+import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
 import "../form/button/Button.js";
 import "../icon/FontIcon.js";
 import TPL from "./OverlayPanel.js.html" assert {type: "html"};

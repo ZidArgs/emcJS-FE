@@ -1,7 +1,7 @@
 import {immute} from "emcjs/data/Immutable.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
-import {registerFocusable} from "../../../../../util/element/ElementFocusHelper.js";
+import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import "../../../../i18n/builtin/I18nInput.js";
 import "../../../../i18n/builtin/I18nOption.js";

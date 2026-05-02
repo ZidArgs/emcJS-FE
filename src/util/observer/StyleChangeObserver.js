@@ -1,5 +1,5 @@
 import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {getComputedStyleProperties} from "../element/ElementStyleHelper.js";
+import {getComputedStyleProperties} from "../element/ElementStyleRetriever.js";
 import IsConnectedObserver from "./IsConnectedObserver.js";
 
 const OBSERVED_MUTATIONS = {
