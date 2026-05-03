@@ -19,7 +19,7 @@ function copyJS() {
     ];
     let res = gulp.src(FILES);
     res = res.pipe(ImportAnalyzer.register(IN_PATH, OUT_PATH, __dirname));
-    res = res.pipe(sourceImport("/emcjs-fe"));
+    res = res.pipe(sourceImport());
     if (!REBUILD) {
         res = res.pipe(changed(OUT_PATH, {hasChanged: compareContents}));
     }
