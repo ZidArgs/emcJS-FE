@@ -1,4 +1,4 @@
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 
 export function findParentBySelector(source, selectors) {
     if (!(source instanceof Node)) {

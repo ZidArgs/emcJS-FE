@@ -1,4 +1,4 @@
-import {isClass} from "emcjs/util/helper/Class.js";
+import {isClass} from "@emcjs/core/util/helper/Class.js";
 
 export function findParentByClass(source, clazz) {
     if (!(source instanceof Node)) {

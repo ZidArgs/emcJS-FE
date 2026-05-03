@@ -1,4 +1,4 @@
-import {debounce} from "emcjs/util/Debouncer.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import "../i18n/I18nTooltip.js";
 import TPL from "./SearchHeader.js.html" assert {type: "html"};

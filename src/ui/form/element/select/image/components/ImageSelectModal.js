@@ -1,6 +1,6 @@
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
-import CharacterSearch from "emcjs/util/search/CharacterSearch.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import ModalDialog from "../../../../../modal/ModalDialog.js";
 import ElementListCache from "../../../../../../util/element/ElementListCache.js";
 import "../../../../button/Button.js";

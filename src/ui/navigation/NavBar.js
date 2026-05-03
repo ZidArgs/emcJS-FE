@@ -1,9 +1,9 @@
-import EventManager from "emcjs/util/event/EventManager.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventManager from "@emcjs/core/util/event/EventManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {
     isFunction,
     isHttpUrl
-} from "emcjs/util/helper/CheckType.js";
+} from "@emcjs/core/util/helper/CheckType.js";
 import CustomElement from "../element/CustomElement.js";
 import "./button/NavbarButton.js";
 import "./button/HamburgerButton.js";

@@ -1,5 +1,5 @@
-import {debounce} from "emcjs/util/Debouncer.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import OptionGroupRegistry from "../../../../../../data/registry/form/OptionGroupRegistry.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../form/element/select/relation/RelationSelect.js";

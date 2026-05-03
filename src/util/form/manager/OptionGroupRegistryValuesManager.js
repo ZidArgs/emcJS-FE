@@ -1,4 +1,4 @@
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import OptionGroupRegistry from "../../../data/registry/form/OptionGroupRegistry.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 

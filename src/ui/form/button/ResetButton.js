@@ -1,4 +1,4 @@
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import Button from "./Button.js";
 import STYLE from "./ResetButton.js.css" assert {type: "css"};

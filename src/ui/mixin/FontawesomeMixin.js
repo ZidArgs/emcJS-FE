@@ -1,4 +1,4 @@
-import {createMixin} from "emcjs/util/Mixin.js";
+import {createMixin} from "@emcjs/core/util/Mixin.js";
 import STYLE from "./FontawesomeMixin.js.css" assert {type: "css"};
 
 export default createMixin((superclass) => class FontawesomeMixin extends superclass {

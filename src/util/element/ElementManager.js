@@ -1,7 +1,7 @@
-import {debounce} from "emcjs/util/Debouncer.js";
-import {getArrayMutations} from "emcjs/util/helper/collection/ArrayMutations.js";
-import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {getArrayMutations} from "@emcjs/core/util/helper/collection/ArrayMutations.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
 
 export default class ElementManager extends EventTarget {
 

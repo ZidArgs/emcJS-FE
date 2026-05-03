@@ -1,5 +1,5 @@
-import DateUtil from "emcjs/util/date/DateUtil.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import DateUtil from "@emcjs/core/util/date/DateUtil.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../i18n/builtin/I18nInput.js";
 import TPL from "./DataGridCellDateTime.js.html" assert {type: "html"};

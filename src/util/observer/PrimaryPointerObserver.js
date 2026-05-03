@@ -1,4 +1,4 @@
-import {debounce} from "emcjs/util/Debouncer.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import PrimaryPointerEnum from "../../enum/devices/PrimaryPointerEnum.js";
 
 const MEDIA_QUERY_POINTER_COARSE = "(pointer: coarse)";

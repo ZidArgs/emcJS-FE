@@ -1,8 +1,8 @@
 
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import i18n from "emcjs/util/I18n.js";
-import SearchEvery from "emcjs/util/search/SearchEvery.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import i18n from "@emcjs/core/util/I18n.js";
+import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import {sortChildren} from "../../util/node/NodeListSort.js";
 import "./Option.js";

@@ -1,4 +1,4 @@
-import {immute} from "emcjs/data/Immutable.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
 import CustomElement from "../element/CustomElement.js";
 import {safeSetAttribute} from "../../util/node/NodeAttributes.js";
 import "../i18n/I18nLabel.js";

@@ -1,9 +1,9 @@
-import {immute} from "emcjs/data/Immutable.js";
-import SimpleDataProvider from "emcjs/util/dataprovider/SimpleDataProvider.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import SimpleDataProvider from "@emcjs/core/util/dataprovider/SimpleDataProvider.js";
 import {
     deleteAtIndexImmuted, sortDictListByArrayImmuted
-} from "emcjs/util/helper/collection/ArrayMutations.js";
-import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
+} from "@emcjs/core/util/helper/collection/ArrayMutations.js";
+import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import ModalDialog from "../../../../modal/ModalDialog.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";

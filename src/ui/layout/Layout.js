@@ -1,6 +1,6 @@
 import {
     isDict, isStringNotEmpty
-} from "emcjs/util/helper/CheckType.js";
+} from "@emcjs/core/util/helper/CheckType.js";
 import CustomElement from "../element/CustomElement.js";
 import "./panel/HBox.js";
 import "./panel/VBox.js";

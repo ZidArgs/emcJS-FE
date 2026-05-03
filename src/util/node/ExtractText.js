@@ -1,4 +1,4 @@
-import {instanceOfOne} from "emcjs/util/helper/Class.js";
+import {instanceOfOne} from "@emcjs/core/util/helper/Class.js";
 
 export function getInnerText(node, excludedNodeClasses = []) {
     if (!(node instanceof Node)) {

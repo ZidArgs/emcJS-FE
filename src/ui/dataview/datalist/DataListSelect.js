@@ -1,5 +1,5 @@
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
-import {classExtends} from "emcjs/util/helper/Class.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import {classExtends} from "@emcjs/core/util/helper/Class.js";
 import DataList from "./DataList.js";
 import DataListSelectEntry from "./components/DataListSelectEntry.js";
 import STYLE from "./DataListSelect.js.css" assert {type: "css"};

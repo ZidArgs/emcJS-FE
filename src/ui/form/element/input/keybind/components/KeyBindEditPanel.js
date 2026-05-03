@@ -1,6 +1,6 @@
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import {resolveKey} from "emcjs/util/keyboard/KeyConverter.js";
-import {toStartUppercaseEndLowercase} from "emcjs/util/helper/string/ConvertCase.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import {resolveKey} from "@emcjs/core/util/keyboard/KeyConverter.js";
+import {toStartUppercaseEndLowercase} from "@emcjs/core/util/helper/string/ConvertCase.js";
 import CustomElement from "../../../../../element/CustomElement.js";
 import "../../../../../keyboard/KeyCap.js";
 import TPL from "./KeyBindEditPanel.js.html" assert {type: "html"};

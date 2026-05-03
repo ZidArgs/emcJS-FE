@@ -1,10 +1,10 @@
 
-import jsonParse from "emcjs/patches/JSONParser.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import ObservableStorage from "emcjs/data/storage/observable/ObservableStorage.js";
-import AppStateStorageWrapper from "emcjs/data/state/AppStateStorageWrapper.js";
-import LogicCompiler from "emcjs/util/logic/processor/LogicCompiler.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import jsonParse from "@emcjs/core/patches/JSONParser.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableStorage.js";
+import AppStateStorageWrapper from "@emcjs/core/data/state/AppStateStorageWrapper.js";
+import LogicCompiler from "@emcjs/core/util/logic/processor/LogicCompiler.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 
 const CONTEXTS = new WeakMap();

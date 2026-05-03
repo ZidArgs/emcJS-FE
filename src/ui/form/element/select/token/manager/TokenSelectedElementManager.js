@@ -1,4 +1,4 @@
-import EventManager from "emcjs/util/event/EventManager.js";
+import EventManager from "@emcjs/core/util/event/EventManager.js";
 import ElementManager from "../../../../../../util/element/ElementManager.js";
 import "../../../../../i18n/I18nLabel.js";
 

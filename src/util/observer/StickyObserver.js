@@ -1,4 +1,4 @@
-import {isEqual} from "emcjs/util/helper/Comparator.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import {getBoundingContentRect} from "../element/ElementSizeRetriever.js";
 import StyleChangeObserver from "./StyleChangeObserver.js";
 

@@ -1,7 +1,7 @@
 
 import {
     isEqual, numberedStringComparator
-} from "emcjs/util/helper/Comparator.js";
+} from "@emcjs/core/util/helper/Comparator.js";
 import {getInnerText} from "./ExtractText.js";
 
 export function nodeTextComparator(a, b) {

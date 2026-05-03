@@ -1,5 +1,5 @@
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {isEqual} from "emcjs/util/helper/Comparator.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import CustomElementDelegating from "../../../../element/CustomElementDelegating.js";
 import TPL from "./DataGridCell.js.html" assert {type: "html"};
 import STYLE from "./DataGridCell.js.css" assert {type: "css"};

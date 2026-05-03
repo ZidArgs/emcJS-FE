@@ -1,4 +1,4 @@
-import ArraySet from "emcjs/data/collection/ArraySet.js";
+import ArraySet from "@emcjs/core/data/collection/ArraySet.js";
 
 export default class ElementListCache {
 

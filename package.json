@@ -1,5 +1,5 @@
 {
-  "name": "emcjs-fe",
+  "name": "@emcjs/fe",
   "version": "0.0.1",
   "description": "Modular JS API - Frontend",
   "type": "module",
@@ -7,11 +7,17 @@
     "type": "git",
     "url": "git+ssh://git@github.com:ZidArgs/emcJS-FE.git"
   },
+  "bugs": {
+    "url": "https://github.com/ZidArgs/emcJS-FE/issues"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "author": "Denis Weiß (ZidArgs)",
   "license": "MIT",
   "homepage": "https://github.com/ZidArgs/emcJS-FE",
   "dependencies": {
-    "emcjs": "git+https://bitbucket.org/zidargs/emcjs.git/#0.29.4"
+    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git#1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

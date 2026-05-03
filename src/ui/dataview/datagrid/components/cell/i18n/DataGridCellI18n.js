@@ -1,4 +1,4 @@
-import {debounce} from "emcjs/util/Debouncer.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../i18n/builtin/I18nInput.js";
 import "../../../../../i18n/I18nLabel.js";

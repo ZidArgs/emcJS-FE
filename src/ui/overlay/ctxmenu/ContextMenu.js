@@ -1,6 +1,6 @@
-import EventManager from "emcjs/util/event/EventManager.js";
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import EventManager from "@emcjs/core/util/event/EventManager.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CustomElement from "../../element/CustomElement.js";
 import ContextMenuLayer from "./ContextMenuLayer.js";
 import "./ContextMenuItem.js";

@@ -1,8 +1,8 @@
-import {immute} from "emcjs/data/Immutable.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {delimitInteger} from "emcjs/util/helper/number/Integer.js";
-import {isEmpty} from "emcjs/util/helper/CheckType.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
+import {delimitInteger} from "@emcjs/core/util/helper/number/Integer.js";
+import {isEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import CustomFormElement from "../../element/CustomFormElement.js";
 import STYLE from "./AbstractFormElement.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./AbstractFormElement.js.json" assert {type: "json"};

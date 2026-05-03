@@ -1,7 +1,7 @@
 import path from "path";
 import gulp from "gulp";
 import changed, {compareContents} from "gulp-changed";
-import ImportAnalyzer from "emcjs/build_tools/ImportAnalyzer.js";
+import ImportAnalyzer from "@emcjs/core/build_tools/ImportAnalyzer.js";
 import sourceImport from "./build_tools/SourceImport.js";
 
 const __dirname = path.resolve();

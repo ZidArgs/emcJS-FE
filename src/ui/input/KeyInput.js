@@ -1,4 +1,4 @@
-import {toStartUppercaseEndLowercase} from "emcjs/util/helper/string/ConvertCase.js";
+import {toStartUppercaseEndLowercase} from "@emcjs/core/util/helper/string/ConvertCase.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import TPL from "./KeyInput.js.html" assert {type: "html"};
 import STYLE from "./KeyInput.js.css" assert {type: "css"};

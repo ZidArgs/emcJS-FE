@@ -1,4 +1,4 @@
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import TokenRegistry from "../../../data/registry/form/TokenRegistry.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 import I18nOption from "../../../ui/i18n/builtin/I18nOption.js";

@@ -1,4 +1,4 @@
-import {debounce} from "emcjs/util/Debouncer.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import "../../polyfills/adoptedStyleSheet.polyfill.js";
 
 export default class StyleVariables {

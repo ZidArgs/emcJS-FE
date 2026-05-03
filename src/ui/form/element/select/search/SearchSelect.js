@@ -1,9 +1,9 @@
-import {immute} from "emcjs/data/Immutable.js";
-import i18n from "emcjs/util/I18n.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import CharacterSearch from "emcjs/util/search/CharacterSearch.js";
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import i18n from "@emcjs/core/util/I18n.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
@@ -21,7 +21,7 @@ import "../../../../i18n/I18nLabel.js";
 import TPL from "./SearchSelect.js.html" assert {type: "html"};
 import STYLE from "./SearchSelect.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./SearchSelect.js.json" assert {type: "json"};
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
 
 const ESCAPE_KEYS = ["Tab", "Escape"];
 const SUBMIT_KEYS = ["Enter", " "];

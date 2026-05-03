@@ -1,8 +1,8 @@
 
-import i18n from "emcjs/util/I18n.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import SearchEvery from "emcjs/util/search/SearchEvery.js";
-import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
+import i18n from "@emcjs/core/util/I18n.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
+import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import ListSelectionHelper from "../../util/form/ListSelectionController.js";
 import {sortChildren} from "../../util/node/NodeListSort.js";
@@ -10,7 +10,7 @@ import "../header/SelectionHeader.js";
 import "./Option.js";
 import TPL from "./ListSelect.js.html" assert {type: "html"};
 import STYLE from "./ListSelect.js.css" assert {type: "css"};
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 
 /**
  * @deprecated

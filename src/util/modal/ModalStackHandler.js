@@ -1,4 +1,4 @@
-import UniqueEntriesStack from "emcjs/data/stack/UniqueEntriesStack.js";
+import UniqueEntriesStack from "@emcjs/core/data/stack/UniqueEntriesStack.js";
 
 class ModalStackHandler {
 

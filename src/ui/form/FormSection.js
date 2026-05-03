@@ -1,5 +1,5 @@
-import {immute} from "emcjs/data/Immutable.js";
-import {delimitInteger} from "emcjs/util/helper/number/Integer.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import {delimitInteger} from "@emcjs/core/util/helper/number/Integer.js";
 import CustomElement from "../element/CustomElement.js";
 import {findAllParentsBySelector} from "../../util/node/FindParentBySelector.js";
 import {

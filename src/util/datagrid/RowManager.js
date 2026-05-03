@@ -1,10 +1,10 @@
-import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {isArrayOf} from "emcjs/util/helper/CheckType.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import ArraySet from "emcjs/data/collection/ArraySet.js";
-import {getArrayMutations} from "emcjs/util/helper/collection/ArrayMutations.js";
-import EventManager from "emcjs/util/event/EventManager.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
+import {isArrayOf} from "@emcjs/core/util/helper/CheckType.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import ArraySet from "@emcjs/core/data/collection/ArraySet.js";
+import {getArrayMutations} from "@emcjs/core/util/helper/collection/ArrayMutations.js";
+import EventManager from "@emcjs/core/util/event/EventManager.js";
 import CellCache from "../../data/datagrid/CellCache.js";
 import CellManager from "./CellManager.js";
 

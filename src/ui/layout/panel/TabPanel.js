@@ -1,4 +1,4 @@
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import CustomElement from "../../element/CustomElement.js";
 import "../../form/button/Button.js";
 import TPL from "./TabPanel.js.html" assert {type: "html"};

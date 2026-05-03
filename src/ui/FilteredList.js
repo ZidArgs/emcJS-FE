@@ -1,4 +1,4 @@
-import CharacterSearch from "emcjs/util/search/CharacterSearch.js";
+import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
 import CustomElement from "./element/CustomElement.js";
 import {getInnerText} from "../util/node/ExtractText.js";
 import "./header/SearchHeader.js";

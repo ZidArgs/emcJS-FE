@@ -1,4 +1,4 @@
-import Enum from "emcjs/data/Enum.js";
+import Enum from "@emcjs/core/data/Enum.js";
 
 export default class VerticalAlign extends Enum {
 

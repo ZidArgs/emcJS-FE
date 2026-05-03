@@ -1,6 +1,6 @@
 
-import DataReceiverMixin from "emcjs/util/datareceiver/DataReceiverMixin.js";
-import {classExtends} from "emcjs/util/helper/Class.js";
+import DataReceiverMixin from "@emcjs/core/util/datareceiver/DataReceiverMixin.js";
+import {classExtends} from "@emcjs/core/util/helper/Class.js";
 import CustomElement from "../../element/CustomElement.js";
 import ElementManager from "../../../util/element/ElementManager.js";
 import BusyIndicator from "../../BusyIndicator.js";

@@ -1,5 +1,5 @@
 
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import {safeSetAttribute} from "../node/NodeAttributes.js";
 
 export function createErrorElement(ref, name, value) {

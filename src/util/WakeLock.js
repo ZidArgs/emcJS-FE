@@ -1,5 +1,5 @@
-import NotAllowedError from "emcjs/error/NotAllowedError.js";
-import NotSupportedError from "emcjs/error/NotSupportedError.js";
+import NotAllowedError from "@emcjs/core/error/NotAllowedError.js";
+import NotSupportedError from "@emcjs/core/error/NotSupportedError.js";
 
 /**
  * Implements an easy way to use the Screen Wake Lock API.

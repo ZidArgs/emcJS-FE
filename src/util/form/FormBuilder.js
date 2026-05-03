@@ -1,4 +1,4 @@
-import {isNullOrFalse} from "emcjs/util/helper/CheckType.js";
+import {isNullOrFalse} from "@emcjs/core/util/helper/CheckType.js";
 import HTMLTemplate from "../template/HTMLTemplate.js";
 import FormElementRegistry from "../../data/registry/form/FormElementRegistry.js";
 import OptionGroupRegistryChoiceManager from "./manager/OptionGroupRegistryChoiceManager.js";

@@ -1,4 +1,4 @@
-import {appUID} from "emcjs/util/helper/UniqueGenerator.js";
+import {appUID} from "@emcjs/core/util/helper/UniqueGenerator.js";
 import DragDropMemory from "../../data/DragDropMemory.js";
 import CustomElement from "../element/CustomElement.js";
 import TPL from "./DragElement.js.html" assert {type: "html"};

@@ -1,4 +1,4 @@
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import CustomElement from "../element/CustomElement.js";
 import Modal from "../modal/Modal.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";

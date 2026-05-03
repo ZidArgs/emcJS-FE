@@ -1,5 +1,5 @@
-import {debounce} from "emcjs/util/Debouncer.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import CustomFormElement from "../../../../../element/CustomFormElement.js";
 import {registerFocusable} from "../../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../../util/node/NodeAttributes.js";

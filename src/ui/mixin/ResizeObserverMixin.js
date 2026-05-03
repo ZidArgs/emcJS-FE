@@ -1,4 +1,4 @@
-import {createMixin} from "emcjs/util/Mixin.js";
+import {createMixin} from "@emcjs/core/util/Mixin.js";
 
 const RESIZE_OBSERVER = new ResizeObserver((entries) => {
     for (const entry of entries) {

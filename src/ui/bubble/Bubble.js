@@ -1,4 +1,4 @@
-import {debounce} from "emcjs/util/Debouncer.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CustomElement from "../element/CustomElement.js";
 import BubbleLayer from "./BubbleLayer.js";
 import TPL from "./Bubble.js.html" assert {type: "html"};

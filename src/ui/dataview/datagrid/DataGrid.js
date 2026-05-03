@@ -1,10 +1,10 @@
 
-import {appUID} from "emcjs/util/helper/UniqueGenerator.js";
-import {isEqual} from "emcjs/util/helper/Comparator.js";
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import {filterInPlace} from "emcjs/util/helper/collection/ArrayMutations.js";
-import DataReceiverMixin from "emcjs/util/datareceiver/DataReceiverMixin.js";
+import {appUID} from "@emcjs/core/util/helper/UniqueGenerator.js";
+import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {filterInPlace} from "@emcjs/core/util/helper/collection/ArrayMutations.js";
+import DataReceiverMixin from "@emcjs/core/util/datareceiver/DataReceiverMixin.js";
 import CustomElement from "../../element/CustomElement.js";
 import CellCache from "../../../data/datagrid/CellCache.js";
 import BusyIndicator from "../../BusyIndicator.js";

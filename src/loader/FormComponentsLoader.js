@@ -1,4 +1,4 @@
-import MapLocker from "emcjs/data/locker/MapLocker.js";
+import MapLocker from "@emcjs/core/data/locker/MapLocker.js";
 
 // structural
 import FormSection from "../ui/form/FormSection.js";

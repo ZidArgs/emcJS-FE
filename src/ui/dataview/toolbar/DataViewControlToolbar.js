@@ -1,11 +1,11 @@
-import {debounce} from "emcjs/util/Debouncer.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import CustomElementDelegating from "../../element/CustomElementDelegating.js";
 import "../../i18n/I18nLabel.js";
 import "../../form/button/Button.js";
 import TPL from "./DataViewControlToolbar.js.html" assert {type: "html"};
 import STYLE from "./DataViewControlToolbar.js.css" assert {type: "css"};
-import AbstractDataProvider from "emcjs/util/dataprovider/AbstractDataProvider.js";
+import AbstractDataProvider from "@emcjs/core/util/dataprovider/AbstractDataProvider.js";
 
 // TODO add sort manager (modal with two lists, one contains available columns, the other the sort order)
 

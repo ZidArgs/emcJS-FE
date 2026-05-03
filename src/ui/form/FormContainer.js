@@ -1,5 +1,5 @@
-import {debounce} from "emcjs/util/Debouncer.js";
-import {throttle} from "emcjs/util/Throttle.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {throttle} from "@emcjs/core/util/Throttle.js";
 import CustomElement from "../element/CustomElement.js";
 import MutationObserverManager from "../../util/observer/manager/MutationObserverManager.js";
 import {nodeOccurenceComparator} from "../../util/node/NodeListSort.js";

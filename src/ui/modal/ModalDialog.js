@@ -1,4 +1,4 @@
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 import Modal from "./Modal.js";
 import Direction from "../../enum/Direction.js";
 import GlobalStyleVariables from "../../util/style/GlobalStyleVariables.js";

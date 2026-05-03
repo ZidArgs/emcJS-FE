@@ -1,4 +1,4 @@
-import SearchEvery from "emcjs/util/search/SearchEvery.js";
+import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
 import CustomElement from "../element/CustomElement.js";
 import FormContext from "../../util/form/context/FormContext.js";
 import FormBuilder from "../../util/form/FormBuilder.js";

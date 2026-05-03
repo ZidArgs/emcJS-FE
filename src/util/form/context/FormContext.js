@@ -1,11 +1,11 @@
-import ObservableStorage from "emcjs/data/storage/observable/ObservableStorage.js";
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableStorage.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {
     elevateObject, getFromObjectByPath
-} from "emcjs/util/helper/collection/ObjectContent.js";
-import {instanceOfOne} from "emcjs/util/helper/Class.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+} from "@emcjs/core/util/helper/collection/ObjectContent.js";
+import {instanceOfOne} from "@emcjs/core/util/helper/Class.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 import FormContainer from "../../../ui/form/FormContainer.js";
 import MutationObserverManager from "../../observer/manager/MutationObserverManager.js";

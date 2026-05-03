@@ -1,6 +1,6 @@
 
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../i18n/builtin/I18nTextarea.js";
 import TPL from "./DataGridCellText.js.html" assert {type: "html"};

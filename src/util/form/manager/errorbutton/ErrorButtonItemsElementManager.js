@@ -1,4 +1,4 @@
-import EventManager from "emcjs/util/event/EventManager.js";
+import EventManager from "@emcjs/core/util/event/EventManager.js";
 import ElementManager from "../../../element/ElementManager.js";
 import "../../../../ui/i18n/I18nTextbox.js";
 import "../../../../ui/form/button/components/ErrorButtonItem.js";

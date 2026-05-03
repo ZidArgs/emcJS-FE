@@ -1,4 +1,4 @@
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import ErrorButton from "../../../../ui/form/button/ErrorButton.js";
 import FormContext from "../../context/FormContext.js";
 

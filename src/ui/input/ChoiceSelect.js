@@ -4,8 +4,8 @@ import ChildlistMutationObserverMixin from "../mixin/ChildlistMutationObserverMi
 import "./Option.js";
 import TPL from "./ChoiceSelect.js.html" assert {type: "html"};
 import STYLE from "./ChoiceSelect.js.css" assert {type: "css"};
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
-import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 
 /**
  * @deprecated

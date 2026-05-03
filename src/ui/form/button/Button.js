@@ -1,5 +1,5 @@
 
-import {deepClone} from "emcjs/util/helper/DeepClone.js";
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
 import CustomFormElement from "../../element/CustomFormElement.js";
 import ButtonVariants from "../../../enum/form/ButtonVariants.js";
 import ButtonBorderPositions from "../../../enum/form/ButtonBorderPositions.js";

@@ -1,6 +1,6 @@
-import DateUtil from "emcjs/util/date/DateUtil.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import DateUtil from "@emcjs/core/util/date/DateUtil.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../i18n/builtin/I18nInput.js";
 import TPL from "./DataGridCellTime.js.html" assert {type: "html"};

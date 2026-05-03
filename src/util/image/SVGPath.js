@@ -1,4 +1,4 @@
-import {isStringNotEmpty} from "emcjs/util/helper/CheckType.js";
+import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
 
 const PATH_COMMA_REGEXP = /,/ig;
 const PATH_DOUBLE_SPACE_REGEXP = /\s\s/ig;

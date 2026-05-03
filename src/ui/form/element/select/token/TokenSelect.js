@@ -1,13 +1,13 @@
-import {immute} from "emcjs/data/Immutable.js";
-import i18n from "emcjs/util/I18n.js";
-import EventMultiTargetManager from "emcjs/util/event/EventMultiTargetManager.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
-import {debounce} from "emcjs/util/Debouncer.js";
-import CharacterSearch from "emcjs/util/search/CharacterSearch.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import i18n from "@emcjs/core/util/I18n.js";
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
 import {
     isStringNotEmpty, isArrayNotEmpty
-} from "emcjs/util/helper/CheckType.js";
+} from "@emcjs/core/util/helper/CheckType.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";

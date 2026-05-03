@@ -1,5 +1,5 @@
-import LogicOperatorRegistry from "emcjs/data/registry/LogicOperatorRegistry.js";
-import {debounce} from "emcjs/util/Debouncer.js";
+import LogicOperatorRegistry from "@emcjs/core/data/registry/LogicOperatorRegistry.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
 import ModalDialog from "../../../../../../modal/ModalDialog.js";
 import AbstractElement from "../../../../../../logic/abstract/AbstractElement.js";
 import BusyIndicatorManager from "../../../../../../../util/busy/BusyIndicatorManager.js";

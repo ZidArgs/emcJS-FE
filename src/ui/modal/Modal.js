@@ -1,10 +1,10 @@
 
-import UniqueEntriesStack from "emcjs/data/stack/UniqueEntriesStack.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
+import UniqueEntriesStack from "@emcjs/core/data/stack/UniqueEntriesStack.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {
     isColorString, isPrimitive,
     isStringNotEmpty
-} from "emcjs/util/helper/CheckType.js";
+} from "@emcjs/core/util/helper/CheckType.js";
 import CustomElement from "../element/CustomElement.js";
 import Direction from "../../enum/Direction.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";

@@ -1,4 +1,4 @@
-import ActiveCounter from "emcjs/util/counter/ActiveCounter.js";
+import ActiveCounter from "@emcjs/core/util/counter/ActiveCounter.js";
 import CustomElement from "./element/CustomElement.js";
 import TPL from "./BusyIndicator.js.html" assert {type: "html"};
 import STYLE from "./BusyIndicator.js.css" assert {type: "css"};

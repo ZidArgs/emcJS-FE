@@ -1,4 +1,4 @@
-import {sleep} from "emcjs/util/process/Sleep.js";
+import {sleep} from "@emcjs/core/util/process/Sleep.js";
 
 /**
  * This is some messed up hack to determine when an

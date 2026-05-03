@@ -1,5 +1,5 @@
-import {immute} from "emcjs/data/Immutable.js";
-import FileSystem from "emcjs/util/file/FileSystem.js";
+import {immute} from "@emcjs/core/data/Immutable.js";
+import FileSystem from "@emcjs/core/util/file/FileSystem.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";

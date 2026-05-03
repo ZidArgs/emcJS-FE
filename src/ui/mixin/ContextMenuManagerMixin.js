@@ -1,6 +1,6 @@
-import {createMixin} from "emcjs/util/Mixin.js";
-import EventTargetManager from "emcjs/util/event/EventTargetManager.js";
-import ActiveCounter from "emcjs/util/counter/ActiveCounter.js";
+import {createMixin} from "@emcjs/core/util/Mixin.js";
+import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import ActiveCounter from "@emcjs/core/util/counter/ActiveCounter.js";
 import ContextMenuLayer from "../overlay/ctxmenu/ContextMenuLayer.js";
 
 const DEFAULT_MENU_ID = "main";

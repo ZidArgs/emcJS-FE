@@ -1,8 +1,8 @@
 import {
     isArrayOf, isStringNotEmpty
-} from "emcjs/util/helper/CheckType.js";
-import {jsonParseSafe} from "emcjs/util/helper/JSON.js";
-import {dashedToCamelCase} from "emcjs/util/helper/string/ConvertCase.js";
+} from "@emcjs/core/util/helper/CheckType.js";
+import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {dashedToCamelCase} from "@emcjs/core/util/helper/string/ConvertCase.js";
 
 export function setAttributes(el, attr) {
     const attributeList = el.constructor.attributes ?? [];

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import sourceImport, {registerImportHandler} from "emcjs/build_tools/SourceImport.js";
+import sourceImport, {registerImportHandler} from "@emcjs/core/build_tools/SourceImport.js";
 
 export default sourceImport;
 
