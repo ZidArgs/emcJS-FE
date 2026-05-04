@@ -1,4 +1,4 @@
-import LogicOperatorRegistry from "@emcjs/core/data/registry/LogicOperatorRegistry.js";
+import LogicOperatorRegistry from "@emcjs/core/registry/LogicOperatorRegistry.js";
 import AbstractElement from "./AbstractElement.js";
 import TPL from "./AbstractLiteralStateElement.js.html" assert {type: "html"};
 import STYLE from "./AbstractLiteralStateElement.js.css" assert {type: "css"};

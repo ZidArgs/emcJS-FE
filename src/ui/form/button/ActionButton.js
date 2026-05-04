@@ -1,5 +1,5 @@
 
-import CustomActionRegistry from "@emcjs/core/data/registry/CustomActionRegistry.js";
+import CustomActionRegistry from "@emcjs/core/registry/CustomActionRegistry.js";
 import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
 import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import Button from "./Button.js";
