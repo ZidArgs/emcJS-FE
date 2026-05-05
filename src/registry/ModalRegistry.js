@@ -1,6 +1,6 @@
 
 import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
-import Modal from "../../ui/modal/Modal.js";
+import Modal from "../ui/modal/Modal.js";
 
 class ModalRegistry {
 

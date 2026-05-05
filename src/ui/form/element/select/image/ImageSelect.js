@@ -3,7 +3,7 @@ import i18n from "@emcjs/core/util/I18n.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import {nodeTextComparator} from "../../../../../util/node/NodeListSort.js";

@@ -1,5 +1,5 @@
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
-import OptionGroupRegistry from "../../../data/registry/form/OptionGroupRegistry.js";
+import OptionGroupRegistry from "../../../registry/form/OptionGroupRegistry.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 import I18nOption from "../../../ui/i18n/builtin/I18nOption.js";
 

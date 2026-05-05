@@ -3,7 +3,7 @@ import {reduceLogic} from "@emcjs/core/util/logic/LogicReducer.js";
 import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import DragDropMemory from "../../../../../data/DragDropMemory.js";

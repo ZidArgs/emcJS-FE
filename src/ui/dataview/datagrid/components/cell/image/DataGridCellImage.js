@@ -1,6 +1,6 @@
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
-import OptionGroupRegistry from "../../../../../../data/registry/form/OptionGroupRegistry.js";
+import OptionGroupRegistry from "../../../../../../registry/form/OptionGroupRegistry.js";
 import DataGridCell from "../DataGridCell.js";
 import "../../../../../form/element/select/image/ImageSelect.js";
 import TPL from "./DataGridCellImage.js.html" assert {type: "html"};

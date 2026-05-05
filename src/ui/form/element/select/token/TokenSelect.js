@@ -9,7 +9,7 @@ import {
     isStringNotEmpty, isArrayNotEmpty
 } from "@emcjs/core/util/helper/CheckType.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import {nodeTextComparator} from "../../../../../util/node/NodeListSort.js";

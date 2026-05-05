@@ -5,7 +5,7 @@ import {debounce} from "@emcjs/core/util/Debouncer.js";
 import SimpleDataProvider from "@emcjs/core/util/dataprovider/SimpleDataProvider.js";
 import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import {setAttributes} from "../../../../../util/node/NodeAttributes.js";

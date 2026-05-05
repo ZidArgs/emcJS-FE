@@ -3,7 +3,7 @@ import SimpleDataProvider from "@emcjs/core/util/dataprovider/SimpleDataProvider
 import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import ModalDialog from "../../../../modal/ModalDialog.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import Direction from "../../../../../enum/Direction.js";
 import "../../../../dataview/datagrid/DataGrid.js";

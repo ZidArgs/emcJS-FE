@@ -1,6 +1,6 @@
 import {instanceOfOne} from "@emcjs/core/util/helper/Class.js";
-import {setAttributes} from "../../../util/node/NodeAttributes.js";
-import CustomFormElement from "../../../ui/element/CustomFormElement.js";
+import {setAttributes} from "../../util/node/NodeAttributes.js";
+import CustomFormElement from "../../ui/element/CustomFormElement.js";
 
 const EXPECTED_CLASSES = [
     HTMLInputElement,

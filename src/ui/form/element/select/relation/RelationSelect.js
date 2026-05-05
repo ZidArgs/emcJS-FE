@@ -6,7 +6,7 @@ import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
 import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import {sortNodeList} from "../../../../../util/node/NodeListSort.js";

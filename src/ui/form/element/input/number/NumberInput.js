@@ -1,6 +1,6 @@
 import {immute} from "@emcjs/core/data/Immutable.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
-import FormElementRegistry from "../../../../../data/registry/form/FormElementRegistry.js";
+import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {
     setBooleanAttribute, setNumberAttribute
