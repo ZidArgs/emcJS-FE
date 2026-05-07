@@ -30,7 +30,7 @@ export default defineConfig([
         "**/.idea",
         "**/.vscode",
         "**/lib",
-        "gulpfile.js"
+        "**/gulpfile.js"
     ]),
     {
         extends: compat.extends("eslint:recommended"),
