@@ -109,40 +109,37 @@
     display: none;
 }
 
-#error {
-    display: block;
-    flex-shrink: 0;
-    max-width: 100%;
-    padding: 0px 5px;
-    margin: 4px 0 0;
-    color: var(--form-invalid-text-color, #a70000);
-    background-color: var(--form-invalid-back-color, #ffeeee);
-    font-size: 0.9em;
-    line-height: 1.4em;
-    font-style: italic;
-    cursor: pointer;
-    user-select: none;
-}
-
-:host([hideerrors]:not([hideerrors="false"])) #error,
-#error:empty {
-    display: none;
-}
-
 #description,
+#error,
 #subtext {
     display: block;
     flex-shrink: 0;
     max-width: 100%;
     padding: 0px 5px;
-    margin: 0 0 4px;
     font-size: 0.9em;
     line-height: 1.4em;
     font-style: italic;
-    cursor: default;
     user-select: none;
+    cursor: default;
 }
 
+#error {
+    color: var(--form-invalid-text-color, #a70000);
+    background-color: var(--form-invalid-back-color, #ffeeee);
+    cursor: pointer;
+}
+
+#description {
+    margin: 0 0 4px;
+}
+
+#error,
+#subtext {
+    margin: 4px 0 0;
+}
+
+:host([hideerrors]:not([hideerrors="false"])) #error,
+#error:empty,
 #description:empty,
 #subtext:empty {
     display: none;

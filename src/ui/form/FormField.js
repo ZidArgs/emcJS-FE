@@ -247,6 +247,7 @@ export default class FormField extends CustomElement {
             "label",
             "tooltip",
             "description",
+            "subtext",
             "control-buttons"
         ];
     }
