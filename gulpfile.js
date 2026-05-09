@@ -1,8 +1,9 @@
 import path from "path";
 import gulp from "gulp";
 import changed, {compareContents} from "gulp-changed";
-import ImportAnalyzer from "@emcjs/core/build_tools/ImportAnalyzer.js";
-import sourceImport from "./build_tools/SourceImport.js";
+import ImportAnalyzer from "@zidargs/buildtools/ImportAnalyzer.js";
+import SourceImport from "@zidargs/buildtools/SourceImport.js";
+import "./_build_tools/RegisterImportHandlers.js";
 
 const __dirname = path.resolve();
 
@@ -19,7 +20,7 @@ function copyJS() {
     ];
     let res = gulp.src(FILES);
     res = res.pipe(ImportAnalyzer.register(IN_PATH, OUT_PATH, __dirname));
-    res = res.pipe(sourceImport());
+    res = res.pipe(SourceImport.compiler());
     if (!REBUILD) {
         res = res.pipe(changed(OUT_PATH, {hasChanged: compareContents}));
     }

@@ -1,9 +1,7 @@
 import fs from "fs";
 import path from "path";
-import sourceImport, {registerImportHandler} from "@emcjs/core/build_tools/SourceImport.js";
-import {resolvePackageName} from "@emcjs/core/build_tools/util/ResolvePackage.js";
-
-export default sourceImport;
+import SourceImport from "@zidargs/buildtools/SourceImport.js";
+import {resolvePackageName} from "@zidargs/buildtools/util/ResolvePackage.js";
 
 export const PACKAGE_NAME = resolvePackageName(import.meta.dirname);
 
@@ -17,7 +15,7 @@ function normalizePath(path) {
 ////////////////////////////////
 // register frontend handlers //
 ////////////////////////////////
-registerImportHandler("html", (sourceDir, name, contentPath) => {
+SourceImport.registerImportHandler("html", (sourceDir, name, contentPath) => {
     const resolvedPath = path.resolve(sourceDir, contentPath);
     // if the file exists
     if (fs.existsSync(resolvedPath)) {
@@ -30,7 +28,7 @@ registerImportHandler("html", (sourceDir, name, contentPath) => {
     return `import Template from "${modulePath}";`;
 });
 
-registerImportHandler("css", (sourceDir, name, contentPath) => {
+SourceImport.registerImportHandler("css", (sourceDir, name, contentPath) => {
     const resolvedPath = path.resolve(sourceDir, contentPath);
     // if the file exists
     if (fs.existsSync(resolvedPath)) {
