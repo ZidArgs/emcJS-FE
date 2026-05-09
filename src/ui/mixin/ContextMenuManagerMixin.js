@@ -1,4 +1,4 @@
-import {createMixin} from "@emcjs/core/util/Mixin.js";
+import {createMixin} from "@emcjs/core/mixin/Mixin.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import ActiveCounter from "@emcjs/core/util/counter/ActiveCounter.js";
 import ContextMenuLayer from "../overlay/ctxmenu/ContextMenuLayer.js";

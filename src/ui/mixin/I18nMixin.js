@@ -1,4 +1,4 @@
-import {createMixin} from "@emcjs/core/util/Mixin.js";
+import {createMixin} from "@emcjs/core/mixin/Mixin.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import i18n from "@emcjs/core/util/I18n.js";
 

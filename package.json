@@ -1,6 +1,6 @@
 {
   "name": "@emcjs/fe",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Modular JS API - Frontend",
   "type": "module",
   "repository": {
@@ -17,7 +17,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ZidArgs/emcJS-FE",
   "dependencies": {
-    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.0.6"
+    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

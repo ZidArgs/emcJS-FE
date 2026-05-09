@@ -1,4 +1,4 @@
-import Enum from "@emcjs/core/data/Enum.js";
+import Enum from "@emcjs/core/enum/Enum.js";
 
 export default class FixedAnchor extends Enum {
 
