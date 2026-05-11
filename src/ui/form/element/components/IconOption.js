@@ -24,11 +24,11 @@ export default class IconOption extends CustomElement {
     }
 
     set icon(val) {
-        this.setAttribute("icon", val);
+        this.setStringAttribute("icon", val);
     }
 
     get icon() {
-        return this.getAttribute("icon");
+        return this.getStringAttribute("icon");
     }
 
     set selected(value) {
