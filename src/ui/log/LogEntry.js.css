@@ -1,0 +1,112 @@
+:host {
+    display: block;
+}
+
+:host(:not(:last-child)) {
+    margin-bottom: 4px;
+}
+
+.container {
+    display: block;
+    padding: 4px;
+    border-radius: 4px;
+    color: #ffffff;
+    background-color: #333333;
+
+    .content {
+        position: sticky;
+        display: flex;
+        align-items: flex-start;
+        top: 0px;
+        margin: -4px;
+        padding: 4px;
+        border-radius: 4px;
+        background-color: #333333;
+        box-shadow: 0px -4px 0px 0px #222;
+        z-index: 10;
+
+        #time {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            margin-right: 0.5em;
+            padding: 0.05em 0.5em;
+            background-color: #222;
+            border-radius: 2px;
+            font-size: 0.9em;
+            white-space: pre;
+        }
+
+        #message {
+            display: block;
+            flex: 1;
+            white-space: pre;
+        }
+    }
+
+    #children {
+        position: relative;
+        display: none;
+        margin-top: 0.5em;
+        margin-left: 2.25em;
+        padding: 4px;
+        background-color: #222;
+        border-radius: 6px;
+        z-index: 0;
+    }
+
+    &:has(#collapse:not(:checked)) #children {
+        display: none;
+    }
+}
+
+:host([type=error]) .container {
+    color: #ffbaba;
+    background-color: #640000;
+}
+
+:host([type=warn]) .container {
+    color: #ffffba;
+    background-color: #856600;
+}
+
+:host([type=info]) .container {
+    color: #babaff;
+    background-color: #000064;
+}
+
+#collapse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    margin: 0em 1em 0em .25em;
+    pointer-events: none;
+    appearance: none;
+    color: inherit;
+    transform-origin: center;
+
+    &::after {
+        line-height: 1em;
+    }
+
+    &:checked {
+        transform: rotate(90deg);
+    }
+}
+
+:host(:not(:empty)) {
+    #children {
+        display: block;
+    }
+
+    #collapse {
+        pointer-events: all;
+
+        &::after {
+            content: "▶";
+        }
+    }
+}
