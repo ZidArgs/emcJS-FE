@@ -97,7 +97,7 @@ export default defineConfig([
                 asyncArrow: "always"
             }],
 
-            "@stylistic/function-paren-newline": ["error", {minItems: 6}],
+            "@stylistic/function-paren-newline": ["error", "multiline"],
 
             "@stylistic/function-call-spacing": ["error", "never"],
 

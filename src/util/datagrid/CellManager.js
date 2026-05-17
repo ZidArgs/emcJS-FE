@@ -206,9 +206,7 @@ export default class CellManager extends EventTarget {
                 this.#types.set(name, type);
             } else if (this.#types.get(name) !== type) {
                 const oldEl = this.#elements.get(name);
-                const cellEl = this.composer(
-                    name, this.#rowKey, type, columnData, value, rowData
-                );
+                const cellEl = this.composer(name, this.#rowKey, type, columnData, value, rowData);
                 oldEl.replaceWith(cellEl);
                 if (cellEl != null) {
                     this.mutator(cellEl, columnData, value, rowData);

@@ -254,23 +254,15 @@ class FormBuilder {
             type, id, visible, enabled, editable, data, ...params
         } = config;
         if (FORM_STRUCTURE_MAPPING.has(type)) {
-            return this.#createFormStructure(
-                type, id, visible, enabled, params, data, defaultValues, refLabel
-            );
+            return this.#createFormStructure(type, id, visible, enabled, params, data, defaultValues, refLabel);
         }
         if (FORM_BUTTON_MAPPING.has(type)) {
-            return this.#createFormButton(
-                type, id, visible, enabled, params, data
-            );
+            return this.#createFormButton(type, id, visible, enabled, params, data);
         }
-        return this.#createFormElement(
-            type, id, visible, enabled, editable, params, data, defaultValues, refLabel
-        );
+        return this.#createFormElement(type, id, visible, enabled, editable, params, data, defaultValues, refLabel);
     }
 
-    #createFormStructure(
-        type, id, visible, enabled, params = {}, data = {}, defaultValues = {}, refLabel = null
-    ) {
+    #createFormStructure(type, id, visible, enabled, params = {}, data = {}, defaultValues = {}, refLabel = null) {
         const Clazz = FORM_STRUCTURE_MAPPING.get(type);
         if (Clazz != null) {
             const {
@@ -296,9 +288,7 @@ class FormBuilder {
         }
     }
 
-    #createFormButton(
-        type, id, visible, enabled, params = {}, data = {}
-    ) {
+    #createFormButton(type, id, visible, enabled, params = {}, data = {}) {
         const Clazz = FORM_BUTTON_MAPPING.get(type);
         if (Clazz != null) {
             const el = this.#createElementFromClass(Clazz, params);
@@ -320,9 +310,7 @@ class FormBuilder {
         }
     }
 
-    #createFormElement(
-        type, id, visible, enabled, editable, config = {}, data = {}, defaultValues = {}, refLabel = null
-    ) {
+    #createFormElement(type, id, visible, enabled, editable, config = {}, data = {}, defaultValues = {}, refLabel = null) {
         const {
             value,
             optiongroup,
