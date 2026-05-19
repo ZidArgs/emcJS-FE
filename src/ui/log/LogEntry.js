@@ -2,7 +2,7 @@ import CustomElement from "../element/CustomElement.js";
 import TPL from "./LogEntry.js.html" assert {type: "html"};
 import STYLE from "./LogEntry.js.css" assert {type: "css"};
 
-class LogEntry extends CustomElement {
+export default class LogEntry extends CustomElement {
 
     #collapseEl;
 
