@@ -39,9 +39,8 @@
         }
 
         #message {
-            display: block;
+            display: flex;
             flex: 1;
-            white-space: pre;
         }
     }
 

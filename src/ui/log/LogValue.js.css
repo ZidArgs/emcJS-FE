@@ -1,0 +1,52 @@
+:host {
+    padding-left: 0.5em;
+}
+
+#container {
+    display: flex;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ul[data-label]::before {
+    content: attr(data-label);
+}
+
+li {
+    color: #f5aef9;
+}
+
+li[data-label]::before {
+    margin-right: 0.5em;
+    color: #70acf8;
+    content: attr(data-label);
+}
+
+.collapse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    margin: .1em .2em;
+    appearance: none;
+    color: inherit;
+    transform-origin: center;
+
+    &::after {
+        line-height: 1em;
+        content: "▶";
+    }
+
+    &:checked {
+        transform: rotate(90deg);
+    }
+}
+
+.collapse:not(:checked) + ul > li {
+    display: none;
+}
