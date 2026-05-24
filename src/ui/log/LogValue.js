@@ -50,9 +50,9 @@ export default class LogValue extends CustomElement {
             root.append(cbEl);
             const ulEl = document.createElement("ul");
             if (Array.isArray(value)) {
-                ulEl.dataset.label = `(${value.length}) [...]`;
+                ulEl.dataset.label = `(${value.length}) [${value.length ? "..." : ""}]`;
             } else {
-                ulEl.dataset.label = "{...}";
+                ulEl.dataset.label = `{${Object.keys(value).length ? "..." : ""}}`;
             }
             for (const i in value) {
                 const liEl = document.createElement("li");
@@ -63,7 +63,8 @@ export default class LogValue extends CustomElement {
             root.append(ulEl);
         } else {
             const el = document.createElement("span");
-            el.innerText = JSON.stringify(value);
+            el.className = `primitive-value type-${typeof value}`;
+            el.innerText = value.toString();
             root.append(el);
         }
     }

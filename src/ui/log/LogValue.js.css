@@ -16,10 +16,6 @@ ul[data-label]::before {
     content: attr(data-label);
 }
 
-li {
-    color: #f5aef9;
-}
-
 li[data-label]::before {
     margin-right: 0.5em;
     color: #70acf8;
@@ -49,4 +45,31 @@ li[data-label]::before {
 
 .collapse:not(:checked) + ul > li {
     display: none;
+}
+
+.primitive-value {
+    color: #ffffff;
+}
+
+.primitive-value.type-number,
+.primitive-value.type-bigint {
+    color: #c67bff;
+}
+
+.primitive-value.type-boolean {
+    color: #10ecdd;
+}
+
+.primitive-value.type-symbol {
+    color: #ecff8f;
+}
+
+.primitive-value.type-undefined {
+    color: #fc941d;
+}
+
+li > .primitive-value.type-string::before,
+li > .primitive-value.type-string::after {
+    width: 1em;
+    content: "'";
 }
