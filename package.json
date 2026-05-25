@@ -10,9 +10,6 @@
   "bugs": {
     "url": "https://github.com/ZidArgs/emcJS-FE/issues"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "author": "Denis Weiß (ZidArgs)",
   "license": "MIT",
   "homepage": "https://github.com/ZidArgs/emcJS-FE",
