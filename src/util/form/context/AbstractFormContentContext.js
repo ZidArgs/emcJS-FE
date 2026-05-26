@@ -3,7 +3,8 @@ import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableSto
 import jsonParse from "@emcjs/core/patches/JSONParser.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
-import LogicCompiler from "@emcjs/core/util/logic/processor/LogicCompiler.js";
+import StatementCompiler from "@emcjs/logic/compiler/StatementCompiler.js";
+import LogicStatement from "@emcjs/logic/compiler/statement/LogicStatement.js";
 
 export default class AbstractFormContentContext extends EventTarget {
 
@@ -140,31 +141,41 @@ export default class AbstractFormContentContext extends EventTarget {
     }
 
     setVisibleLogic(logic) {
-        if (logic != null && typeof logic === "object") {
-            this.#visibleLogic = LogicCompiler.compile(logic);
+        if (logic == null) {
+            this.#visibleLogic = true;
+            this.#setVisibileValue(true);
+        } else if (logic instanceof LogicStatement) {
+            this.#visibleLogic = logic;
             this.#callUpdateVisible();
+        } else if (typeof logic === "object") {
+            this.#visibleLogic = StatementCompiler.compile(logic);
+            this.#callUpdateVisible();
+        } else if (typeof logic === "function") {
+            const value = !!logic();
+            this.#visibleLogic = logic;
+            this.#setVisibileValue(value);
         } else {
-            const value = logic == null || !!logic;
+            const value = !!logic;
             this.#visibleLogic = logic;
             this.#setVisibileValue(value);
         }
     }
 
     #callUpdateVisible() {
-        if (typeof this.#visibleLogic === "function") {
+        if (this.#visibleLogic instanceof LogicStatement) {
             this.#updateVisible();
         }
     }
 
     #updateVisible = debounce(() => {
-        if (typeof this.#visibleLogic === "function") {
+        if (this.#visibleLogic instanceof LogicStatement) {
             const value = this.#executeVisibleLogic();
             this.#setVisibileValue(value);
         }
     });
 
     #executeVisibleLogic() {
-        return !!this.#visibleLogic((key) => {
+        return !!this.#visibleLogic.execute((key) => {
             return this.#getValue(key);
         });
     }
@@ -192,31 +203,41 @@ export default class AbstractFormContentContext extends EventTarget {
     }
 
     setEnabledLogic(logic) {
-        if (logic != null && typeof logic === "object") {
-            this.#enabledLogic = LogicCompiler.compile(logic);
+        if (logic == null) {
+            this.#enabledLogic = true;
+            this.#setEnabledValue(true);
+        } else if (logic instanceof LogicStatement) {
+            this.#enabledLogic = logic;
             this.#callUpdateEnabled();
+        } else if (typeof logic === "object") {
+            this.#enabledLogic = StatementCompiler.compile(logic);
+            this.#callUpdateEnabled();
+        } else if (typeof logic === "function") {
+            const value = !!logic();
+            this.#enabledLogic = logic;
+            this.#setEnabledValue(value);
         } else {
-            const value = logic == null || !!logic;
+            const value = !!logic;
             this.#enabledLogic = logic;
             this.#setEnabledValue(value);
         }
     }
 
     #callUpdateEnabled() {
-        if (typeof this.#enabledLogic === "function") {
+        if (this.#enabledLogic instanceof LogicStatement) {
             this.#updateEnabled();
         }
     }
 
     #updateEnabled = debounce(() => {
-        if (typeof this.#enabledLogic === "function") {
+        if (this.#enabledLogic instanceof LogicStatement) {
             const value = this.#executeEnabledLogic();
             this.#setEnabledValue(value);
         }
     });
 
     #executeEnabledLogic() {
-        return !!this.#enabledLogic((key) => {
+        return !!this.#enabledLogic.execute((key) => {
             return this.#getValue(key);
         });
     }
@@ -238,31 +259,41 @@ export default class AbstractFormContentContext extends EventTarget {
     }
 
     setEditableLogic(logic) {
-        if (logic != null && typeof logic === "object") {
-            this.#editableLogic = LogicCompiler.compile(logic);
+        if (logic == null) {
+            this.#editableLogic = true;
+            this.#setEditableValue(true);
+        } else if (logic instanceof LogicStatement) {
+            this.#editableLogic = logic;
             this.#callUpdateEditable();
+        } else if (typeof logic === "object") {
+            this.#editableLogic = StatementCompiler.compile(logic);
+            this.#callUpdateEditable();
+        } else if (typeof logic === "function") {
+            const value = !!logic();
+            this.#editableLogic = logic;
+            this.#setEditableValue(value);
         } else {
-            const value = logic == null || !!logic;
+            const value = !!logic;
             this.#editableLogic = logic;
             this.#setEditableValue(value);
         }
     }
 
     #callUpdateEditable() {
-        if (typeof this.#editableLogic === "function") {
+        if (this.#editableLogic instanceof LogicStatement) {
             this.#updateEditable();
         }
     }
 
     #updateEditable = debounce(() => {
-        if (typeof this.#editableLogic === "function") {
+        if (this.#editableLogic instanceof LogicStatement) {
             const value = this.#executeEditableLogic();
             this.#setEditableValue(value);
         }
     });
 
     #executeEditableLogic() {
-        return !!this.#editableLogic((key) => {
+        return !!this.#editableLogic.execute((key) => {
             return this.#getValue(key);
         });
     }

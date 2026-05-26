@@ -8,9 +8,11 @@ import {instanceOfOne} from "@emcjs/core/util/helper/Class.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import AbstractFormElement from "../../../ui/form/element/AbstractFormElement.js";
 import FormContainer from "../../../ui/form/FormContainer.js";
+import Button from "../../../ui/form/button/Button.js";
 import MutationObserverManager from "../../observer/manager/MutationObserverManager.js";
 import FormInputContext from "./FormInputContext.js";
 import FormElementContext from "./FormElementContext.js";
+import FormButtonContext from "./FormButtonContext.js";
 
 const FORM_ELEMENTS = [
     HTMLInputElement,
@@ -43,6 +45,8 @@ export default class FormContext extends EventTarget {
     #formEventManager = new EventMultiTargetManager();
 
     #storageEventTargetManager = new EventTargetManager();
+
+    #contextList = new Set();
 
     #formFieldContextList = new Set();
 
@@ -218,6 +222,9 @@ export default class FormContext extends EventTarget {
 
     set ghostInvisible(value) {
         this.#ghostInvisible = !!value;
+        for (const context of this.#contextList) {
+            context.ghostInvisible = this.#ghostInvisible;
+        }
     }
 
     get ghostInvisible() {
@@ -420,6 +427,7 @@ export default class FormContext extends EventTarget {
             const context = FormElementContext.getContext(node);
             context.storage = this.#dataStorage;
             context.ghostInvisible = this.#ghostInvisible;
+            this.#contextList.add(context);
             this.#formFieldContextList.add(context);
             node.addValidator(this.#doGlobalValidationFromField);
             node.formContextAssociatedCallback(this);
@@ -427,10 +435,16 @@ export default class FormContext extends EventTarget {
                 node.hideErrors = this.#hideErrors;
             }
             // this.#doFormFieldValidation(node);
+        } else if (node instanceof Button) {
+            const context = FormButtonContext.getContext(node);
+            context.storage = this.#dataStorage;
+            context.ghostInvisible = this.#ghostInvisible;
+            this.#contextList.add(context);
         } else if (instanceOfOne(node, ...FORM_ELEMENTS) && !INPUT_TYPE_BLACKLIST.includes(node.type)) {
             const context = FormInputContext.getContext(node);
             context.storage = this.#dataStorage;
             context.ghostInvisible = this.#ghostInvisible;
+            this.#contextList.add(context);
         }
     }
 
@@ -439,12 +453,19 @@ export default class FormContext extends EventTarget {
             const context = FormElementContext.getContext(node);
             context.storage = null;
             context.ghostInvisible = false;
+            this.#contextList.delete(context);
             this.#formFieldContextList.delete(context);
             node.removeValidator(this.#doGlobalValidationFromField);
+        } else if (node instanceof Button) {
+            const context = FormButtonContext.getContext(node);
+            context.storage = null;
+            context.ghostInvisible = false;
+            this.#contextList.delete(context);
         } else if (instanceOfOne(node, ...FORM_ELEMENTS) && !INPUT_TYPE_BLACKLIST.includes(node.type)) {
             const context = FormInputContext.getContext(node);
             context.storage = null;
             context.ghostInvisible = false;
+            this.#contextList.delete(context);
         }
     }
 

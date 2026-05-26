@@ -1,7 +1,7 @@
 import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
-import LogicValidator from "@emcjs/core/util/logic/LogicValidator.js";
 import Logger from "@emcjs/core/util/log/Logger.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
+import LogicValidator from "@emcjs/logic/util/LogicValidator.js";
 import ModalDialogCodeInput from "../../../../../../modal/input/ModalDialogCodeInput.js";
 import ModalDialog from "../../../../../../modal/ModalDialog.js";
 
