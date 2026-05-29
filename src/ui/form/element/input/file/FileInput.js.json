@@ -11,5 +11,11 @@
         "label": "Accepted MIME-types",
         "multiple": true,
         "value": ""
+    },
+    {
+        "type": "SwitchInput",
+        "name": "multiple",
+        "label": "Selecct multiple files",
+        "value": false
     }
 ]

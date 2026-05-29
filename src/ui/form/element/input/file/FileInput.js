@@ -1,4 +1,5 @@
 import {immute} from "@emcjs/core/data/Immutable.js";
+import {isNull} from "@emcjs/core/util/helper/CheckType.js";
 import FileSystem from "@emcjs/core/util/file/FileSystem.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
@@ -36,9 +37,9 @@ export default class FileInput extends AbstractFormElement {
         this.#buttonEl.addEventListener("click", async (event) => {
             event.preventDefault();
             event.stopPropagation();
-            const data = await FileSystem.load(this.accept);
+            const data = await FileSystem.load(this.accept, this.multiple);
             this.#data = immute(data);
-            this.value = data?.name;
+            super.value = this.#getNameString();
         });
         /* --- */
         this.addEventListener("click", () => {
@@ -67,8 +68,19 @@ export default class FileInput extends AbstractFormElement {
         return this.#data;
     }
 
+    get files() {
+        const fileData = this.#data;
+        if (isNull(fileData)) {
+            return [];
+        }
+        if (Array.isArray(fileData)) {
+            return fileData.map((entry) => entry.file);
+        }
+        return [this.#data.file];
+    }
+
     set value(value) {
-        if (value !== this.#data?.name) {
+        if (value !== this.#getNameString()) {
             this.#data = null;
         }
         super.value = value;
@@ -94,6 +106,14 @@ export default class FileInput extends AbstractFormElement {
         return this.getJSONAttribute("accept");
     }
 
+    set multiple(value) {
+        this.setBooleanAttribute("multiple", value);
+    }
+
+    get multiple() {
+        return this.getBooleanAttribute("multiple");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [...superObserved, "placeholder"];
@@ -112,6 +132,17 @@ export default class FileInput extends AbstractFormElement {
 
     renderValue(value) {
         this.#inputEl.value = value;
+    }
+
+    #getNameString() {
+        const fileData = this.#data;
+        if (isNull(fileData)) {
+            return "";
+        }
+        if (Array.isArray(fileData)) {
+            return fileData.map((file) => file.name).join("; ");
+        }
+        return this.#data?.name;
     }
 
 }
