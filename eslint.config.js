@@ -57,6 +57,7 @@ export default defineConfig([
         },
         plugins: {"@stylistic": stylistic},
         rules: {
+            "max-statements-per-line": ["error", {"max": 1}],
             "no-unused-expressions": "error",
             "no-unused-private-class-members": "error",
             "no-var": "error",
@@ -151,6 +152,7 @@ export default defineConfig([
 
             "lines-between-class-members": ["error", "always"],
             semi: ["error", "always"],
+            "no-extra-semi": ["error"],
 
             "padded-blocks": ["error", {
                 blocks: "never",
