@@ -30,8 +30,6 @@ export function getFormConfig(ref) {
     return [];
 }
 
-;
-
 class FormBuilder {
 
     build(config, refLabel = null) {

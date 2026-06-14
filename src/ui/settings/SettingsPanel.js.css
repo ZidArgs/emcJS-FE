@@ -69,6 +69,7 @@
     left: 0px;
     margin: 6px;
     transition: left 0.2s ease-in-out;
+    --hamburger-button-text-color: var(--page-text-color, #000000);
     --hamburger-button-back-color: var(--page-back-color, #ffffff);
     --hamburger-button-back-image: var(--page-back-image, none);
     --hamburger-button-focus-color: var(--button-focus-color, #06b5ff);

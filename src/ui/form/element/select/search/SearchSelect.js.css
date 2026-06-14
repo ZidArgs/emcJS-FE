@@ -196,6 +196,7 @@
     display: none;
     flex-grow: 1;
     height: 2em;
+    max-width: 100%;
     padding: 0px calc(2em + 7px) 0px 7px;
     color: var(--color);
     background-color: var(--background-color);
@@ -204,6 +205,7 @@
     border-color: var(--border-color);
     border-radius: var(--border-radius);
     font-size: 1em;
+    appearance: none;
 
     &:focus {
         box-shadow: 0 0 2px 3px var(--focus-color);
