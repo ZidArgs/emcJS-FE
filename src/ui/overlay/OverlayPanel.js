@@ -1,6 +1,5 @@
-import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import WindowFocusHandler from "../../util/WindowFocusHandler.js";
 import CustomElement from "../element/CustomElement.js";
-import Modal from "../modal/Modal.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
 import "../form/button/Button.js";
 import "../icon/FontIcon.js";
@@ -8,16 +7,6 @@ import TPL from "./OverlayPanel.js.html" assert {type: "html"};
 import STYLE from "./OverlayPanel.js.css" assert {type: "css"};
 
 let activeOverlay = null;
-
-const focusEventManager = new EventTargetManager(window, false);
-focusEventManager.set("focus", (event) => {
-    if (activeOverlay && !Modal.isAnyModalActive()) {
-        const target = event.target;
-        if (target instanceof Node && !activeOverlay.contains(target)) {
-            activeOverlay.initialFocus();
-        }
-    }
-}, {capture: true});
 
 export default class OverlayPanel extends CustomElement {
 
@@ -94,14 +83,14 @@ export default class OverlayPanel extends CustomElement {
         }
         activeOverlay = this;
         this.classList.add("active");
-        focusEventManager.active = true;
+        WindowFocusHandler.add(this);
         this.initialFocus();
     }
 
     hide() {
         activeOverlay = null;
         this.classList.remove("active");
-        focusEventManager.active = false;
+        WindowFocusHandler.delete(this);
     }
 
     initialFocus() {

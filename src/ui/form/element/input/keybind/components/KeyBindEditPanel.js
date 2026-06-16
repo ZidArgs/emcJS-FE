@@ -1,6 +1,8 @@
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+import HotkeyHandler from "@emcjs/core/util/HotkeyHandler.js";
 import {resolveKey} from "@emcjs/core/util/keyboard/KeyConverter.js";
 import {toStartUppercaseEndLowercase} from "@emcjs/core/util/helper/string/ConvertCase.js";
+import WindowFocusHandler from "../../../../../../util/WindowFocusHandler.js";
 import CustomElement from "../../../../../element/CustomElement.js";
 import "../../../../../keyboard/KeyCap.js";
 import TPL from "./KeyBindEditPanel.js.html" assert {type: "html"};
@@ -36,8 +38,6 @@ export default class KeyBindEditPanel extends CustomElement {
     #focusBottomEl;
 
     #titleEl;
-
-    #modalEl;
 
     #inputEventTargetManager;
 
@@ -77,7 +77,6 @@ export default class KeyBindEditPanel extends CustomElement {
         this.#customKeyEl = document.createElement("emc-keycap");
         this.#customKeyEl.innerText = "";
         /* --- */
-        this.#modalEl = this.shadowRoot.getElementById("modal");
         this.#titleEl = this.shadowRoot.getElementById("title");
         this.#keyDisplayEl = this.shadowRoot.getElementById("key-display");
         this.#inputEventTargetManager = new EventTargetManager(window, false);
@@ -149,7 +148,18 @@ export default class KeyBindEditPanel extends CustomElement {
     }
 
     initialFocus() {
-        this.#modalEl.focus();
+        this.#keyDisplayEl.focus();
+    }
+
+    show() {
+        document.body.append(this);
+        if (activePanel != null) {
+            activePanel.close();
+        }
+        activePanel = this;
+        WindowFocusHandler.add(this);
+        HotkeyHandler.active = false;
+        this.initialFocus();
     }
 
     remove() {
@@ -163,15 +173,8 @@ export default class KeyBindEditPanel extends CustomElement {
         };
         this.#keyDisplayEl.innerHTML = "";
         activePanel = null;
-    }
-
-    show() {
-        document.body.append(this);
-        if (activePanel != null) {
-            activePanel.close();
-        }
-        this.initialFocus();
-        activePanel = this;
+        WindowFocusHandler.delete(this);
+        HotkeyHandler.active = true;
     }
 
     close() {

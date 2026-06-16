@@ -8,6 +8,8 @@ export default class ListSelectionController extends EventTarget {
 
     #skipFn;
 
+    #marked;
+
     #eventManager = new EventTargetManager();
 
     constructor(target, container, skipFn) {
@@ -26,32 +28,102 @@ export default class ListSelectionController extends EventTarget {
             if (!("readonly" in target) || !target.readOnly) {
                 switch (event.key) {
                     case "Escape": {
-                        this.#onEscape(event);
-                    } break;
-                    case "Enter": {
-                        this.#onEnter(event);
-                    } break;
-                }
-            }
-        });
-        this.#eventManager.set("keydown", (event) => {
-            if (!("readonly" in target) || !target.readOnly) {
-                switch (event.key) {
+                        this.#cancelSelection();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
+                    case "Enter":
+                    case " ": {
+                        this.#selectMarked();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
                     case "ArrowUp": {
-                        this.#onArrowUp(event);
-                    } break;
+                        this.#markPrevious();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
                     case "ArrowDown": {
-                        this.#onArrowDown(event);
-                    } break;
+                        this.#markNext();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
                 }
             }
         });
     }
 
     #cancelSelection() {
-        const marked = this.#target.querySelector(".marked");
-        if (marked != null) {
-            marked.classList.remove("marked");
+        this.dispatchEvent(new Event("cancel"));
+        if (this.#marked != null) {
+            this.#marked.classList.remove("marked");
+            this.#marked = null;
+        }
+    }
+
+    #selectMarked() {
+        if (this.#marked != null) {
+            const ev = new Event("choose");
+            ev.value = this.#marked.getAttribute("value");
+            this.dispatchEvent(ev);
+            this.#marked.classList.remove("marked");
+            this.#marked = null;
+        }
+    }
+
+    #markPrevious() {
+        if (this.#marked != null) {
+            let el = this.#marked.previousElementSibling;
+            while (el != null && this.#skipElement(el)) {
+                el = el.previousElementSibling;
+            }
+            if (el != null) {
+                this.#marked.classList.remove("marked");
+                el.classList.add("marked");
+                const targetScroll = el.offsetTop - 20 - this.#container.offsetTop;
+                if (this.#container.scrollTop > targetScroll) {
+                    this.#container.scrollTop = targetScroll;
+                }
+                this.#marked = el;
+            }
+        } else {
+            this.#markFirst();
+        }
+    }
+
+    #markNext() {
+        if (this.#marked != null) {
+            let el = this.#marked.nextElementSibling;
+            while (el != null && this.#skipElement(el)) {
+                el = el.nextElementSibling;
+            }
+            if (el != null) {
+                this.#marked.classList.remove("marked");
+                el.classList.add("marked");
+                const targetScroll = el.offsetTop - this.#container.clientHeight - this.#container.offsetTop + el.clientHeight + 20;
+                if (this.#container.scrollTop < targetScroll) {
+                    this.#container.scrollTop = targetScroll;
+                }
+                this.#marked = el;
+            }
+        } else {
+            this.#markFirst();
+        }
+    }
+
+    #markFirst() {
+        let el = this.#target.querySelector("[value]");
+        while (el != null && this.#skipElement(el)) {
+            el = el.nextElementSibling;
+        }
+        if (el != null) {
+            el.classList.add("marked");
+            this.#container.scrollTop = 0;
+            this.#marked = el;
         }
     }
 
@@ -62,83 +134,6 @@ export default class ListSelectionController extends EventTarget {
         if (typeof this.#skipFn === "function") {
             return this.#skipFn(el);
         }
-        return false;
-    }
-
-    #onEscape(event) {
-        this.#cancelSelection();
-        /* --- */
-        event.stopPropagation();
-        return false;
-    }
-
-    #onEnter(event) {
-        const marked = this.#target.querySelector(".marked");
-        if (marked != null) {
-            const ev = new Event("choose");
-            ev.value = marked.getAttribute("value");
-            this.dispatchEvent(ev);
-        }
-        /* --- */
-        event.stopPropagation();
-        return false;
-    }
-
-    #onArrowUp(event) {
-        const marked = this.#target.querySelector(".marked");
-        if (marked != null) {
-            let el = marked.previousElementSibling;
-            while (el != null && this.#skipElement(el)) {
-                el = el.previousElementSibling;
-            }
-            if (el != null) {
-                marked.classList.remove("marked");
-                el.classList.add("marked");
-                const targetScroll = el.offsetTop - 20 - this.#container.offsetTop;
-                if (this.#container.scrollTop > targetScroll) {
-                    this.#container.scrollTop = targetScroll;
-                }
-            }
-        } else {
-            let el = this.#target.querySelector("[value]");
-            while (el != null && this.#skipElement(el)) {
-                el = el.nextElementSibling;
-            }
-            if (el != null) {
-                el.classList.add("marked");
-                this.#container.scrollTop = 0;
-            }
-        }
-        event.stopPropagation();
-        return false;
-    }
-
-    #onArrowDown(event) {
-        const marked = this.#target.querySelector(".marked");
-        if (marked != null) {
-            let el = marked.nextElementSibling;
-            while (el != null && this.#skipElement(el)) {
-                el = el.nextElementSibling;
-            }
-            if (el != null) {
-                marked.classList.remove("marked");
-                el.classList.add("marked");
-                const targetScroll = el.offsetTop - this.#container.clientHeight - this.#container.offsetTop + el.clientHeight + 20;
-                if (this.#container.scrollTop < targetScroll) {
-                    this.#container.scrollTop = targetScroll;
-                }
-            }
-        } else {
-            let el = this.#target.querySelector("[value]");
-            while (el != null && this.#skipElement(el)) {
-                el = el.nextElementSibling;
-            }
-            if (el != null) {
-                el.classList.add("marked");
-                this.#container.scrollTop = 0;
-            }
-        }
-        event.stopPropagation();
         return false;
     }
 

@@ -1,10 +1,10 @@
 
 import UniqueEntriesStack from "@emcjs/core/data/stack/UniqueEntriesStack.js";
-import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {
     isColorString, isPrimitive,
     isStringNotEmpty
 } from "@emcjs/core/util/helper/CheckType.js";
+import WindowFocusHandler from "../../util/WindowFocusHandler.js";
 import CustomElement from "../element/CustomElement.js";
 import Direction from "../../enum/Direction.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
@@ -21,17 +21,6 @@ const SIZE_REGEXP = /^[0-9]+(?:\.[0-9]+)?(?:em|px|%)$/;
 const modalStorage = new Map();
 
 const visibleModals = new UniqueEntriesStack();
-
-const focusEventManager = new EventTargetManager(window, false);
-focusEventManager.set("focus", (event) => {
-    if (visibleModals.size > 0) {
-        const modal = visibleModals.peek();
-        const target = event.target;
-        if (target instanceof Node && !modal.contains(target)) {
-            modal.initialFocus();
-        }
-    }
-}, {capture: true});
 
 export default class Modal extends CustomElement {
 
@@ -262,8 +251,8 @@ export default class Modal extends CustomElement {
         }
         this.classList.remove("inactive");
         visibleModals.push(this);
+        WindowFocusHandler.add(this);
         this.initialFocus();
-        focusEventManager.active = true;
     }
 
     remove() {
@@ -277,9 +266,7 @@ export default class Modal extends CustomElement {
         } else {
             visibleModals.delete(this);
         }
-        if (visibleModals.size === 0) {
-            focusEventManager.active = false;
-        }
+        WindowFocusHandler.delete(this);
     }
 
     close() {

@@ -113,6 +113,7 @@ export default class SettingsOverlay extends OverlayPanel {
     }
 
     #onsubmit(event) {
+        this.#settingsPanelEl.resetScroll();
         super.hide();
         const {
             data, formData, hiddenData, changes, errors
@@ -127,6 +128,7 @@ export default class SettingsOverlay extends OverlayPanel {
     }
 
     #oncancel() {
+        this.#settingsPanelEl.resetScroll();
         super.hide();
         this.dispatchEvent(new Event("cancel"));
     }

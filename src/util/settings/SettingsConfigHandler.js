@@ -5,6 +5,8 @@ import SettingsDefaultValues from "../../data/settings/SettingsDefaultValues.js"
 // TODO make SettingsConfigHandler react to changes to OptionGroupRegistry if a optiongroup has been used
 export default class SettingsConfigHandler {
 
+    #typeMembers = new Map();
+
     #settingsConfig;
 
     #defaultValues;
@@ -98,6 +100,7 @@ export default class SettingsConfigHandler {
                 category, ...config
             } = value;
             const translatedInput = translateInputField(key, config);
+            this.#addTypeMember(config.type, key);
             if (translatedInput !== false) {
                 if (category) {
                     translatedConfig[`${category}::${key}`] = translatedInput;
@@ -126,6 +129,17 @@ export default class SettingsConfigHandler {
         }
 
         return translatedConfig;
+    }
+
+    #addTypeMember(type, name) {
+        if (!this.#typeMembers.has(type)) {
+            this.#typeMembers.set(type, new Set());
+        }
+        this.#typeMembers.get(type).add(name);
+    }
+
+    getTypeMembers(type) {
+        return [...this.#typeMembers.get(type) ?? []];
     }
 
 }
@@ -165,7 +179,7 @@ function translateInputField(name, config) {
             return createGenericField("ColorInput", config.desc, config.default, config.visible, config.resettable);
         }
         case "hotkey": {
-            return createGenericField("KeyBindInput", config.desc, translateKeys(config.default), config.visible, config.resettable);
+            return createGenericField("KeyBindInput", config.desc, config.default, config.visible, config.resettable);
         }
         default: {
             return createGenericField(config.type, config.desc, config.default, config.visible, config.resettable);
@@ -234,12 +248,6 @@ function translateInputOptions(options) {
         return res;
     }
     return options;
-}
-
-function translateKeys(sequence) {
-    if (typeof sequence === "string") {
-        return sequence.replace(/\+/g, " ");
-    }
 }
 
 // build config

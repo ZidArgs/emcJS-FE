@@ -247,6 +247,10 @@ export default class SettingsPanel extends CustomElement {
         this.#formContext.reset();
     }
 
+    resetScroll() {
+        this.#formContainerEl.resetScroll();
+    }
+
     initialFocus() {
         this.#searchEl.focus();
     }

@@ -37,10 +37,6 @@
     box-shadow: #000000c4 11px 11px 20px 0px;
 }
 
-#modal:focus {
-    outline: none;
-}
-
 #title {
     height: 2em;
     color: var(--modal-header-text-color, #000000);
@@ -68,7 +64,10 @@
     margin-top: 10px;
     padding: 0px 5px;
     font-size: 2em;
-    cursor: pointer;
+}
+
+#key-display:focus {
+    outline: none;
 }
 
 #key-display > emc-keycap {

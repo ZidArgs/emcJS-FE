@@ -15,8 +15,6 @@ const MUTATION_CONFIG = {
 
 export default class FormContainer extends CustomElement {
 
-    #containerEl;
-
     #headerEl;
 
     #footerEl;
@@ -51,7 +49,6 @@ export default class FormContainer extends CustomElement {
         TPL.apply(this.shadowRoot);
         STYLE.apply(this.shadowRoot);
         /* --- */
-        this.#containerEl = this.shadowRoot.getElementById("container");
         this.#headerEl = this.shadowRoot.getElementById("header");
         this.#footerEl = this.shadowRoot.getElementById("footer");
         this.#contentEl = this.shadowRoot.getElementById("content");
@@ -74,8 +71,7 @@ export default class FormContainer extends CustomElement {
     }
 
     resetScroll() {
-        this.#containerEl.scrollTop = 0;
-        this.#containerEl.scrollLeft = 0;
+        this.#contentEl.scrollTo(0, 0);
     }
 
     getFocusableElements() {
