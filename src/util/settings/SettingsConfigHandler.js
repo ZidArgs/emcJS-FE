@@ -17,9 +17,9 @@ export default class SettingsConfigHandler {
 
     #optionGroupKeys = new Map();
 
-    constructor(config, getLabel) {
+    constructor(config, options) {
         const translated = this.#translateSettings(config);
-        const converted = buildSettingsConfig(translated, getLabel);
+        const converted = buildSettingsConfig(translated, options);
         this.#settingsConfig = immute(converted);
         this.#defaultValues = new SettingsDefaultValues(config);
     }
@@ -251,7 +251,12 @@ function translateInputOptions(options) {
 }
 
 // build config
-function buildSettingsConfig(config, getLabel = (label) => label) {
+function buildSettingsConfig(config, options) {
+    const {
+        getLabel = (label) => label,
+        getSectionName = (sectionName) => sectionName
+    } = options ?? {};
+
     const sectionMap = new Map();
     const translatedConfig = [];
 
@@ -259,7 +264,7 @@ function buildSettingsConfig(config, getLabel = (label) => label) {
         const path = key.split("::");
         const name = path.pop();
         if (path.length) {
-            const sectionName = path.join(".");
+            const sectionName = getSectionName(path.join("."));
             const sectionConfig = getOrCreateSection(translatedConfig, sectionMap, sectionName);
             if (typeof value === "string") {
                 sectionConfig.children.push(value);
