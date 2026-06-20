@@ -369,6 +369,10 @@ export default class FormContext extends EventTarget {
         return this.#dataStorage.getChanges();
     }
 
+    flushChanges() {
+        this.#dataStorage.flushChanges();
+    }
+
     getFormValidity() {
         for (const formEl of this.#formElList) {
             if (!formEl.checkValidity()) {

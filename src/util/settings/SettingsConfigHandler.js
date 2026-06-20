@@ -2,6 +2,18 @@ import {immute} from "@emcjs/core/data/Immutable.js";
 import OptionGroupRegistry from "../../registry/form/OptionGroupRegistry.js";
 import SettingsDefaultValues from "../../data/settings/SettingsDefaultValues.js";
 
+const SELECT_TYPES = [
+    "GridSelect",
+    "ImageSelect",
+    "ListSelect",
+    "RelationSelect",
+    "SearchSelect",
+    "SimpleSelect",
+    "SwitchSelect",
+    "TokenSelect"
+
+];
+
 // TODO make SettingsConfigHandler react to changes to OptionGroupRegistry if a optiongroup has been used
 export default class SettingsConfigHandler {
 
@@ -153,50 +165,54 @@ function translateInputField(name, config) {
         case "caption": {
             return `<h3 style="margin: 6px 6px 2px;"><emc-i18n-label i18n-value="${name}"></emc-i18n-label></h3>`;
         }
-        case "number":
-        case "NumberInput": {
-            return createNumberField("NumberInput", config.desc, config.default, config.visible, config.resettable, config.min, config.max);
+        case "number": {
+            return createNumberField(config, "NumberInput");
         }
-        case "range":
-        case "RangeInput": {
-            return createNumberField("RangeInput", config.desc, config.default, config.visible, config.resettable, config.min, config.max);
+        case "range": {
+            return createNumberField(config, "RangeInput");
         }
-        case "choice":
-        case "SimpleSelect": {
-            return createSelectField(config.desc, config.default, config.visible, config.resettable, config.values);
+        case "choice": {
+            return createGenericSelectField(config, "SimpleSelect");
         }
-        case "list":
-        case "ListSelect": {
-            return createListField(config.desc, config.default, config.visible, config.resettable, config.values);
+        case "list": {
+            return createListField(config);
         }
         case "string": {
-            return createGenericField("StringInput", config.desc, config.default, config.visible, config.resettable);
+            return createGenericField(config, "StringInput");
         }
         case "check": {
-            return createGenericField("SwitchInput", config.desc, config.default, config.visible, config.resettable);
+            return createGenericField(config, "SwitchInput");
         }
         case "color": {
-            return createGenericField("ColorInput", config.desc, config.default, config.visible, config.resettable);
+            return createGenericField(config, "ColorInput");
         }
         case "hotkey": {
-            return createGenericField("KeyBindInput", config.desc, config.default, config.visible, config.resettable);
+            return createGenericField(config, "KeyBindInput");
         }
         default: {
-            return createGenericField(config.type, config.desc, config.default, config.visible, config.resettable);
+            if (SELECT_TYPES.includes(config.type)) {
+                return createGenericSelectField(config);
+            }
+            return createGenericField(config);
         }
     }
 }
 
-function createGenericField(type, description, value, visible, resettable) {
-    const result = {type};
-    if (description != null) {
-        result.description = description;
+function createGenericField(config, type) {
+    const {
+        default: defaultValue,
+        desc,
+        resettable,
+        ...result
+    } = config;
+    if (type != null) {
+        result.type = type;
     }
-    if (value != null) {
-        result.value = value;
+    if (defaultValue != null) {
+        result.value = defaultValue;
     }
-    if (visible != null) {
-        result.visible = visible;
+    if (desc != null) {
+        result.description = desc;
     }
     if (resettable === true) {
         result.controlButtons = ["reset"];
@@ -204,38 +220,40 @@ function createGenericField(type, description, value, visible, resettable) {
     return result;
 }
 
-function createNumberField(type, description, value, visible, resettable, min, max) {
-    const result = createGenericField(type, description, value, visible, resettable);
+function createGenericSelectField(config, type) {
+    const {
+        values,
+        ...result
+    } = createGenericField(config, type);
+    if (typeof values === "string") {
+        result.optiongroup = values;
+    } else {
+        result.options = translateInputOptions(values);
+    }
+    return result;
+}
+
+function createNumberField(config, type) {
+    const {
+        min,
+        max,
+        ...result
+    } = createGenericField(config, type);
     result.required = true;
-    min = parseFloat(min);
-    if (!isNaN(min)) {
-        result.min = min;
+    const parsedMin = parseFloat(min);
+    if (!isNaN(parsedMin)) {
+        result.min = parsedMin;
     }
-    max = parseFloat(max);
+    const parsedMax = parseFloat(parsedMax);
     if (!isNaN(max)) {
-        result.max = max;
+        result.max = parsedMax;
     }
     return result;
 }
 
-function createSelectField(description, value, visible, resettable, options) {
-    const result = createGenericField("SimpleSelect", description, value, visible, resettable);
-    if (typeof options === "string") {
-        result.optiongroup = options;
-    } else {
-        result.options = translateInputOptions(options);
-    }
-    return result;
-}
-
-function createListField(description, value, visible, resettable, options) {
-    const result = createGenericField("ListSelect", description, value, visible, resettable);
+function createListField(config) {
+    const result = createGenericSelectField(config, "ListSelect");
     result.multiple = true;
-    if (typeof options === "string") {
-        result.optiongroup = options;
-    } else {
-        result.options = translateInputOptions(options);
-    }
     return result;
 }
 

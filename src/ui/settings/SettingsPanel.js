@@ -138,6 +138,7 @@ export default class SettingsPanel extends CustomElement {
             ev.changes = this.getChanges();
             ev.errors = this.getErrors();
             this.dispatchEvent(ev);
+            this.#formContext.flushChanges();
         });
         this.#formContext.addEventListener("reset", () => {
             this.dispatchEvent(new Event("cancel"));
