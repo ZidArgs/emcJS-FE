@@ -11,7 +11,7 @@ export default class LiteralTrue extends AbstractElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(/* state = {} */) {
+    calculate(/* valueGetter = () => 0 */) {
         this.logicResult = 1;
         return 1;
     }

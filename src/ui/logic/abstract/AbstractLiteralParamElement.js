@@ -26,7 +26,7 @@ export default class AbstractLiteralParamElement extends AbstractElement {
         return this.getAttribute("ref");
     }
 
-    calculate() {
+    calculate(/* valueGetter = () => 0 */) {
         return this.ref;
     }
 

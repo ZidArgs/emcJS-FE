@@ -12,11 +12,11 @@ export default class OperatorNot extends AbstractOneChildElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(state = {}) {
+    calculate(valueGetter = () => 0) {
         let value;
         const ch = this.children;
         if (ch[0]) {
-            const val = ch[0].calculate(state);
+            const val = ch[0].calculate(valueGetter);
             value = +!val;
         }
         this.logicResult = value;

@@ -12,11 +12,11 @@ export default class LogicElement extends AbstractTwoChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(state = {}) {
+    calculate(valueGetter = () => 0) {
         let value;
         const ch = this.childList;
         if (ch[0] != null) {
-            const val = ch[0].calculate(state);
+            const val = ch[0].calculate(valueGetter);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";
@@ -25,7 +25,7 @@ export default class LogicElement extends AbstractTwoChildrenElement {
             value = v;
         }
         if (ch[1] != null) {
-            const val = ch[1].calculate(state);
+            const val = ch[1].calculate(valueGetter);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";

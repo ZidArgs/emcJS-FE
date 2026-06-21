@@ -26,14 +26,10 @@ export default class AbstractLiteralValueElement extends AbstractElement {
         return this.getAttribute("ref");
     }
 
-    calculate(state = {}) {
-        if (state[this.ref] != null) {
-            const val = +state[this.ref];
-            this.logicResult = val;
-            return val;
-        }
-        this.logicResult = 0;
-        return 0;
+    calculate(valueGetter = () => 0) {
+        const value = +valueGetter(this.ref);
+        this.logicResult = value;
+        return value;
     }
 
     toJSON() {

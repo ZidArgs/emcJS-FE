@@ -12,8 +12,8 @@ export default class OperatorNand extends AbstractInfChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(state = {}) {
-        const ch = this.childList.map((ndoe) => ndoe.calculate(state));
+    calculate(valueGetter = () => 0) {
+        const ch = this.childList.map((ndoe) => ndoe.calculate(valueGetter));
         for (const val of ch) {
             if (!val) {
                 this.logicResult = 1;

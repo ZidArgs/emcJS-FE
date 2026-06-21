@@ -88,15 +88,10 @@ export default class AbstractLiteralStateElement extends AbstractElement {
         }
     }
 
-    calculate(state = {}) {
-        if (state[this.ref] != null) {
-            const val = +(state[this.ref] === this.value);
-            this.logicResult = val;
-            return val;
-        } else {
-            this.logicResult = 0;
-            return 0;
-        }
+    calculate(valueGetter = () => 0) {
+        const value = +(valueGetter(this.ref) === this.value);
+        this.logicResult = value;
+        return value;
     }
 
     toJSON() {

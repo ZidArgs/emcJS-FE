@@ -12,11 +12,11 @@ export default class RestrictorMax extends AbstractRestrictorElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(state = {}) {
+    calculate(valueGetter = () => 0) {
         let value;
         const ch = this.childList;
         if (ch[0]) {
-            const val = ch[0].calculate(state);
+            const val = ch[0].calculate(valueGetter);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";

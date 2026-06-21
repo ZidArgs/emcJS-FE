@@ -12,8 +12,8 @@ export default class OperatorNor extends AbstractInfChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(state = {}) {
-        const ch = this.childList.map((node) => node.calculate(state));
+    calculate(valueGetter = () => 0) {
+        const ch = this.childList.map((node) => node.calculate(valueGetter));
         for (const val of ch) {
             if (val) {
                 this.logicResult = 0;

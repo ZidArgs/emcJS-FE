@@ -396,7 +396,7 @@ class ErrorElement extends AbstractElement {
         return 0;
     }
 
-    calculate(/* state = {} */) {
+    calculate(/* valueGetter = () => 0 */) {
         super.logicResult = 0;
         return 0;
     }

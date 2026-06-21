@@ -244,8 +244,8 @@ function createNumberField(config, type) {
     if (!isNaN(parsedMin)) {
         result.min = parsedMin;
     }
-    const parsedMax = parseFloat(parsedMax);
-    if (!isNaN(max)) {
+    const parsedMax = parseFloat(max);
+    if (!isNaN(parsedMax)) {
         result.max = parsedMax;
     }
     return result;
