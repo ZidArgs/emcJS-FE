@@ -13,6 +13,11 @@ function dragStart(event) {
 
 const REG = new Map();
 
+const DEFAULT_LOGIC_CALCULATION_OPTS = {
+    valueGetter: () => false,
+    execute: () => false
+};
+
 export default class AbstractElement extends CustomElement {
 
     #id;
@@ -109,7 +114,7 @@ export default class AbstractElement extends CustomElement {
         }
     }
 
-    calculate(/* state = {} */) {
+    calculate(/* DEFAULT_LOGIC_CALCULATION_PARAMS */) {
         throw new Error("can not call abstract method");
     }
 
@@ -371,6 +376,21 @@ export default class AbstractElement extends CustomElement {
         return true;
     }
 
+    static getCalculationOptions(opts) {
+        const {
+            valueGetter,
+            execute
+        } = opts;
+        const res = {...DEFAULT_LOGIC_CALCULATION_OPTS};
+        if (typeof valueGetter === "function") {
+            res.valueGetter = valueGetter;
+        }
+        if (typeof execute === "function") {
+            res.execute = execute;
+        }
+        return res;
+    }
+
 }
 
 class ErrorElement extends AbstractElement {
@@ -396,7 +416,7 @@ class ErrorElement extends AbstractElement {
         return 0;
     }
 
-    calculate(/* valueGetter = () => 0 */) {
+    calculate() {
         super.logicResult = 0;
         return 0;
     }

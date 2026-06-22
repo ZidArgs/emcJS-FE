@@ -12,17 +12,17 @@ export default class RestrictorMin extends AbstractRestrictorElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
+    calculate(opts) {
         let value;
         const ch = this.childList;
         if (ch[0]) {
-            const val = ch[0].calculate(valueGetter);
+            const val = ch[0].calculate(opts);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";
                 return 0;
             }
-            value = +(v >= this.value);
+            value = v >= this.value;
         }
         this.logicResult = value;
         return value;

@@ -1,0 +1,26 @@
+:host {
+    --logic-color-back: #ffffff;
+    --logic-color-border: #777777;
+}
+
+#view {
+    display: none;
+    margin-left: 8px;
+    padding: 5px;
+    background: #cccccc;
+    cursor: pointer;
+}
+
+.body.blank {
+    font-style: italic;
+}
+
+#ref {
+    align-self: flex-start;
+    margin: 5px;
+}
+
+#ref:empty::after {
+    font-style: italic;
+    content: "null";
+}

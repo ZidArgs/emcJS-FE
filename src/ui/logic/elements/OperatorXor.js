@@ -12,16 +12,16 @@ export default class OperatorXor extends AbstractTwoChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
+    calculate(opts) {
         let value;
         const ch = this.childList;
         if (ch[0] != null) {
-            const val = ch[0].calculate(valueGetter);
-            value = +val;
+            const val = ch[0].calculate(opts);
+            value = val;
         }
         if (ch[1] != null) {
-            const val = ch[1].calculate(valueGetter);
-            value = +(value != +val);
+            const val = ch[1].calculate(opts);
+            value = value != val;
         }
         this.logicResult = value;
         return value;

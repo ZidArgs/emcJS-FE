@@ -88,8 +88,9 @@ export default class AbstractLiteralStateElement extends AbstractElement {
         }
     }
 
-    calculate(valueGetter = () => 0) {
-        const value = +(valueGetter(this.ref) === this.value);
+    calculate(opts) {
+        const {valueGetter} = AbstractElement.getCalculationOptions(opts);
+        const value = valueGetter(this.ref) === this.value;
         this.logicResult = value;
         return value;
     }

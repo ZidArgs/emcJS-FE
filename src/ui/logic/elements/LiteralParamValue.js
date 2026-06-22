@@ -12,6 +12,13 @@ export default class LiteralParamValue extends AbstractLiteralParamElement {
         STYLE.apply(this.shadowRoot);
     }
 
+    calculate(opts) {
+        const {valueGetter} = AbstractElement.getCalculationOptions(opts);
+        const value = valueGetter(this.ref);
+        this.logicResult = value;
+        return value;
+    }
+
 }
 
 AbstractElement.registerReference(REFERENCE, LiteralParamValue);

@@ -12,24 +12,24 @@ export default class LogicElement extends AbstractTwoChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
+    calculate(opts) {
         let value;
         const ch = this.childList;
         if (ch[0] != null) {
-            const val = ch[0].calculate(valueGetter);
+            const val = ch[0].calculate(opts);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";
-                return 0;
+                return NaN;
             }
             value = v;
         }
         if (ch[1] != null) {
-            const val = ch[1].calculate(valueGetter);
+            const val = ch[1].calculate(opts);
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";
-                return 0;
+                return NaN;
             }
             value = value ** v;
         }

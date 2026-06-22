@@ -12,18 +12,18 @@ export default class ComparatorNotEqual extends AbstractTwoChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
+    calculate(opts) {
         let value;
         const ch = this.childList;
         if (ch[0] != null) {
-            const val = ch[0].calculate(valueGetter);
+            const val = ch[0].calculate(opts);
             value = val;
         }
         if (ch[1] != null) {
-            const val = ch[1].calculate(valueGetter);
+            const val = ch[1].calculate(opts);
             value = value != val;
         }
-        value = +!!value;
+        value = !!value;
         this.logicResult = value;
         return value;
     }

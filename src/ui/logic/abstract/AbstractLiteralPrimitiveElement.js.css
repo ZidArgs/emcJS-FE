@@ -1,9 +1,9 @@
-#ref {
+#value {
     align-self: flex-start;
     margin: 5px;
 }
 
-#ref:empty::after {
+#value:empty::after {
     font-style: italic;
     content: "null";
 }

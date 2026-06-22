@@ -1,10 +1,10 @@
 import AbstractElement from "./AbstractElement.js";
-import TPL from "./AbstractLiteralValueElement.js.html" assert {type: "html"};
-import STYLE from "./AbstractLiteralValueElement.js.css" assert {type: "css"};
+import TPL from "./AbstractLiteralPrimitiveElement.js.html" assert {type: "html"};
+import STYLE from "./AbstractLiteralPrimitiveElement.js.css" assert {type: "css"};
 
-export default class AbstractLiteralValueElement extends AbstractElement {
+export default class AbstractLiteralPrimitiveElement extends AbstractElement {
 
-    #refEl;
+    #valueEl;
 
     #type;
 
@@ -15,49 +15,47 @@ export default class AbstractLiteralValueElement extends AbstractElement {
         /* --- */
         this.shadowRoot.getElementById("body").append(els);
         this.#type = type;
-        this.#refEl = this.shadowRoot.getElementById("ref");
+        this.#valueEl = this.shadowRoot.getElementById("value");
     }
 
-    set ref(val) {
-        this.setAttribute("ref", val);
+    set value(val) {
+        this.setAttribute("value", val);
     }
 
-    get ref() {
-        return this.getAttribute("ref");
+    get value() {
+        return this.getAttribute("value");
     }
 
-    calculate(opts) {
-        const {valueGetter} = AbstractElement.getCalculationOptions(opts);
-        const value = valueGetter(this.ref);
-        this.logicResult = value;
-        return value;
+    calculate() {
+        this.logicResult = this.value;
+        return this.value;
     }
 
     toJSON() {
         return {
             type: this.#type,
-            ref: this.ref
+            value: this.value
         };
     }
 
     loadLogic(logic) {
-        this.ref = logic.ref;
+        this.value = logic.value;
     }
 
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
-        return [...superObserved, "ref"];
+        return [...superObserved, "value"];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
         super.attributeChangedCallback?.(name, oldValue, newValue);
         switch (name) {
-            case "ref": {
+            case "value": {
                 if (oldValue != newValue) {
                     if (typeof newValue === "string" && newValue !== "") {
-                        this.#refEl.innerText = newValue;
+                        this.#valueEl.innerText = newValue;
                     } else {
-                        this.#refEl.innerText = "";
+                        this.#valueEl.innerText = "";
                     }
                 }
             } break;

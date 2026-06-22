@@ -3,9 +3,9 @@
     display: table;
     min-width: 200px;
     margin: 0.2em;
-    color: var(--logic-color-text, black);
-    background: var(--logic-color-back, white);
-    border: solid 2px var(--logic-color-border, black);
+    color: var(--logic-color-text, #000000);
+    background: var(--logic-color-back, #ffffff);
+    border: solid 2px var(--logic-color-border, #000000);
     border-radius: 5px;
     font-family: monospace;
     font-size: 1rem;
@@ -42,13 +42,31 @@
     margin-right: 5px;
     padding: 2px 6px;
     border-radius: 10px;
-    border: solid 2px black;
+    border: solid 2px #000000;
     background-color: #85ff85;
+    text-transform: none;
     content: attr(value);
 }
 
-#header[value="0"]::before {
+#header[value="null"]::before,
+#header[value="undefined"]::before {
+    background-color: #ffffff;
+}
+
+#header[value="0"]::before,
+#header[value="false"]::before {
     background-color: #ff8585;
+    content: "0";
+}
+
+#header[value="NaN"]::before,
+#header[value="DIV 0"]::before {
+    color: #ffffff;
+    background-color: #470000;
+}
+
+#header[value="true"]::before {
+    content: "1";
 }
 
 .content {
@@ -57,7 +75,7 @@
     padding: 0.2em;
     border-top-width: 2px;
     border-top-style: solid;
-    border-color: var(--logic-color-border, black);
+    border-color: var(--logic-color-border, #000000);
 }
 
 .content:empty {

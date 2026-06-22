@@ -12,14 +12,14 @@ export default class MathSub extends AbstractInfChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
-        const ch = this.childList.map((node) => node.calculate(valueGetter));
+    calculate(opts) {
+        const ch = this.childList.map((node) => node.calculate(opts));
         let value = ch.shift() ?? 0;
         for (const val of ch) {
             const v = parseFloat(val);
             if (isNaN(v)) {
                 this.logicResult = "NaN";
-                return 0;
+                return NaN;
             }
             value -= v;
         }

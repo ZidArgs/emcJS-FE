@@ -5,9 +5,13 @@ import "../ui/logic/elements/ComparatorLessThan.js";
 import "../ui/logic/elements/ComparatorLessThanEqual.js";
 import "../ui/logic/elements/ComparatorNotEqual.js";
 import "../ui/logic/elements/LiteralFalse.js";
-// import "./elements/LiteralNumber.js";
+import "../ui/logic/elements/LiteralFunction.js";
+import "../ui/logic/elements/LiteralMixin.js";
+import "../ui/logic/elements/LiteralNumber.js";
+import "../ui/logic/elements/LiteralParam.js";
+import "../ui/logic/elements/LiteralParamValue.js";
 import "../ui/logic/elements/LiteralState.js";
-// import "./elements/LiteralString.js";
+import "../ui/logic/elements/LiteralString.js";
 import "../ui/logic/elements/LiteralTrue.js";
 import "../ui/logic/elements/LiteralValue.js";
 import "../ui/logic/elements/MathAdd.js";
@@ -25,6 +29,7 @@ import "../ui/logic/elements/OperatorXnor.js";
 import "../ui/logic/elements/OperatorXor.js";
 import "../ui/logic/elements/RestrictorMax.js";
 import "../ui/logic/elements/RestrictorMin.js";
+import "../ui/logic/elements/ReferrerAt.js";
 
 // TODO add string input logic element
 // TODO add number input logic element

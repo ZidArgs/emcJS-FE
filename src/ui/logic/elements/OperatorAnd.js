@@ -12,16 +12,16 @@ export default class OperatorAnd extends AbstractInfChildrenElement {
         STYLE.apply(this.shadowRoot);
     }
 
-    calculate(valueGetter = () => 0) {
-        const ch = this.childList.map((node) => node.calculate(valueGetter));
+    calculate(opts) {
+        const ch = this.childList.map((node) => node.calculate(opts));
         for (const val of ch) {
             if (!val) {
-                this.logicResult = 0;
-                return 0;
+                this.logicResult = false;
+                return false;
             }
         }
-        this.logicResult = 1;
-        return 1;
+        this.logicResult = true;
+        return true;
     }
 
 }
