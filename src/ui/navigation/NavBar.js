@@ -119,7 +119,7 @@ export default class NavBar extends CustomElement {
     }
 
     #generateElement(contentEl, config) {
-        const IS_MAIN_NAV = contentEl.id == "content";
+        const IS_MAIN_NAV = contentEl === this.#contentEl;
         if (config["visible"] == null || !!config["visible"]) {
             if (config["mixin"]) {
                 const mixinConfig = MIXINS.get(config["mixin"]);
@@ -200,7 +200,7 @@ export default class NavBar extends CustomElement {
                     this.#navigationEventManager.set(btnEl, "click", (event) => {
                         if (!listEl.classList.contains("open")) {
                             if (IS_MAIN_NAV) {
-                                this.#closeAll();
+                                this.#closeSubtree(this.#contentEl);
                                 this.#containerEl.classList.add("cover");
                             }
                             listEl.classList.add("open");
@@ -246,6 +246,9 @@ export default class NavBar extends CustomElement {
     #closeSubtree(targetEl) {
         for (const el of targetEl.querySelectorAll(".open")) {
             el.classList.remove("open");
+        }
+        for (const el of targetEl.querySelectorAll(".focus-open")) {
+            el.classList.remove("focus-open");
         }
     }
 
