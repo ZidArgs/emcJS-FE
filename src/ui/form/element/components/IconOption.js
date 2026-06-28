@@ -75,7 +75,7 @@ export default class IconOption extends CustomElement {
             case "icon": {
                 if (oldValue != newValue) {
                     if (isHttpUrl(newValue)) {
-                        this.#iconEl.style.backgroundImage = `url("${newValue}"`;
+                        this.#iconEl.style.backgroundImage = `url("${newValue}")`;
                     } else {
                         this.#iconEl.style.backgroundImage = "";
                     }
