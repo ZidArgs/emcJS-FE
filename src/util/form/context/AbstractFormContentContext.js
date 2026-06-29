@@ -110,7 +110,7 @@ export default class AbstractFormContentContext extends EventTarget {
 
     applyDefaultValue() {
         const elName = this.#element.name;
-        const defaultValue = this.#storage.getRootValue(elName);
+        const defaultValue = this.#storage.getBaseValue(elName);
         if (defaultValue != null) {
             if (typeof value === "object") {
                 this.#element.setAttribute(this.#valueAttributeName, JSON.stringify(defaultValue));
@@ -120,9 +120,9 @@ export default class AbstractFormContentContext extends EventTarget {
         } else if (this.#element.hasAttribute(this.#valueAttributeName)) {
             const value = this.#element.getAttribute(this.#valueAttributeName);
             try {
-                this.#storage.setRootValue(jsonParse(value));
+                this.#storage.setBaseValue(jsonParse(value));
             } catch {
-                this.#storage.setRootValue(value);
+                this.#storage.setBaseValue(value);
             }
         }
     }

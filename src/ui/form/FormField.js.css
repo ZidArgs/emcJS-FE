@@ -11,6 +11,10 @@
     font-size: 1rem;
 }
 
+:host(.hidden) {
+    display: none !important;
+}
+
 :host(:not([nohover]):hover),
 :host([nohover="false"]:hover) {
     color: var(--form-hover-text-color, #000000);

@@ -304,7 +304,7 @@ export default class FormField extends CustomElement {
                 }
             }
         }
-        this.hidden = hiddenEls >= this.#managedFormEls.size;
+        this.classList.toggle("hidden", hiddenEls >= this.#managedFormEls.size);
     });
 
     async #initFormElements() {

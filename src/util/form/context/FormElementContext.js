@@ -21,7 +21,7 @@ const MUTATION_CONFIG = {
 
 function applyDefaultValue(storage, target) {
     const elName = target.name;
-    const defaultValue = storage.getRootValue(elName);
+    const defaultValue = storage.getBaseValue(elName);
     if (defaultValue != null) {
         if (typeof defaultValue === "object") {
             target.setAttribute("value", JSON.stringify(defaultValue));
@@ -30,7 +30,7 @@ function applyDefaultValue(storage, target) {
         }
     } else if (target.hasAttribute("value")) {
         const value = target.defaultValue;
-        storage.setRootValue(elName, value);
+        storage.setBaseValue(elName, value);
     }
 }
 
