@@ -1,5 +1,5 @@
 import CustomElement from "../element/CustomElement.js";
-import LogTypeEnum from "../../enum/log/LogTypeEnum.js";
+import LogTypes from "../../enum/log/LogTypes.js";
 import "./LogValue.js";
 import TPL from "./LogEntry.js.html" assert {type: "html"};
 import STYLE from "./LogEntry.js.css" assert {type: "css"};
@@ -23,7 +23,7 @@ export default class LogEntry extends CustomElement {
     }
 
     set type(value) {
-        this.setEnumAttribute("type", value, LogTypeEnum);
+        this.setEnumAttribute("type", value, LogTypes);
     }
 
     get type() {

@@ -1,7 +1,24 @@
 <emc-input-search id="search"></emc-input-search>
 <emc-form-row id="view-control" class="size-normal">
-    <emc-button id="view-size-small" text="small" tooltip="make preview small"></emc-button>
-    <emc-button id="view-size-normal" text="normal" tooltip="make preview normal" active></emc-button>
-    <emc-button id="view-size-big" text="big" tooltip="make preview big"></emc-button>
-    <emc-button id="view-size-gigantic" text="very big" tooltip="make preview very big"></emc-button>
+    <div class="preview-size-container">
+        <emc-button id="view-size-small" text="small" tooltip="make preview small"></emc-button>
+        <emc-button id="view-size-normal" text="normal" tooltip="make preview normal" active></emc-button>
+        <emc-button id="view-size-big" text="big" tooltip="make preview big"></emc-button>
+        <emc-button id="view-size-gigantic" text="very big" tooltip="make preview very big"></emc-button>
+    </div>
+
+    <div class="preview-back-container">
+        <emc-button id="view-background-light" tooltip="make background light">
+            <div class="preview-back light"></div>
+        </emc-button>
+        <emc-button id="view-background-dark" tooltip="make background dark">
+            <div class="preview-back dark"></div>
+        </emc-button>
+        <emc-button id="view-background-light-checkered" tooltip="make background light checkered">
+            <div class="preview-back light-checkered"></div>
+        </emc-button>
+        <emc-button id="view-background-dark-checkered" tooltip="make background dark checkered" active>
+            <div class="preview-back dark-checkered"></div>
+        </emc-button>
+    </div>
 </emc-form-row>

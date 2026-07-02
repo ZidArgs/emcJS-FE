@@ -1,6 +1,6 @@
 import Enum from "@emcjs/core/enum/Enum.js";
 
-export default class PrimaryPointerEnum extends Enum {
+export default class PrimaryPointerTypes extends Enum {
 
     static POINTER_DEVICE_NONE = new this("PointerDeviceNone");
 

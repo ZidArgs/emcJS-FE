@@ -466,7 +466,19 @@ all; top_bottom right_left; top right bottom left
     --progress-border-radius: var(--input-border-radius);
 
     /* === image/icon === */
-    --image-checker-back-color: #2c2c2c;
+    --image-preview-light-back-color: #ffffff;
+    --image-preview-light-border-color: #000000;
+
+    --image-preview-dark-back-color: #222222;
+    --image-preview-dark-border-color: #ffffff;
+
+    --image-preview-light-checkered-back-color: #ffffff;
+    --image-preview-light-checkered-grid-color: #969696;
+    --image-preview-light-checkered-border-color: #000000;
+
+    --image-preview-dark-checkered-back-color: #929292;
+    --image-preview-dark-checkered-grid-color: #222222;
+    --image-preview-dark-checkered-border-color: #ffffff;
 
     /* === tree === */
     --tree-text-color: var(--page-text-color);

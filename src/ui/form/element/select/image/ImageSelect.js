@@ -31,6 +31,8 @@ export default class ImageSelect extends AbstractFormElement {
         return 0;
     }
 
+    #iconContainerEl;
+
     #iconEl;
 
     #inputEl;
@@ -55,6 +57,10 @@ export default class ImageSelect extends AbstractFormElement {
         STYLE.apply(this.shadowRoot);
         /* --- */
         this.#imageSelectModal.resize = ImageSelectModal.AXES.BOTH;
+        this.#iconContainerEl = this.shadowRoot.getElementById("icon-container");
+        this.#iconContainerEl.addEventListener("click", () => {
+            this.dark = !this.dark;
+        });
         this.#iconEl = this.shadowRoot.getElementById("icon");
         this.#inputEl = this.shadowRoot.getElementById("input");
         this.#inputEl.addEventListener("focus", () => {
@@ -120,6 +126,14 @@ export default class ImageSelect extends AbstractFormElement {
         return this.getBooleanAttribute("sorted");
     }
 
+    set dark(value) {
+        this.setBooleanAttribute("dark", value);
+    }
+
+    get dark() {
+        return this.getBooleanAttribute("dark");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [
@@ -152,10 +166,10 @@ export default class ImageSelect extends AbstractFormElement {
 
     renderValue(value) {
         if (value != null && value !== "") {
-            this.#iconEl.style.backgroundImage = `url(${value})`;
+            this.#iconEl.data = value;
             this.#inputEl.value = value;
         } else {
-            this.#iconEl.style.backgroundImage = "";
+            this.#iconEl.data = "";
             this.#inputEl.value = "";
         }
     }

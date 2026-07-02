@@ -1,4 +1,5 @@
 import CustomFormElement from "../../../../../element/CustomFormElement.js";
+import ImageBackgroundTypes from "../../../../../../enum/form/ImageBackgroundTypes.js";
 import TPL from "./ImageSelectPreview.js.html" assert {type: "html"};
 import STYLE from "./ImageSelectPreview.js.css" assert {type: "css"};
 
@@ -34,6 +35,14 @@ export default class ImageSelectPreview extends CustomFormElement {
 
     get value() {
         return this.getAttribute("value");
+    }
+
+    set background(value) {
+        this.setEnumAttribute("background", value, ImageBackgroundTypes);
+    }
+
+    get background() {
+        return this.getEnumAttribute("background");
     }
 
     static get observedAttributes() {

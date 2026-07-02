@@ -12,6 +12,12 @@
         "value": false
     },
     {
+        "type": "SwitchInput",
+        "name": "dark",
+        "label": "Set preview Background to dark",
+        "value": false
+    },
+    {
         "type": "KeyValueListInput",
         "name": "options",
         "label": "Options",

@@ -1,6 +1,6 @@
 import Enum from "@emcjs/core/enum/Enum.js";
 
-export default class LogTypeEnum extends Enum {
+export default class LogTypes extends Enum {
 
     static LOG = new this("log");
 

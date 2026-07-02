@@ -1,5 +1,5 @@
 import {debounce} from "@emcjs/core/util/Debouncer.js";
-import PrimaryPointerEnum from "../../enum/devices/PrimaryPointerEnum.js";
+import PrimaryPointerTypes from "../../enum/devices/PrimaryPointerTypes.js";
 
 const MEDIA_QUERY_POINTER_COARSE = "(pointer: coarse)";
 const MEDIA_QUERY_POINTER_FINE = "(pointer: fine)";
@@ -8,7 +8,7 @@ const MEDIA_QUERY_HOVER_HOVER = "(hover: hover)";
 
 class PrimaryPointerObserver extends EventTarget {
 
-    #value = PrimaryPointerEnum.POINTER_DEVICE_NONE;
+    #value = PrimaryPointerTypes.POINTER_DEVICE_NONE;
 
     #mediaPointerCoarse;
 
@@ -39,18 +39,18 @@ class PrimaryPointerObserver extends EventTarget {
     #updateMediaValue = debounce(() => {
         if (this.#mediaPointerCoarse.matches) {
             if (this.#mediaHoverHover.matches) {
-                this.#setValue(PrimaryPointerEnum.POINTER_DEVICE_CONTROLLER);
+                this.#setValue(PrimaryPointerTypes.POINTER_DEVICE_CONTROLLER);
             } else {
-                this.#setValue(PrimaryPointerEnum.POINTER_DEVICE_FINGER);
+                this.#setValue(PrimaryPointerTypes.POINTER_DEVICE_FINGER);
             }
         } else if (this.#mediaPointerFine.matches) {
             if (this.#mediaHoverHover.matches) {
-                this.#setValue(PrimaryPointerEnum.POINTER_DEVICE_MOUSE);
+                this.#setValue(PrimaryPointerTypes.POINTER_DEVICE_MOUSE);
             } else {
-                this.#setValue(PrimaryPointerEnum.POINTER_DEVICE_STYLUS);
+                this.#setValue(PrimaryPointerTypes.POINTER_DEVICE_STYLUS);
             }
         } else {
-            this.#setValue(PrimaryPointerEnum.POINTER_DEVICE_NONE);
+            this.#setValue(PrimaryPointerTypes.POINTER_DEVICE_NONE);
         }
     });
 
