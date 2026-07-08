@@ -173,12 +173,12 @@ export default class KeyBindInput extends AbstractFormElement {
         return this.getStringAttribute("placeholder");
     }
 
-    set caption(value) {
-        this.setStringAttribute("caption", value);
+    set label(value) {
+        this.setStringAttribute("label", value);
     }
 
-    get caption() {
-        return this.getStringAttribute("caption");
+    get label() {
+        return this.getStringAttribute("label");
     }
 
     static get observedAttributes() {
@@ -187,7 +187,7 @@ export default class KeyBindInput extends AbstractFormElement {
             ...superObserved,
             "readonly",
             "placeholder",
-            "caption"
+            "label"
         ];
     }
 
@@ -207,7 +207,7 @@ export default class KeyBindInput extends AbstractFormElement {
                     setBooleanAttribute(this.#buttonEl, name, this.readOnly);
                 }
             } break;
-            case "caption": {
+            case "label": {
                 if (oldValue != newValue) {
                     this.#keyBindEditPanel.caption = newValue;
                 }

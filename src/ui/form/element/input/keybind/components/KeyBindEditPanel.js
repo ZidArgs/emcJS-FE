@@ -2,7 +2,6 @@ import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import HotkeyHandler from "@emcjs/core/util/HotkeyHandler.js";
 import {resolveKey} from "@emcjs/core/util/keyboard/KeyConverter.js";
 import {toStartUppercaseEndLowercase} from "@emcjs/core/util/helper/string/ConvertCase.js";
-import WindowFocusHandler from "../../../../../../util/WindowFocusHandler.js";
 import CustomElement from "../../../../../element/CustomElement.js";
 import "../../../../../keyboard/KeyCap.js";
 import TPL from "./KeyBindEditPanel.js.html" assert {type: "html"};
@@ -33,9 +32,7 @@ let activePanel = null;
 
 export default class KeyBindEditPanel extends CustomElement {
 
-    #focusTopEl;
-
-    #focusBottomEl;
+    #modalEl;
 
     #titleEl;
 
@@ -77,6 +74,7 @@ export default class KeyBindEditPanel extends CustomElement {
         this.#customKeyEl = document.createElement("emc-keycap");
         this.#customKeyEl.innerText = "";
         /* --- */
+        this.#modalEl = this.shadowRoot.getElementById("modal");
         this.#titleEl = this.shadowRoot.getElementById("title");
         this.#keyDisplayEl = this.shadowRoot.getElementById("key-display");
         this.#inputEventTargetManager = new EventTargetManager(window, false);
@@ -125,18 +123,6 @@ export default class KeyBindEditPanel extends CustomElement {
             event.stopPropagation();
             return false;
         });
-        /* --- */
-        this.addEventListener("click", () => {
-            this.initialFocus();
-        });
-        this.#focusTopEl = this.shadowRoot.getElementById("focus_catcher_top");
-        this.#focusTopEl.addEventListener("focus", () => {
-            this.initialFocus();
-        });
-        this.#focusBottomEl = this.shadowRoot.getElementById("focus_catcher_bottom");
-        this.#focusBottomEl.addEventListener("focus", () => {
-            this.initialFocus();
-        });
     }
 
     connectedCallback() {
@@ -152,17 +138,20 @@ export default class KeyBindEditPanel extends CustomElement {
     }
 
     show() {
-        document.body.append(this);
+        if (this.parentElement == null) {
+            document.body.append(this);
+        }
+        this.#modalEl.showModal();
         if (activePanel != null) {
             activePanel.close();
         }
         activePanel = this;
-        WindowFocusHandler.add(this);
         HotkeyHandler.active = false;
         this.initialFocus();
     }
 
     remove() {
+        this.#modalEl.close();
         super.remove();
         this.#value = {
             ctrlKey: false,
@@ -173,7 +162,6 @@ export default class KeyBindEditPanel extends CustomElement {
         };
         this.#keyDisplayEl.innerHTML = "";
         activePanel = null;
-        WindowFocusHandler.delete(this);
         HotkeyHandler.active = true;
     }
 
@@ -240,7 +228,7 @@ export default class KeyBindEditPanel extends CustomElement {
         switch (name) {
             case "caption": {
                 if (oldValue != newValue) {
-                    this.#titleEl.i18nValue = newValue;
+                    this.#titleEl.i18nValue = newValue || "Edit keybind...";
                 }
             } break;
         }

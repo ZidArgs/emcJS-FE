@@ -22,16 +22,26 @@
     opacity: 1 !important;
 }
 
-#panel {
+#modal {
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-height: 100%;
+    max-width: 100%;
     height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
     color: var(--modal-text-color, #000000);
     background-color: var(--modal-back-color, #ffffff);
+    border: none;
     container-type: inline-size;
     container-name: panel;
     overflow: hidden;
+}
+
+#modal:focus-visible {
+    outline: none;
 }
 
 #title-color {

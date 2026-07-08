@@ -1,31 +1,11 @@
-:host {
-    position: fixed !important;
-    box-sizing: border-box !important;
-    display: flex;
-    align-items: center !important;
-    justify-content: center !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    cursor: default !important;
-    overflow: hidden !important;
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
-    z-index: var(--z-index-keybindeditpanel, 900900);
-    pointer-events: all !important;
-}
-
 #modal {
     display: flex;
     flex-direction: column;
-    min-width: min(400px, calc(100dvw - 50px));
-    max-width: min(1000px, calc(100dvw - 50px));
-    min-height: min(200px, calc(100dvh - 50px));
-    max-height: min(800px, calc(100dvh - 50px));
+    min-width: min(500px, calc(100dvw - 20px));
+    max-width: min(1000px, calc(100dvw - 20px));
+    min-height: min(200px, calc(100dvh - 20px));
+    max-height: min(800px, calc(100dvh - 20px));
+    padding: 0px;
     color: var(--modal-text-color, #000000);
     background-color: var(--modal-back-color, #ffffff);
     border-style: solid;
@@ -35,19 +15,43 @@
     font-size: 1rem;
     pointer-events: all;
     box-shadow: #000000c4 11px 11px 20px 0px;
+    z-index: var(--z-index-keybindeditpanel, 900900);
+}
+
+#modal:-internal-dialog-in-top-layer {
+    z-index: calc(var(--z-index-keybindeditpanel, 900600) + 1);
+}
+
+#modal:-internal-dialog-in-top-layer::backdrop {
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+#modal:focus-visible {
+    outline: none;
 }
 
 #title {
-    height: 2em;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 10px;
     color: var(--modal-header-text-color, #000000);
     background-color: var(--modal-header-back-color, #e4e4e4);
     border-bottom: solid var(--modal-border-width, 2px) var(--modal-border-color, #cccccc);
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 1em;
+    line-height: 1em;
 }
 
 #content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     flex: 1;
     overflow: hidden;
@@ -59,15 +63,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2em;
-    width: 100%;
-    margin-top: 10px;
-    padding: 0px 5px;
+    flex-wrap: wrap;
+    min-height: 2em;
+    margin: 10px;
     font-size: 2em;
 }
 
 #key-display:focus {
+    box-shadow: 0 0 2px 3px var(--focus-color, #06b5ff);
     outline: none;
+    z-index: 1;
 }
 
 #key-display > emc-keycap {

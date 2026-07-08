@@ -1,4 +1,3 @@
-import WindowFocusHandler from "../../util/WindowFocusHandler.js";
 import CustomElement from "../element/CustomElement.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
 import "../form/button/Button.js";
@@ -10,11 +9,7 @@ let activeOverlay = null;
 
 export default class OverlayPanel extends CustomElement {
 
-    #focusTopEl;
-
-    #focusBottomEl;
-
-    #panelEl;
+    #modalEl;
 
     #titleTextEl;
 
@@ -25,14 +20,14 @@ export default class OverlayPanel extends CustomElement {
         TPL.apply(this.shadowRoot);
         STYLE.apply(this.shadowRoot);
         /* --- */
-        this.#panelEl = this.shadowRoot.getElementById("panel");
+        this.#modalEl = this.shadowRoot.getElementById("modal");
         this.#titleTextEl = this.shadowRoot.getElementById("title-text");
         this.#closeEl = this.shadowRoot.getElementById("close");
         if (caption != null) {
             this.caption = caption;
         }
         /* --- */
-        this.#panelEl.addEventListener("keydown", (event) => {
+        this.#modalEl.addEventListener("keydown", (event) => {
             if (event.key == "Escape") {
                 this.hide();
                 event.stopPropagation();
@@ -42,14 +37,6 @@ export default class OverlayPanel extends CustomElement {
             this.hide();
         });
         /* --- */
-        this.#focusTopEl = this.shadowRoot.getElementById("focus_catcher_top");
-        this.#focusTopEl.addEventListener("focus", () => {
-            this.focusLast();
-        });
-        this.#focusBottomEl = this.shadowRoot.getElementById("focus_catcher_bottom");
-        this.#focusBottomEl.addEventListener("focus", () => {
-            this.focusFirst();
-        });
         document.body.append(this);
     }
 
@@ -78,19 +65,22 @@ export default class OverlayPanel extends CustomElement {
     }
 
     show() {
+        if (this.parentElement == null) {
+            document.body.append(this);
+        }
+        this.#modalEl.showModal();
         if (activeOverlay) {
             activeOverlay.hide();
         }
         activeOverlay = this;
         this.classList.add("active");
-        WindowFocusHandler.add(this);
         this.initialFocus();
     }
 
     hide() {
+        this.#modalEl.close();
         activeOverlay = null;
         this.classList.remove("active");
-        WindowFocusHandler.delete(this);
     }
 
     initialFocus() {

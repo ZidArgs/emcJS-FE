@@ -4,7 +4,6 @@ import {
     isColorString, isPrimitive,
     isStringNotEmpty
 } from "@emcjs/core/util/helper/CheckType.js";
-import WindowFocusHandler from "../../util/WindowFocusHandler.js";
 import CustomElement from "../element/CustomElement.js";
 import Direction from "../../enum/Direction.js";
 import {getFocusableElements} from "../../util/element/ElementFocusManager.js";
@@ -31,10 +30,6 @@ export default class Modal extends CustomElement {
     #busyIndicator = new BusyIndicator(this);
 
     #busyIndicatorController = new BusyIndicatorController(this.#busyIndicator);
-
-    #focusTopEl;
-
-    #focusBottomEl;
 
     #modalEl;
 
@@ -88,15 +83,6 @@ export default class Modal extends CustomElement {
             if (!this.busy) {
                 this.close();
             }
-        });
-        /* --- */
-        this.#focusTopEl = this.shadowRoot.getElementById("focus_catcher_top");
-        this.#focusTopEl.addEventListener("focus", () => {
-            this.focusLast();
-        });
-        this.#focusBottomEl = this.shadowRoot.getElementById("focus_catcher_bottom");
-        this.#focusBottomEl.addEventListener("focus", () => {
-            this.focusFirst();
         });
     }
 
@@ -244,18 +230,21 @@ export default class Modal extends CustomElement {
     }
 
     show() {
-        document.body.append(this);
+        if (this.parentElement == null) {
+            document.body.append(this);
+        }
+        this.#modalEl.showModal();
         const oldModal = visibleModals.peek();
         if (oldModal != null) {
             oldModal.classList.add("inactive");
         }
         this.classList.remove("inactive");
         visibleModals.push(this);
-        WindowFocusHandler.add(this);
         this.initialFocus();
     }
 
     remove() {
+        this.#modalEl.close();
         super.remove();
         if (visibleModals.peek() === this) {
             visibleModals.pop();
@@ -266,7 +255,6 @@ export default class Modal extends CustomElement {
         } else {
             visibleModals.delete(this);
         }
-        WindowFocusHandler.delete(this);
     }
 
     close() {

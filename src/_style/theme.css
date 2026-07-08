@@ -60,6 +60,7 @@ all; top_bottom right_left; top right bottom left
 
     --modal-border-color: var(--page-border-color);
     --modal-border-width: var(--page-border-width);
+    --modal-border-radius: 8px;
 
     --modal-header-text-color: var(--page-text-color);
     --modal-header-back-color: var(--page-border-color);

@@ -266,21 +266,21 @@ class FormBuilder {
             const {
                 children, ...restParams
             } = params;
-            const el = this.#createElementFromClass(Clazz, restParams);
+            const structEl = this.#createElementFromClass(Clazz, restParams);
             if (id != null) {
-                el.id = id;
+                structEl.id = id;
             }
             for (const key in data) {
-                el.dataset[key] = data[key];
+                structEl.dataset[key] = data[key];
             }
             if (visible != null) {
-                el.setAttribute("visible", JSON.stringify(visible));
+                structEl.setAttribute("visible", JSON.stringify(visible));
             }
             if (enabled != null) {
-                el.setAttribute("enabled", JSON.stringify(enabled));
+                structEl.setAttribute("enabled", JSON.stringify(enabled));
             }
-            this.#fillFormComponents(el, children, defaultValues, refLabel);
-            return el;
+            this.#fillFormComponents(structEl, children, defaultValues, refLabel);
+            return structEl;
         } else {
             return createErrorElement(type);
         }
@@ -289,20 +289,20 @@ class FormBuilder {
     #createFormButton(type, id, visible, enabled, params = {}, data = {}) {
         const Clazz = FORM_BUTTON_MAPPING.get(type);
         if (Clazz != null) {
-            const el = this.#createElementFromClass(Clazz, params);
+            const buttonEl = this.#createElementFromClass(Clazz, params);
             if (id != null) {
-                el.id = id;
+                buttonEl.id = id;
             }
             for (const key in data) {
-                el.dataset[key] = data[key];
+                buttonEl.dataset[key] = data[key];
             }
             if (visible != null) {
-                el.setAttribute("visible", JSON.stringify(visible));
+                buttonEl.setAttribute("visible", JSON.stringify(visible));
             }
             if (enabled != null) {
-                el.setAttribute("enabled", JSON.stringify(enabled));
+                buttonEl.setAttribute("enabled", JSON.stringify(enabled));
             }
-            return el;
+            return buttonEl;
         } else {
             return createErrorElement(type);
         }
@@ -324,56 +324,57 @@ class FormBuilder {
             noPad,
             ...params
         } = config;
-        const el = FormElementRegistry.create(type, params, refLabel);
+        const inputEl = FormElementRegistry.create(type, params, refLabel);
         if (id != null) {
-            el.id = id;
+            inputEl.id = id;
         }
         for (const key in data) {
-            el.dataset[key] = data[key];
+            inputEl.dataset[key] = data[key];
         }
         if (visible != null) {
-            el.setAttribute("visible", JSON.stringify(visible));
+            inputEl.setAttribute("visible", JSON.stringify(visible));
         }
         if (enabled != null) {
-            el.setAttribute("enabled", JSON.stringify(enabled));
+            inputEl.setAttribute("enabled", JSON.stringify(enabled));
         }
         if (editable != null) {
-            el.setAttribute("editable", JSON.stringify(editable));
+            inputEl.setAttribute("editable", JSON.stringify(editable));
         }
         // default value
         if (params.name != null && defaultValues[params.name] != null) {
             const value = defaultValues[params.name];
             if (typeof value === "object") {
-                el.setAttribute("value", JSON.stringify(value));
+                inputEl.setAttribute("value", JSON.stringify(value));
             } else {
-                el.setAttribute("value", value);
+                inputEl.setAttribute("value", value);
             }
         } else if (value != null) {
             if (typeof value === "object") {
-                el.setAttribute("value", JSON.stringify(value));
+                inputEl.setAttribute("value", JSON.stringify(value));
             } else {
-                el.setAttribute("value", value);
+                inputEl.setAttribute("value", value);
             }
         } else {
-            el.removeAttribute("value");
+            inputEl.removeAttribute("value");
         }
         // group managers
         if (optiongroup != null) {
-            const manager = new OptionGroupRegistryChoiceManager(el);
+            const manager = new OptionGroupRegistryChoiceManager(inputEl);
             manager.optionGroup = optiongroup;
         }
         if (valueoptiongroup != null) {
-            const manager = new OptionGroupRegistryValuesManager(el);
+            const manager = new OptionGroupRegistryValuesManager(inputEl);
             manager.optionGroup = optiongroup;
         }
         if (tokengroup != null) {
-            const manager = new TokenRegistryManager(el);
+            const manager = new TokenRegistryManager(inputEl);
             manager.tokenGroup = tokengroup;
         }
         // field
         const fieldEl = new FormField();
         if (label != null) {
             fieldEl.label = label;
+            inputEl.label = label;
         }
         if (tooltop != null) {
             fieldEl.tooltop = tooltop;
@@ -396,7 +397,7 @@ class FormBuilder {
         if (noPad != null) {
             fieldEl.noPad = noPad;
         }
-        fieldEl.append(el);
+        fieldEl.append(inputEl);
         return fieldEl;
     }
 
