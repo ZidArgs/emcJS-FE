@@ -7,6 +7,7 @@
 }
 
 #content {
+    --image-preview-size: 100px;
     min-width: min(90dvw, 600px);
     min-height: 200px;
 }

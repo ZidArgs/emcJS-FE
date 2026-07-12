@@ -5,7 +5,7 @@ import STYLE from "./ImageSelectPreview.js.css" assert {type: "css"};
 
 export default class ImageSelectPreview extends CustomFormElement {
 
-    #iconEl;
+    #imageEl;
 
     #textEl;
 
@@ -16,7 +16,7 @@ export default class ImageSelectPreview extends CustomFormElement {
         this.shadowRoot.append(TPL.generate());
         STYLE.apply(this.shadowRoot);
         /* --- */
-        this.#iconEl = this.shadowRoot.getElementById("icon");
+        this.#imageEl = this.shadowRoot.getElementById("image");
         this.#textEl = this.shadowRoot.getElementById("text");
         this.#tooltipEl = this.shadowRoot.getElementById("tooltip");
     }
@@ -53,7 +53,7 @@ export default class ImageSelectPreview extends CustomFormElement {
         switch (name) {
             case "value": {
                 if (oldValue != newValue) {
-                    this.#iconEl.style.backgroundImage = `url("${newValue}")`;
+                    this.#imageEl.style.backgroundImage = `url("${newValue}")`;
                 }
             } break;
             case "text": {

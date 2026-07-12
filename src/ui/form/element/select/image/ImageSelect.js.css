@@ -17,7 +17,7 @@
     height: 100%;
 }
 
-#icon-container {
+#image-container {
     position: relative;
     display: flex;
     justify-content: center;
@@ -38,11 +38,11 @@
     cursor: pointer;
 }
 
-:host([dark]:not([dark="false"])) #icon-container {
+:host([dark]:not([dark="false"])) #image-container {
     background-color: var(--image-preview-dark-back-color, #222222);
 }
 
-:host(:invalid) .icon-container {
+:host(:invalid) #image-container {
     background-color: var(--input-invalid-back-color, #ffebeb);
     border-color: var(--input-invalid-border-color, #ff4444);
 }
@@ -143,7 +143,7 @@
     display: none !important;
 }
 
-#icon {
+#image {
     width: 100%;
     height: 100%;
     pointer-events: none;

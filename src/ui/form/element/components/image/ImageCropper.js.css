@@ -1,0 +1,117 @@
+:host {
+    display: block;
+    width: 500px;
+    height: 500px;
+    padding: 50px;
+}
+
+#container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 50px;
+    overflow: hidden;
+    cursor: grab;
+
+    &.is-dragging {
+        cursor: grabbing;
+    }
+
+    &[resize="r"],
+    &[resize="l"] {
+        cursor: ew-resize;
+    }
+
+    &[resize="t"],
+    &[resize="b"] {
+        cursor: ns-resize;
+    }
+
+    &[resize="tl"],
+    &[resize="br"] {
+        cursor: nwse-resize;
+    }
+
+    &[resize="tr"],
+    &[resize="bl"] {
+        cursor: nesw-resize;
+    }
+}
+
+#image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    user-select: none;
+}
+
+#mask {
+    position: absolute;
+    display: block;
+    top: 50px;
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    box-shadow: #222222 0 0 0 200px;
+    opacity: 0.5;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+#resize-container {
+    position: absolute;
+    display: block;
+    top: 50px;
+    bottom: 50px;
+    left: 50px;
+    right: 50px;
+    border-style: solid;
+    border-width: var(--image-cropper-border-width, 2px);
+    border-color: var(--image-cropper-border-color, #9aa0a6);
+    pointer-events: none;
+
+    .resize-corner {
+        position: absolute;
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-style: solid;
+        border-width: var(--image-cropper-corner-border-width, 4px);
+        border-color: var(--image-cropper-corner-border-color, #ffffff);
+
+        &#top-left-resizer {
+            top: -4px;
+            left: -4px;
+            border-bottom: none;
+            border-right: none;
+        }
+
+        &#top-right-resizer {
+            top: -4px;
+            right: -4px;
+            border-bottom: none;
+            border-left: none;
+        }
+
+        &#bottom-right-resizer {
+            bottom: -4px;
+            right: -4px;
+            border-top: none;
+            border-left: none;
+        }
+
+        &#bottom-left-resizer {
+            bottom: -4px;
+            left: -4px;
+            border-top: none;
+            border-right: none;
+        }
+    }
+}

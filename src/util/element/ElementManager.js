@@ -1,7 +1,12 @@
+
+import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {
+    isFunction,
+    isObject
+} from "@emcjs/core/util/helper/CheckType.js";
 import {getArrayMutations} from "@emcjs/core/util/helper/collection/ArrayMutations.js";
 import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
-import {deepClone} from "@emcjs/core/util/helper/DeepClone.js";
 
 export default class ElementManager extends EventTarget {
 
@@ -10,8 +15,6 @@ export default class ElementManager extends EventTarget {
     #elements = new Map();
 
     #data = new Map();
-
-    #cache = new Map();
 
     #definedOrder = [];
 
@@ -44,7 +47,7 @@ export default class ElementManager extends EventTarget {
 
         for (const index in data) {
             const record = data[index];
-            if (typeof record !== "object" || Array.isArray(record)) {
+            if (!isObject(record)) {
                 throw new TypeError("data entries must be objects");
             }
 
@@ -54,8 +57,7 @@ export default class ElementManager extends EventTarget {
             this.#definedOrder.push(key);
 
             if (!this.#elements.has(key)) {
-                this.#data.set(key, record);
-                this.#cache.set(key, deepClone(record));
+                this.#data.set(key, deepClone(record));
                 const el = this.composer(key, values, ...this.#params);
                 if (el != null) {
                     el.setAttribute("em-key", key);
@@ -64,8 +66,9 @@ export default class ElementManager extends EventTarget {
                 }
             } else {
                 const el = this.#elements.get(key);
-                if (this.#checkChange(record)) {
-                    this.#data.set(key, record);
+                const cachedRecord = this.#data.get(key);
+                if (!isEqual(cachedRecord, record)) {
+                    this.#data.set(key, deepClone(record));
                     this.mutator(el, key, values, ...this.#params);
                 }
                 unused.delete(key);
@@ -77,11 +80,26 @@ export default class ElementManager extends EventTarget {
             el.remove();
             this.#elements.delete(key);
             this.#data.delete(key);
-            this.#cache.delete(key);
             this.cleanup(el, key, ...this.#params);
         }
 
         this.#sortEntries();
+    }
+
+    get(key) {
+        return this.#data.get(key);
+    }
+
+    find(callbackFn, thisArg) {
+        if (!isFunction(callbackFn)) {
+            throw new TypeError("callbackFn has to be a function");
+        }
+        for (const [key, record] of this.#data) {
+            if (callbackFn.call(thisArg, record, key, this)) {
+                return record;
+            }
+        }
+        return null;
     }
 
     /**
@@ -187,18 +205,6 @@ export default class ElementManager extends EventTarget {
         }
         this.dispatchEvent(new Event("afterrender"));
     });
-
-    #checkChange(data) {
-        if (typeof data?.key !== "string") {
-            return true;
-        }
-        const cachedData = this.#cache.get(data.key);
-        if (!isEqual(cachedData, data)) {
-            this.#cache.set(data.key, deepClone(data));
-            return true;
-        }
-        return false;
-    }
 
     // eslint-disable-next-line no-unused-vars
     composer(key, values, ...params) {}

@@ -85,28 +85,28 @@ export default class ImageSelectModal extends ModalDialog {
         this.#viewSizeGiganticEl = this.shadowRoot.getElementById("view-size-gigantic");
 
         this.#viewSizeSmallEl.addEventListener("click", () => {
-            this.#contentEl.style.setProperty("--icon-preview-size", "50px");
+            this.#contentEl.style.setProperty("--image-preview-size", "50px");
             this.#viewSizeSmallEl.active = true;
             this.#viewSizeNormalEl.active = false;
             this.#viewSizeBigEl.active = false;
             this.#viewSizeGiganticEl.active = false;
         });
         this.#viewSizeNormalEl.addEventListener("click", () => {
-            this.#contentEl.style.setProperty("--icon-preview-size", "100px");
+            this.#contentEl.style.setProperty("--image-preview-size", "100px");
             this.#viewSizeSmallEl.active = false;
             this.#viewSizeNormalEl.active = true;
             this.#viewSizeBigEl.active = false;
             this.#viewSizeGiganticEl.active = false;
         });
         this.#viewSizeBigEl.addEventListener("click", () => {
-            this.#contentEl.style.setProperty("--icon-preview-size", "200px");
+            this.#contentEl.style.setProperty("--image-preview-size", "200px");
             this.#viewSizeSmallEl.active = false;
             this.#viewSizeNormalEl.active = false;
             this.#viewSizeBigEl.active = true;
             this.#viewSizeGiganticEl.active = false;
         });
         this.#viewSizeGiganticEl.addEventListener("click", () => {
-            this.#contentEl.style.setProperty("--icon-preview-size", "400px");
+            this.#contentEl.style.setProperty("--image-preview-size", "400px");
             this.#viewSizeSmallEl.active = false;
             this.#viewSizeNormalEl.active = false;
             this.#viewSizeBigEl.active = false;

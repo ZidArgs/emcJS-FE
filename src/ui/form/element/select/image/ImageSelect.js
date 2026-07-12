@@ -31,9 +31,9 @@ export default class ImageSelect extends AbstractFormElement {
         return 0;
     }
 
-    #iconContainerEl;
+    #imageContainerEl;
 
-    #iconEl;
+    #imageEl;
 
     #inputEl;
 
@@ -57,11 +57,11 @@ export default class ImageSelect extends AbstractFormElement {
         STYLE.apply(this.shadowRoot);
         /* --- */
         this.#imageSelectModal.resize = ImageSelectModal.AXES.BOTH;
-        this.#iconContainerEl = this.shadowRoot.getElementById("icon-container");
-        this.#iconContainerEl.addEventListener("click", () => {
+        this.#imageContainerEl = this.shadowRoot.getElementById("image-container");
+        this.#imageContainerEl.addEventListener("click", () => {
             this.dark = !this.dark;
         });
-        this.#iconEl = this.shadowRoot.getElementById("icon");
+        this.#imageEl = this.shadowRoot.getElementById("image");
         this.#inputEl = this.shadowRoot.getElementById("input");
         this.#inputEl.addEventListener("focus", () => {
             this.#buttonEl.focus();
@@ -166,11 +166,12 @@ export default class ImageSelect extends AbstractFormElement {
 
     renderValue(value) {
         if (value != null && value !== "") {
-            this.#iconEl.data = value;
-            this.#inputEl.value = value;
+            const data = this.#imageSelectPreviewManager.get(value);
+            this.#imageEl.data = value;
+            this.#inputEl.i18nValue = data?.label || value;
         } else {
-            this.#iconEl.data = "";
-            this.#inputEl.value = "";
+            this.#imageEl.data = "";
+            this.#inputEl.i18nValue = "";
         }
     }
 
