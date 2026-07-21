@@ -4,6 +4,7 @@ import FileSystem from "@emcjs/core/util/file/FileSystem.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
+import "../../../button/Button.js";
 import TPL from "./FileInput.js.html" assert {type: "html"};
 import STYLE from "./FileInput.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./FileInput.js.json" assert {type: "json"};

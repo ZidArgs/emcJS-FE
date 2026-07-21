@@ -103,11 +103,7 @@ export default class ImageCropper extends CustomElement {
                 } = event;
                 const newOffsetX = this.#offsetX + movementX;
                 const newOffsetY = this.#offsetY + movementY;
-                const [offsetX, offsetY] = this.#containBoundaries(newOffsetX, newOffsetY);
-                this.#offsetX = offsetX;
-                this.#offsetY = offsetY;
-                this.#imageEl.style.setProperty("--offset-x", offsetX);
-                this.#imageEl.style.setProperty("--offset-y", offsetY);
+                this.#applyPan(newOffsetX, newOffsetY);
             } else {
                 // resize
             }
@@ -150,6 +146,8 @@ export default class ImageCropper extends CustomElement {
             this.#internalHeight = this.#imageEl.naturalHeight;
             this.#updateInternalScale();
             this.#resetImage();
+
+            this.dispatchEvent(new Event("load", {bubbles: true}));
         });
     }
 
@@ -355,6 +353,47 @@ export default class ImageCropper extends CustomElement {
         this.#maskEl.style.borderRadius = `${this.#maskRadius * this.#cropScale}px`;
     }
 
+    #applyPan(offsetX, offsetY) {
+        if (this.#offsetX != offsetX || this.#offsetY != offsetY) {
+            const [newOffsetX, newOffsetY] = this.#containBoundaries(offsetX, offsetY);
+            this.#offsetX = newOffsetX;
+            this.#offsetY = newOffsetY;
+            this.#imageEl.style.setProperty("--offset-x", newOffsetX);
+            this.#imageEl.style.setProperty("--offset-y", newOffsetY);
+            this.#notifyChange();
+        }
+    }
+
+    #applyZoom(zoom, anchorX = 0, anchorY = 0) {
+        zoom = delimitFloat(zoom, this.#internalScale, this.#cropScale);
+        if (this.#zoom != zoom) {
+            const oldZoom = this.#zoom;
+            this.#zoom = zoom;
+
+            const [newOffsetX, newOffsetY] = zoomAtAnchor(oldZoom, zoom, {
+                offset: [
+                    this.#offsetX,
+                    this.#offsetY
+                ],
+                anchor: [
+                    anchorX,
+                    anchorY
+                ]
+            });
+
+            /* recalculate offsets to stay inside boundaries */
+            const [offsetX, offsetY] = this.#containBoundaries(newOffsetX, newOffsetY, zoom);
+            this.#offsetX = offsetX;
+            this.#offsetY = offsetY;
+
+            /* style */
+            this.#imageEl.style.setProperty("--zoom", zoom);
+            this.#imageEl.style.setProperty("--offset-x", offsetX);
+            this.#imageEl.style.setProperty("--offset-y", offsetY);
+            this.#notifyChange();
+        }
+    }
+
     #containBoundaries(imagePosX, imagePosY) {
         const internalImageWidth = this.#internalWidth * this.#zoom;
         const internalImageHeight = this.#internalHeight * this.#zoom;
@@ -367,33 +406,38 @@ export default class ImageCropper extends CustomElement {
         return [imagePosX, imagePosY];
     }
 
-    #applyZoom(zoom, anchorX = 0, anchorY = 0) {
-        zoom = delimitFloat(zoom, this.#internalScale, this.#cropScale);
-        if (this.#zoom != zoom) {
-            const oldZoom = this.#zoom;
-            this.#zoom = zoom;
+    #notifyChange = debounce(() => {
+        const ev = new Event("change", {bubbles: true});
+        ev.zoom = this.#zoom;
+        ev.x = this.#offsetX;
+        ev.y = this.#offsetY;
+        this.dispatchEvent(ev);
+    });
 
-            const [newX, newY] = zoomAtAnchor(oldZoom, zoom, {
-                offset: [
-                    this.#offsetX,
-                    this.#offsetY
-                ],
-                anchor: [
-                    anchorX,
-                    anchorY
-                ]
-            });
+    async toBlob(options) {
+        const canvasEl = new OffscreenCanvas(this.#cropWidth, this.#cropHeight);
+        this.renderToCanvas(canvasEl);
+        return await canvasEl.convertToBlob(options);
+    }
 
-            /* recalculate offsets to stay inside boundaries */
-            const [offsetX, offsetY] = this.#containBoundaries(newX, newY, zoom);
-            this.#offsetX = offsetX;
-            this.#offsetY = offsetY;
-
-            /* style */
-            this.#imageEl.style.setProperty("--zoom", zoom);
-            this.#imageEl.style.setProperty("--offset-x", offsetX);
-            this.#imageEl.style.setProperty("--offset-y", offsetY);
+    renderToCanvas(canvasEl) {
+        if (!(canvasEl instanceof HTMLCanvasElement || canvasEl instanceof OffscreenCanvas)) {
+            throw new TypeError("canvasEl has to be an instance of HTMLCanvasElement or OffscreenCanvas");
         }
+        const context = canvasEl.getContext("2d");
+
+        const croppedImageWidth = this.#internalCropWidth / this.#zoom;
+        const croppedImageHeight = this.#internalCropHeight / this.#zoom;
+
+        const zoomedImageWidth = this.#internalWidth * this.#zoom;
+        const zoomedImageHeight = this.#internalHeight * this.#zoom;
+        const croppedImageLeft = (this.#internalCropWidth - zoomedImageWidth) / 2;
+        const croppedImageTop = (this.#internalCropHeight - zoomedImageHeight) / 2;
+
+        const left = -(this.#offsetX + croppedImageLeft) / this.#zoom;
+        const top = -(this.#offsetY + croppedImageTop) / this.#zoom;
+
+        context.drawImage(this.#imageEl, left, top, croppedImageWidth, croppedImageHeight, 0, 0, canvasEl.width, canvasEl.height);
     }
 
 }
