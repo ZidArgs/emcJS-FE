@@ -6,6 +6,7 @@ import {zoomAtAnchor} from "../../../../../util/Zoom.js";
 import TPL from "./ImageCropper.js.html" assert {type: "html"};
 import STYLE from "./ImageCropper.js.css" assert {type: "css"};
 import {isString} from "@emcjs/core/util/helper/CheckType.js";
+import Vector2D from "@emcjs/core/data/Vector2D.js";
 
 const RESIZE_STATES = immute({
     NONE: null,
@@ -22,6 +23,7 @@ const RESIZE_STATES = immute({
 const RESIZE_TOLERANCE = 10;
 const DEFAULT_CROP_SIZE = 300;
 const ZOOM_SPEED = 0.001;
+const ANGLE_THRESHOLD = 10;
 
 /* TODO finish implementing base functionalities
     - add image move operations
@@ -95,17 +97,92 @@ export default class ImageCropper extends CustomElement {
                     layerY
                 } = event;
                 this.#refreshResizeState(layerX, layerY);
-            } else if (this.#resizeState === RESIZE_STATES.NONE) {
-                // move image
-                const {
-                    movementX,
-                    movementY
-                } = event;
-                const newOffsetX = this.#offsetX + movementX;
-                const newOffsetY = this.#offsetY + movementY;
-                this.#applyPan(newOffsetX, newOffsetY);
             } else {
-                // resize
+                switch (this.#resizeState) {
+                    case RESIZE_STATES.NONE: {
+                        // move image
+                        const {
+                            movementX,
+                            movementY
+                        } = event;
+                        const newOffsetX = this.#offsetX + movementX;
+                        const newOffsetY = this.#offsetY + movementY;
+                        this.#applyPan(newOffsetX, newOffsetY);
+                    } break;
+                    case RESIZE_STATES.RESIZE_LEFT: {
+                        const {movementX} = event;
+                        const velocity = movementX * ZOOM_SPEED;
+                        this.#applyZoom(this.#zoom + velocity, this.#internalCropWidth / 2, 0);
+                    } break;
+                    case RESIZE_STATES.RESIZE_TOP: {
+                        const {movementY} = event;
+                        const velocity = movementY * ZOOM_SPEED;
+                        this.#applyZoom(this.#zoom + velocity, 0, this.#internalCropHeight / 2);
+                    } break;
+                    case RESIZE_STATES.RESIZE_RIGHT: {
+                        const {movementX} = event;
+                        const velocity = -movementX * ZOOM_SPEED;
+                        this.#applyZoom(this.#zoom + velocity, -this.#internalCropWidth / 2, 0);
+                    } break;
+                    case RESIZE_STATES.RESIZE_BOTTOM: {
+                        const {movementY} = event;
+                        const velocity = -movementY * ZOOM_SPEED;
+                        this.#applyZoom(this.#zoom + velocity, 0, -this.#internalCropHeight / 2);
+                    } break;
+                    case RESIZE_STATES.RESIZE_TOP_LEFT: {
+                        // TODO try calculating delta using clientX and clientY with a timer
+                        /*
+                        e.g.:
+                            on move start get coords, then keep saving new coords until timer fires and dispach delta as event
+                            reepeeat as needed
+                        */
+                        const {
+                            movementX,
+                            movementY
+                        } = event;
+                        const zoomVector = new Vector2D(movementX, movementY);
+                        const velocity = zoomVector.length * ZOOM_SPEED;
+                        const relativeAngle = (zoomVector.angle + 225) % 360 - 180;
+                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
+                        this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                    } break;
+                    case RESIZE_STATES.RESIZE_TOP_RIGHT: {
+                        // TODO try calculating delta using clientX and clientY with a timer
+                        const {
+                            movementX,
+                            movementY
+                        } = event;
+                        const zoomVector = new Vector2D(movementX, movementY);
+                        const velocity = zoomVector.length * ZOOM_SPEED;
+                        const relativeAngle = (zoomVector.angle + 315) % 360 - 180;
+                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
+                        this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                    } break;
+                    case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
+                        // TODO try calculating delta using clientX and clientY with a timer
+                        const {
+                            movementX,
+                            movementY
+                        } = event;
+                        const zoomVector = new Vector2D(movementX, movementY);
+                        const velocity = zoomVector.length * ZOOM_SPEED;
+                        const relativeAngle = (zoomVector.angle + 45) % 360 - 180;
+                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
+                        this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                    } break;
+                    case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
+                        // TODO try calculating delta using clientX and clientY with a timer
+                        const {
+                            movementX,
+                            movementY
+                        } = event;
+                        const zoomVector = new Vector2D(movementX, movementY);
+                        const velocity = zoomVector.length * ZOOM_SPEED;
+                        const relativeAngle = (zoomVector.angle + 135) % 360 - 180;
+                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
+                        this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                    } break;
+                }
             }
         });
         this.#containerEl.addEventListener("mousedown", (event) => {

@@ -14,7 +14,7 @@
   "license": "MIT",
   "homepage": "https://github.com/ZidArgs/emcJS-FE",
   "dependencies": {
-    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.2.1",
+    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.2.2",
     "@emcjs/logic": "https://github.com/ZidArgs/emcJS-Logic.git/#0.2.0"
   },
   "devDependencies": {
