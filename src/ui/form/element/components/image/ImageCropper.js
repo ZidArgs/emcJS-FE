@@ -1,12 +1,14 @@
 import {immute} from "@emcjs/core/data/Immutable.js";
-import {debounce} from "@emcjs/core/util/Debouncer.js";
-import {delimitFloat} from "@emcjs/core/util/helper/number/Float.js";
-import CustomElement from "../../../../element/CustomElement.js";
-import {zoomAtAnchor} from "../../../../../util/Zoom.js";
-import TPL from "./ImageCropper.js.html" assert {type: "html"};
-import STYLE from "./ImageCropper.js.css" assert {type: "css"};
-import {isString} from "@emcjs/core/util/helper/CheckType.js";
 import Vector2D from "@emcjs/core/data/Vector2D.js";
+import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {isString} from "@emcjs/core/util/helper/CheckType.js";
+import {delimitFloat} from "@emcjs/core/util/helper/number/Float.js";
+import MoveDelta2D from "@emcjs/core/util/MoveDelta2D.js";
+import {registerTouchGestures} from "../../../../../event/TouchGestureEvents.js";
+import {zoomAtAnchor} from "../../../../../util/Zoom.js";
+import CustomElement from "../../../../element/CustomElement.js";
+import STYLE from "./ImageCropper.js.css" assert { type: "css" };
+import TPL from "./ImageCropper.js.html" assert { type: "html" };
 
 const RESIZE_STATES = immute({
     NONE: null,
@@ -20,20 +22,13 @@ const RESIZE_STATES = immute({
     RESIZE_BOTTOM_LEFT: "bl"
 });
 
-const RESIZE_TOLERANCE = 10;
+const RESIZE_AREA_TOLERANCE = 10;
 const DEFAULT_CROP_SIZE = 300;
 const ZOOM_SPEED = 0.001;
-const ANGLE_THRESHOLD = 10;
+const ZOOM_SPEED_TOUCH = 0.01;
+const ZOOM_STEP_COUNT = 10;
+const ANGLE_THRESHOLD = 20;
 
-/* TODO finish implementing base functionalities
-    - add image move operations
-        - make mouse movements drag the image to focus on different parts of it
-    - add resize operations (drag resize elements)
-        - resize should change the image, not the crop boundaries
-    - create canvas to print the resulting image on and deliver it as Blob/File
-    - make mouse wheel zoom take specific fractions of the min max zoom to have specified zoom levels
-        - e.g. create 10 zoom levels or zoom by 10px every turn
-*/
 /* TODO add optional features
     - add rotate image (both sides?)
     - add mirror image (both axes?)
@@ -78,6 +73,8 @@ export default class ImageCropper extends CustomElement {
 
     #zoom = 1;
 
+    #mouseMoveDelta = new MoveDelta2D();
+
     constructor() {
         super();
         this.shadowRoot.append(TPL.generate());
@@ -89,6 +86,7 @@ export default class ImageCropper extends CustomElement {
         this.#maskEl = this.shadowRoot.getElementById("mask");
         this.#resizeContainerEl = this.shadowRoot.getElementById("resize-container");
         /* --- */
+        registerTouchGestures(this.#containerEl);
         this.#containerEl.addEventListener("mousemove", (event) => {
             if (!this.#isDragging) {
                 // update resize state
@@ -98,124 +96,93 @@ export default class ImageCropper extends CustomElement {
                 } = event;
                 this.#refreshResizeState(layerX, layerY);
             } else {
-                switch (this.#resizeState) {
-                    case RESIZE_STATES.NONE: {
-                        // move image
-                        const {
-                            movementX,
-                            movementY
-                        } = event;
-                        const newOffsetX = this.#offsetX + movementX;
-                        const newOffsetY = this.#offsetY + movementY;
-                        this.#applyPan(newOffsetX, newOffsetY);
-                    } break;
-                    case RESIZE_STATES.RESIZE_LEFT: {
-                        const {movementX} = event;
-                        const velocity = movementX * ZOOM_SPEED;
-                        this.#applyZoom(this.#zoom + velocity, this.#internalCropWidth / 2, 0);
-                    } break;
-                    case RESIZE_STATES.RESIZE_TOP: {
-                        const {movementY} = event;
-                        const velocity = movementY * ZOOM_SPEED;
-                        this.#applyZoom(this.#zoom + velocity, 0, this.#internalCropHeight / 2);
-                    } break;
-                    case RESIZE_STATES.RESIZE_RIGHT: {
-                        const {movementX} = event;
-                        const velocity = -movementX * ZOOM_SPEED;
-                        this.#applyZoom(this.#zoom + velocity, -this.#internalCropWidth / 2, 0);
-                    } break;
-                    case RESIZE_STATES.RESIZE_BOTTOM: {
-                        const {movementY} = event;
-                        const velocity = -movementY * ZOOM_SPEED;
-                        this.#applyZoom(this.#zoom + velocity, 0, -this.#internalCropHeight / 2);
-                    } break;
-                    case RESIZE_STATES.RESIZE_TOP_LEFT: {
-                        // TODO try calculating delta using clientX and clientY with a timer
-                        /*
-                        e.g.:
-                            on move start get coords, then keep saving new coords until timer fires and dispach delta as event
-                            reepeeat as needed
-                        */
-                        const {
-                            movementX,
-                            movementY
-                        } = event;
-                        const zoomVector = new Vector2D(movementX, movementY);
-                        const velocity = zoomVector.length * ZOOM_SPEED;
-                        const relativeAngle = (zoomVector.angle + 225) % 360 - 180;
-                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
-                        this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, this.#internalCropHeight / 2);
-                    } break;
-                    case RESIZE_STATES.RESIZE_TOP_RIGHT: {
-                        // TODO try calculating delta using clientX and clientY with a timer
-                        const {
-                            movementX,
-                            movementY
-                        } = event;
-                        const zoomVector = new Vector2D(movementX, movementY);
-                        const velocity = zoomVector.length * ZOOM_SPEED;
-                        const relativeAngle = (zoomVector.angle + 315) % 360 - 180;
-                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
-                        this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, this.#internalCropHeight / 2);
-                    } break;
-                    case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
-                        // TODO try calculating delta using clientX and clientY with a timer
-                        const {
-                            movementX,
-                            movementY
-                        } = event;
-                        const zoomVector = new Vector2D(movementX, movementY);
-                        const velocity = zoomVector.length * ZOOM_SPEED;
-                        const relativeAngle = (zoomVector.angle + 45) % 360 - 180;
-                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
-                        this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
-                    } break;
-                    case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
-                        // TODO try calculating delta using clientX and clientY with a timer
-                        const {
-                            movementX,
-                            movementY
-                        } = event;
-                        const zoomVector = new Vector2D(movementX, movementY);
-                        const velocity = zoomVector.length * ZOOM_SPEED;
-                        const relativeAngle = (zoomVector.angle + 135) % 360 - 180;
-                        const direction = relativeAngle < -ANGLE_THRESHOLD ? -1 : relativeAngle > ANGLE_THRESHOLD ? 1 : 0;
-                        this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
-                    } break;
-                }
+                const {
+                    clientX,
+                    clientY
+                } = event;
+                this.#mouseMoveDelta.moveTo(clientX, clientY);
             }
         });
         this.#containerEl.addEventListener("mousedown", (event) => {
             if (event.button === 0) {
                 this.#isDragging = true;
                 this.#containerEl.classList.add("is-dragging");
+                const {
+                    clientX,
+                    clientY
+                } = event;
+                this.#mouseMoveDelta.startAt(clientX, clientY);
             }
         });
         this.#containerEl.addEventListener("mouseup", (event) => {
             if (event.button === 0) {
                 this.#isDragging = false;
                 this.#containerEl.classList.remove("is-dragging");
+                const {
+                    clientX,
+                    clientY
+                } = event;
+                this.#mouseMoveDelta.stopAt(clientX, clientY);
             }
         });
         this.#containerEl.addEventListener("mouseenter", (event) => {
             if (this.#isDragging && !(event.buttons & 0x1)) {
                 this.#isDragging = false;
                 this.#containerEl.classList.remove("is-dragging");
+                this.#mouseMoveDelta.stop();
             }
         });
-        // zoom
         this.#containerEl.addEventListener("wheel", (event) => {
             event.preventDefault();
             event.stopPropagation();
             if (!this.#isDragging) {
-                const {
-                    deltaY,
-                    ctrlKey,
-                    shiftKey
-                } = event;
-                const velocity = -deltaY * ZOOM_SPEED * (ctrlKey ? 100 : shiftKey ? 10 : 1);
+                const {deltaY} = event;
+                const direction = deltaY > 0 ? -1 : 1;
+                const stepSize = (this.#cropScale - this.#internalScale) / ZOOM_STEP_COUNT;
+                const velocity = direction * stepSize;
                 this.#applyZoom(this.#zoom + velocity);
             }
+        });
+        this.#mouseMoveDelta.addEventListener("delta", (event) => {
+            const {
+                deltaX,
+                deltaY
+            } = event;
+            this.#handleMouseMove(deltaX, deltaY);
+        });
+        this.#resizeContainerEl.addEventListener("keydown", (event) => {
+            const {
+                target,
+                code
+            } = event;
+            const corner = target.dataset.corner;
+            switch (code) {
+                case "ArrowDown": {
+                    this.#handleKeyboardZoom(corner, 0, 1);
+                } break;
+                case "ArrowUp": {
+                    this.#handleKeyboardZoom(corner, 0, -1);
+                } break;
+                case "ArrowLeft": {
+                    this.#handleKeyboardZoom(corner, -1, 0);
+                } break;
+                case "ArrowRight": {
+                    this.#handleKeyboardZoom(corner, 1, 0);
+                } break;
+            }
+        });
+        this.#containerEl.addEventListener("touchpan", (event) => {
+            if (event.touchCount === 1) {
+                const {
+                    deltaX,
+                    deltaY
+                } = event;
+                this.#handleMouseMove(deltaX, deltaY);
+            }
+        });
+        this.#containerEl.addEventListener("touchpinch", (event) => {
+            const {deltaDist} = event;
+            this.#applyZoom(this.#zoom + deltaDist * ZOOM_SPEED_TOUCH);
         });
         /* --- */
         this.#imageEl.addEventListener("load", () => {
@@ -311,17 +278,17 @@ export default class ImageCropper extends CustomElement {
     }
 
     #refreshResizeState(mousePosX, mousePosY) {
-        const resizeTopStart = -RESIZE_TOLERANCE;
-        const resizeTopEnd = RESIZE_TOLERANCE;
+        const resizeTopStart = -RESIZE_AREA_TOLERANCE;
+        const resizeTopEnd = RESIZE_AREA_TOLERANCE;
 
-        const resizeBottomStart = this.#internalCropHeight - RESIZE_TOLERANCE;
-        const resizeBottomEnd = this.#internalCropHeight + RESIZE_TOLERANCE;
+        const resizeBottomStart = this.#internalCropHeight - RESIZE_AREA_TOLERANCE;
+        const resizeBottomEnd = this.#internalCropHeight + RESIZE_AREA_TOLERANCE;
 
-        const resizeLeftStart = -RESIZE_TOLERANCE;
-        const resizeLeftEnd = RESIZE_TOLERANCE;
+        const resizeLeftStart = -RESIZE_AREA_TOLERANCE;
+        const resizeLeftEnd = RESIZE_AREA_TOLERANCE;
 
-        const resizeRightStart = this.#internalCropWidth - RESIZE_TOLERANCE;
-        const resizeRightEnd = this.#internalCropWidth + RESIZE_TOLERANCE;
+        const resizeRightStart = this.#internalCropWidth - RESIZE_AREA_TOLERANCE;
+        const resizeRightEnd = this.#internalCropWidth + RESIZE_AREA_TOLERANCE;
 
         if (mousePosX > resizeLeftStart && mousePosX < resizeLeftEnd) {
             if (mousePosY > resizeTopStart && mousePosY < resizeTopEnd) {
@@ -428,6 +395,103 @@ export default class ImageCropper extends CustomElement {
 
     #updateMaskRadius() {
         this.#maskEl.style.borderRadius = `${this.#maskRadius * this.#cropScale}px`;
+    }
+
+    #handleMouseMove(movementX, movementY) {
+        switch (this.#resizeState) {
+            case RESIZE_STATES.NONE: {
+                // move image
+                const newOffsetX = this.#offsetX + movementX;
+                const newOffsetY = this.#offsetY + movementY;
+                this.#applyPan(newOffsetX, newOffsetY);
+            } break;
+            case RESIZE_STATES.RESIZE_LEFT: {
+                const velocity = movementX * ZOOM_SPEED;
+                this.#applyZoom(this.#zoom + velocity, this.#internalCropWidth / 2, 0);
+            } break;
+            case RESIZE_STATES.RESIZE_TOP: {
+                const velocity = movementY * ZOOM_SPEED;
+                this.#applyZoom(this.#zoom + velocity, 0, this.#internalCropHeight / 2);
+            } break;
+            case RESIZE_STATES.RESIZE_RIGHT: {
+                const velocity = -movementX * ZOOM_SPEED;
+                this.#applyZoom(this.#zoom + velocity, -this.#internalCropWidth / 2, 0);
+            } break;
+            case RESIZE_STATES.RESIZE_BOTTOM: {
+                const velocity = -movementY * ZOOM_SPEED;
+                this.#applyZoom(this.#zoom + velocity, 0, -this.#internalCropHeight / 2);
+            } break;
+            case RESIZE_STATES.RESIZE_TOP_LEFT: {
+                const zoomVector = new Vector2D(movementX, movementY);
+                const velocity = zoomVector.length * ZOOM_SPEED;
+                const relativeAngle = (zoomVector.angle + 225) % 360 - 180;
+                const absAngle = Math.abs(relativeAngle);
+                if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
+                    const direction = relativeAngle > 0 ? 1 : -1;
+                    this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                }
+            } break;
+            case RESIZE_STATES.RESIZE_TOP_RIGHT: {
+                const zoomVector = new Vector2D(movementX, movementY);
+                const velocity = zoomVector.length * ZOOM_SPEED;
+                const relativeAngle = (zoomVector.angle + 315) % 360 - 180;
+                const absAngle = Math.abs(relativeAngle);
+                if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
+                    const direction = relativeAngle > 0 ? -1 : 1;
+                    this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                }
+            } break;
+            case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
+                const zoomVector = new Vector2D(movementX, movementY);
+                const velocity = zoomVector.length * ZOOM_SPEED;
+                const relativeAngle = (zoomVector.angle + 45) % 360 - 180;
+                const absAngle = Math.abs(relativeAngle);
+                if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
+                    const direction = relativeAngle > 0 ? 1 : -1;
+                    this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                }
+            } break;
+            case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
+                const zoomVector = new Vector2D(movementX, movementY);
+                const velocity = zoomVector.length * ZOOM_SPEED;
+                const relativeAngle = (zoomVector.angle + 135) % 360 - 180;
+                const absAngle = Math.abs(relativeAngle);
+                if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
+                    const direction = relativeAngle > 0 ? -1 : 1;
+                    this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                }
+            } break;
+        }
+    }
+
+    #handleKeyboardZoom(corner, movementX, movementY) {
+        if (movementX !== 0) {
+            switch (corner) {
+                case RESIZE_STATES.RESIZE_TOP_LEFT:
+                case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
+                    const direction = movementX > 0 ? 1 : -1;
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, this.#internalCropWidth / 2, 0);
+                } break;
+                case RESIZE_STATES.RESIZE_TOP_RIGHT:
+                case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
+                    const direction = movementX > 0 ? -1 : 1;
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, -this.#internalCropWidth / 2, 0);
+                } break;
+            }
+        } else if (movementY !== 0) {
+            switch (corner) {
+                case RESIZE_STATES.RESIZE_TOP_LEFT:
+                case RESIZE_STATES.RESIZE_TOP_RIGHT: {
+                    const direction = movementY > 0 ? 1 : -1;
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, 0, this.#internalCropHeight / 2);
+                } break;
+                case RESIZE_STATES.RESIZE_BOTTOM_RIGHT:
+                case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
+                    const direction = movementY > 0 ? -1 : 1;
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, 0, -this.#internalCropHeight / 2);
+                } break;
+            }
+        }
     }
 
     #applyPan(offsetX, offsetY) {
