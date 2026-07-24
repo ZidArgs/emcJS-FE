@@ -22,12 +22,19 @@ const RESIZE_STATES = immute({
     RESIZE_BOTTOM_LEFT: "bl"
 });
 
+// defaults
+const MIN_WIDTH = 200;
+const MIN_HEIGTH = 200;
+const CROP_MIN_MARGIN = 50;
 const RESIZE_AREA_TOLERANCE = 10;
-const DEFAULT_CROP_SIZE = 300;
-const ZOOM_SPEED = 0.001;
+const ZOOM_SPEED_WHEEL = 0.001;
+const ZOOM_SPEED_MOUSE = 0.01;
 const ZOOM_SPEED_TOUCH = 0.01;
-const ZOOM_STEP_COUNT = 10;
 const ANGLE_THRESHOLD = 20;
+
+// calculated
+const CROP_DEFAULT_WIDTH = MIN_WIDTH - CROP_MIN_MARGIN * 2;
+const CROP_DEFAULT_HEIGTH = MIN_HEIGTH - CROP_MIN_MARGIN * 2;
 
 /* TODO add optional features
     - add rotate image (both sides?)
@@ -49,15 +56,17 @@ export default class ImageCropper extends CustomElement {
 
     #resizeContainerEl;
 
-    #maskRadius = null;
+    #targetCropWidth = CROP_DEFAULT_WIDTH;
 
-    #cropWidth = DEFAULT_CROP_SIZE;
+    #targetCropHeight = CROP_DEFAULT_HEIGTH;
 
-    #cropHeight = DEFAULT_CROP_SIZE;
+    #cropWidth = CROP_DEFAULT_WIDTH;
 
-    #internalCropWidth = DEFAULT_CROP_SIZE;
+    #cropHeight = CROP_DEFAULT_HEIGTH;
 
-    #internalCropHeight = DEFAULT_CROP_SIZE;
+    #internalCropWidth = CROP_DEFAULT_WIDTH;
+
+    #internalCropHeight = CROP_DEFAULT_HEIGTH;
 
     #cropScale = 1;
 
@@ -94,7 +103,9 @@ export default class ImageCropper extends CustomElement {
                     layerX,
                     layerY
                 } = event;
-                this.#refreshResizeState(layerX, layerY);
+                const posX = layerX - (this.clientWidth - this.#internalCropWidth) / 2;
+                const posY = layerY - (this.clientHeight - this.#internalCropHeight) / 2;
+                this.#refreshResizeState(posX, posY);
             } else {
                 const {
                     clientX,
@@ -104,7 +115,7 @@ export default class ImageCropper extends CustomElement {
             }
         });
         this.#containerEl.addEventListener("mousedown", (event) => {
-            if (event.button === 0) {
+            if (!this.#isDragging && event.button === 0) {
                 this.#isDragging = true;
                 this.#containerEl.classList.add("is-dragging");
                 const {
@@ -115,7 +126,7 @@ export default class ImageCropper extends CustomElement {
             }
         });
         this.#containerEl.addEventListener("mouseup", (event) => {
-            if (event.button === 0) {
+            if (this.#isDragging && event.button === 0) {
                 this.#isDragging = false;
                 this.#containerEl.classList.remove("is-dragging");
                 const {
@@ -137,10 +148,9 @@ export default class ImageCropper extends CustomElement {
             event.stopPropagation();
             if (!this.#isDragging) {
                 const {deltaY} = event;
-                const direction = deltaY > 0 ? -1 : 1;
-                const stepSize = (this.#cropScale - this.#internalScale) / ZOOM_STEP_COUNT;
-                const velocity = direction * stepSize;
-                this.#applyZoom(this.#zoom + velocity);
+                const velocity = -deltaY * ZOOM_SPEED_WHEEL;
+                const factor = Math.exp(velocity);
+                this.#applyZoom(this.#zoom * factor);
             }
         });
         this.#mouseMoveDelta.addEventListener("delta", (event) => {
@@ -182,17 +192,34 @@ export default class ImageCropper extends CustomElement {
         });
         this.#containerEl.addEventListener("touchpinch", (event) => {
             const {deltaDist} = event;
-            this.#applyZoom(this.#zoom + deltaDist * ZOOM_SPEED_TOUCH);
+            const velocity = deltaDist * ZOOM_SPEED_TOUCH;
+            const factor = Math.exp(velocity);
+            this.#applyZoom(this.#zoom * factor);
         });
         /* --- */
         this.#imageEl.addEventListener("load", () => {
             this.#internalWidth = this.#imageEl.naturalWidth;
             this.#internalHeight = this.#imageEl.naturalHeight;
             this.#updateInternalScale();
-            this.#resetImage();
+            this.reset();
 
             this.dispatchEvent(new Event("load", {bubbles: true}));
         });
+        /* --- */
+        new ResizeObserver(() => {
+            this.#resizeCropArea();
+        }).observe(this);
+    }
+
+    connectedCallback() {
+        super.connectedCallback?.();
+        this.#resizeCropArea();
+    }
+
+    #resizeCropArea() {
+        this.#targetCropWidth = this.clientWidth - CROP_MIN_MARGIN * 2;
+        this.#targetCropHeight = this.clientHeight - CROP_MIN_MARGIN * 2;
+        this.#updateCropSizes();
     }
 
     set src(val) {
@@ -211,19 +238,19 @@ export default class ImageCropper extends CustomElement {
         return this.getAttribute("maskradius");
     }
 
-    set width(val) {
-        this.setIntAttribute("width", val, 0);
+    set cropWidth(val) {
+        this.setIntAttribute("cropwidth", val, 0);
     }
 
-    get width() {
+    get cropWidth() {
         return this.#cropWidth;
     }
 
-    set height(val) {
-        this.setIntAttribute("height", val, 0);
+    set cropHeight(val) {
+        this.setIntAttribute("cropheight", val, 0);
     }
 
-    get height() {
+    get cropHeight() {
         return this.#cropHeight;
     }
 
@@ -249,28 +276,21 @@ export default class ImageCropper extends CustomElement {
             case "maskradius": {
                 if (oldValue != newValue) {
                     if (isString(newValue)) {
-                        if (newValue.endsWith("%")) {
-                            this.#maskEl.style.borderRadius = newValue;
-                            this.#maskRadius = null;
-                        } else {
-                            this.#maskRadius = parseInt(newValue) || 0;
-                            this.#updateMaskRadius();
-                        }
+                        this.#maskEl.style.borderRadius = newValue;
                     } else {
                         this.#maskEl.style.borderRadius = "";
-                        this.#maskRadius = null;
                     }
                 }
             } break;
             case "width": {
                 if (oldValue != newValue) {
-                    this.#cropWidth = getCropSize(this.getIntAttribute("width"));
+                    this.#cropWidth = getCropSize(this.getIntAttribute("width"), this.#targetCropWidth);
                     this.#updateCropSizes();
                 }
             } break;
             case "height": {
                 if (oldValue != newValue) {
-                    this.#cropHeight = getCropSize(this.getIntAttribute("height"));
+                    this.#cropHeight = getCropSize(this.getIntAttribute("height"), this.#targetCropHeight);
                     this.#updateCropSizes();
                 }
             } break;
@@ -346,7 +366,7 @@ export default class ImageCropper extends CustomElement {
         }
     }
 
-    #resetImage() {
+    reset() {
         this.#offsetX = 0;
         this.#offsetY = 0;
         this.#zoom = this.#internalScale;
@@ -367,35 +387,34 @@ export default class ImageCropper extends CustomElement {
 
     #updateCropSizes = debounce(() => {
         // calculate sizes
-        if (this.#cropHeight > this.#cropWidth) {
-            this.#cropScale = DEFAULT_CROP_SIZE / this.#cropHeight;
+        const scaleH = this.#targetCropHeight / this.#cropHeight;
+        const scaleW = this.#targetCropWidth / this.#cropWidth;
+        if (scaleH < scaleW) {
+            this.#cropScale = scaleH;
         } else {
-            this.#cropScale = DEFAULT_CROP_SIZE / this.#cropWidth;
+            this.#cropScale = scaleW;
         }
-        /* if (this.#cropScale > 1) {
-            this.#cropScale = 1;
-        } */
+        this.#containerEl.style.setProperty("--crop-scale", this.#cropScale);
         this.#internalCropWidth = this.#cropWidth * this.#cropScale;
         this.#internalCropHeight = this.#cropHeight * this.#cropScale;
         // update width
-        const widthString = `${this.#internalCropWidth}px`;
+        const widthString = `${this.#cropWidth}px`;
         this.#imageContainerEl.style.width = widthString;
         this.#maskEl.style.width = widthString;
         this.#resizeContainerEl.style.width = widthString;
         // update height
-        const heightString = `${this.#internalCropHeight}px`;
+        const heightString = `${this.#cropHeight}px`;
         this.#imageContainerEl.style.height = heightString;
         this.#maskEl.style.height = heightString;
         this.#resizeContainerEl.style.height = heightString;
-        // reset image
-        this.#updateMaskRadius();
+        // rescale image
+        const oldInternalScale = this.#internalScale;
         this.#updateInternalScale();
-        this.#resetImage();
+        if (oldInternalScale !== this.#internalScale) {
+            const scale = this.#internalScale / oldInternalScale;
+            this.#applyZoom(this.#zoom * scale);
+        }
     });
-
-    #updateMaskRadius() {
-        this.#maskEl.style.borderRadius = `${this.#maskRadius * this.#cropScale}px`;
-    }
 
     #handleMouseMove(movementX, movementY) {
         switch (this.#resizeState) {
@@ -406,59 +425,67 @@ export default class ImageCropper extends CustomElement {
                 this.#applyPan(newOffsetX, newOffsetY);
             } break;
             case RESIZE_STATES.RESIZE_LEFT: {
-                const velocity = movementX * ZOOM_SPEED;
-                this.#applyZoom(this.#zoom + velocity, this.#internalCropWidth / 2, 0);
+                const velocity = movementX * ZOOM_SPEED_MOUSE;
+                const factor = Math.exp(velocity);
+                this.#applyZoom(this.#zoom * factor, this.#internalCropWidth / 2, 0);
             } break;
             case RESIZE_STATES.RESIZE_TOP: {
-                const velocity = movementY * ZOOM_SPEED;
-                this.#applyZoom(this.#zoom + velocity, 0, this.#internalCropHeight / 2);
+                const velocity = movementY * ZOOM_SPEED_MOUSE;
+                const factor = Math.exp(velocity);
+                this.#applyZoom(this.#zoom * factor, 0, this.#internalCropHeight / 2);
             } break;
             case RESIZE_STATES.RESIZE_RIGHT: {
-                const velocity = -movementX * ZOOM_SPEED;
-                this.#applyZoom(this.#zoom + velocity, -this.#internalCropWidth / 2, 0);
+                const velocity = -movementX * ZOOM_SPEED_MOUSE;
+                const factor = Math.exp(velocity);
+                this.#applyZoom(this.#zoom * factor, -this.#internalCropWidth / 2, 0);
             } break;
             case RESIZE_STATES.RESIZE_BOTTOM: {
-                const velocity = -movementY * ZOOM_SPEED;
-                this.#applyZoom(this.#zoom + velocity, 0, -this.#internalCropHeight / 2);
+                const velocity = -movementY * ZOOM_SPEED_MOUSE;
+                const factor = Math.exp(velocity);
+                this.#applyZoom(this.#zoom * factor, 0, -this.#internalCropHeight / 2);
             } break;
             case RESIZE_STATES.RESIZE_TOP_LEFT: {
                 const zoomVector = new Vector2D(movementX, movementY);
-                const velocity = zoomVector.length * ZOOM_SPEED;
+                const velocity = zoomVector.length * ZOOM_SPEED_MOUSE;
                 const relativeAngle = (zoomVector.angle + 225) % 360 - 180;
                 const absAngle = Math.abs(relativeAngle);
                 if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
-                    const direction = relativeAngle > 0 ? 1 : -1;
-                    this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                    const factor = Math.exp(velocity);
+                    const directionalFactor = relativeAngle > 0 ? factor : 1 / factor;
+                    this.#applyZoom(this.#zoom * directionalFactor, this.#internalCropWidth / 2, this.#internalCropHeight / 2);
                 }
             } break;
             case RESIZE_STATES.RESIZE_TOP_RIGHT: {
                 const zoomVector = new Vector2D(movementX, movementY);
-                const velocity = zoomVector.length * ZOOM_SPEED;
+                const velocity = zoomVector.length * ZOOM_SPEED_MOUSE;
                 const relativeAngle = (zoomVector.angle + 315) % 360 - 180;
                 const absAngle = Math.abs(relativeAngle);
                 if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
-                    const direction = relativeAngle > 0 ? -1 : 1;
-                    this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, this.#internalCropHeight / 2);
+                    const factor = Math.exp(velocity);
+                    const directionalFactor = relativeAngle > 0 ? 1 / factor : factor;
+                    this.#applyZoom(this.#zoom * directionalFactor, -this.#internalCropWidth / 2, this.#internalCropHeight / 2);
                 }
             } break;
             case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
                 const zoomVector = new Vector2D(movementX, movementY);
-                const velocity = zoomVector.length * ZOOM_SPEED;
+                const velocity = zoomVector.length * ZOOM_SPEED_MOUSE;
                 const relativeAngle = (zoomVector.angle + 45) % 360 - 180;
                 const absAngle = Math.abs(relativeAngle);
                 if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
-                    const direction = relativeAngle > 0 ? 1 : -1;
-                    this.#applyZoom(this.#zoom + velocity * direction, -this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                    const factor = Math.exp(velocity);
+                    const directionalFactor = relativeAngle > 0 ? factor : 1 / factor;
+                    this.#applyZoom(this.#zoom * directionalFactor, -this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
                 }
             } break;
             case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
                 const zoomVector = new Vector2D(movementX, movementY);
-                const velocity = zoomVector.length * ZOOM_SPEED;
+                const velocity = zoomVector.length * ZOOM_SPEED_MOUSE;
                 const relativeAngle = (zoomVector.angle + 135) % 360 - 180;
                 const absAngle = Math.abs(relativeAngle);
                 if (absAngle > ANGLE_THRESHOLD && absAngle < 180 - ANGLE_THRESHOLD) {
-                    const direction = relativeAngle > 0 ? -1 : 1;
-                    this.#applyZoom(this.#zoom + velocity * direction, this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
+                    const factor = Math.exp(velocity);
+                    const directionalFactor = relativeAngle > 0 ? 1 / factor : factor;
+                    this.#applyZoom(this.#zoom * directionalFactor, this.#internalCropWidth / 2, -this.#internalCropHeight / 2);
                 }
             } break;
         }
@@ -470,12 +497,12 @@ export default class ImageCropper extends CustomElement {
                 case RESIZE_STATES.RESIZE_TOP_LEFT:
                 case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
                     const direction = movementX > 0 ? 1 : -1;
-                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, this.#internalCropWidth / 2, 0);
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED_WHEEL, this.#internalCropWidth / 2, 0);
                 } break;
                 case RESIZE_STATES.RESIZE_TOP_RIGHT:
                 case RESIZE_STATES.RESIZE_BOTTOM_RIGHT: {
                     const direction = movementX > 0 ? -1 : 1;
-                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, -this.#internalCropWidth / 2, 0);
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED_WHEEL, -this.#internalCropWidth / 2, 0);
                 } break;
             }
         } else if (movementY !== 0) {
@@ -483,12 +510,12 @@ export default class ImageCropper extends CustomElement {
                 case RESIZE_STATES.RESIZE_TOP_LEFT:
                 case RESIZE_STATES.RESIZE_TOP_RIGHT: {
                     const direction = movementY > 0 ? 1 : -1;
-                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, 0, this.#internalCropHeight / 2);
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED_WHEEL, 0, this.#internalCropHeight / 2);
                 } break;
                 case RESIZE_STATES.RESIZE_BOTTOM_RIGHT:
                 case RESIZE_STATES.RESIZE_BOTTOM_LEFT: {
                     const direction = movementY > 0 ? -1 : 1;
-                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED, 0, -this.#internalCropHeight / 2);
+                    this.#applyZoom(this.#zoom + direction * ZOOM_SPEED_WHEEL, 0, -this.#internalCropHeight / 2);
                 } break;
             }
         }
@@ -585,10 +612,10 @@ export default class ImageCropper extends CustomElement {
 
 customElements.define("emc-image-cropper", ImageCropper);
 
-function getCropSize(value) {
+function getCropSize(value, defValue) {
     value = parseInt(value);
     if (isNaN(value)) {
-        return DEFAULT_CROP_SIZE;
+        return defValue;
     }
     if (value < 0) {
         return 0;

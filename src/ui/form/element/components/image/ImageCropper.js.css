@@ -1,7 +1,10 @@
 :host {
     display: block;
-    width: 500px;
-    height: 500px;
+    min-width: 200px;
+    min-height: 200px;
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
     /* INPUT */
     --background-color: var(--input-back-color, #ffffff);
     --border-style: solid;
@@ -68,15 +71,17 @@
     align-items: center;
     width: 300px;
     height: 300px;
+    transform: scale(var(--crop-scale, 1));
     overflow: visible;
     user-select: none;
+    pointer-events: none;
 
     #image {
         --offset-x: 0;
         --offset-y: 0;
         --zoom: 0;
         transform-origin: center;
-        transform: translate(calc(var(--offset-x, 0) * 1px), calc(var(--offset-y, 0) * 1px)) scale(var(--zoom, 1));
+        transform: scale(calc(1 / var(--crop-scale, 1))) translate(calc(var(--offset-x, 0) * 1px), calc(var(--offset-y, 0) * 1px)) scale(var(--zoom, 1));
         transition: translate .1s ease-in-out;
         pointer-events: none;
     }
@@ -87,9 +92,10 @@
     display: block;
     width: 300px;
     height: 300px;
-    box-shadow: #222222 0 0 0 10000px;
-    opacity: 0.5;
+    transform: scale(var(--crop-scale, 1));
     border-radius: 0;
+    box-shadow: #222222 0 0 0 10000px;
+    opacity: 0.7;
     pointer-events: none;
 }
 
@@ -98,10 +104,23 @@
     display: block;
     width: 300px;
     height: 300px;
-    border-style: solid;
-    border-width: var(--image-cropper-border-width, 2px);
-    border-color: var(--image-cropper-border-color, #9aa0a6);
+    transform: scale(var(--crop-scale, 1));
     pointer-events: none;
+
+    --border-offset: calc(0px - var(--image-cropper-border-width, 2px));
+    --corner-offset: calc(var(--border-offset, -2px) - var(--image-cropper-corner-border-width, 4px));
+
+    .resize-border {
+        position: absolute;
+        display: block;
+        top: var(--border-offset, -2px);
+        left: var(--border-offset, -2px);
+        bottom: var(--border-offset, -2px);
+        right: var(--border-offset, -2px);
+        border-style: solid;
+        border-width: var(--image-cropper-border-width, 2px);
+        border-color: var(--image-cropper-border-color, #9aa0a6);
+    }
 
     .resize-corner {
         position: absolute;
@@ -119,7 +138,7 @@
 
             &::after {
                 position: absolute;
-                background-color: #00000069;
+                background-color: #ffffff69;
                 border-radius: 50%;
                 width: 40px;
                 height: 40px;
@@ -129,29 +148,29 @@
         }
 
         &#top-left-resizer {
-            top: -4px;
-            left: -4px;
+            top: var(--corner-offset, -6px);
+            left: var(--corner-offset, -6px);
             border-bottom: none;
             border-right: none;
         }
 
         &#top-right-resizer {
-            top: -4px;
-            right: -4px;
+            top: var(--corner-offset, -6px);
+            right: var(--corner-offset, -6px);
             border-bottom: none;
             border-left: none;
         }
 
         &#bottom-right-resizer {
-            bottom: -4px;
-            right: -4px;
+            bottom: var(--corner-offset, -6px);
+            right: var(--corner-offset, -6px);
             border-top: none;
             border-left: none;
         }
 
         &#bottom-left-resizer {
-            bottom: -4px;
-            left: -4px;
+            bottom: var(--corner-offset, -6px);
+            left: var(--corner-offset, -6px);
             border-top: none;
             border-right: none;
         }

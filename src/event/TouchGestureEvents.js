@@ -1,4 +1,5 @@
 import Vector2D from "@emcjs/core/data/Vector2D.js";
+import {isNull} from "@emcjs/core/util/helper/CheckType.js";
 
 class TouchGestureEvents {
 
@@ -64,25 +65,31 @@ class TouchGestureEvents {
     }
 
     touchStart(event) {
-        event.preventDefault();
-        for (const touch of event.changedTouches) {
-            this.#touchCache.set(touch.identifier, touch);
-        }
-    }
-
-    touchMove(event) {
-        event.preventDefault();
-        if (event.changedTouches.length > 0) {
-            this.#handlePan(event);
-            this.#handlePinch(event);
+        if (event.cancelable) {
+            event.preventDefault();
             for (const touch of event.changedTouches) {
                 this.#touchCache.set(touch.identifier, touch);
             }
         }
     }
 
+    touchMove(event) {
+        if (event.cancelable) {
+            event.preventDefault();
+            if (event.changedTouches.length > 0) {
+                this.#handlePan(event);
+                this.#handlePinch(event);
+                for (const touch of event.changedTouches) {
+                    this.#touchCache.set(touch.identifier, touch);
+                }
+            }
+        }
+    }
+
     touchEnd(event) {
-        event.preventDefault();
+        if (event.cancelable) {
+            event.preventDefault();
+        }
         for (const touch of event.changedTouches) {
             this.#touchCache.delete(touch.identifier);
         }
@@ -109,24 +116,27 @@ class TouchGestureEvents {
         if (target != null) {
             if (event.targetTouches.length === 2) {
                 const newPoint1 = event.targetTouches[0];
-                const oldPoint1 = this.#touchCache.get(newPoint1.identifier);
-                const oldVector1 = new Vector2D(oldPoint1.clientX, oldPoint1.clientY);
-                const newVector1 = new Vector2D(newPoint1.clientX, newPoint1.clientY);
-
                 const newPoint2 = event.targetTouches[1];
+
+                const oldPoint1 = this.#touchCache.get(newPoint1.identifier);
                 const oldPoint2 = this.#touchCache.get(newPoint2.identifier);
-                const oldVector2 = new Vector2D(oldPoint2.clientX, oldPoint2.clientY);
-                const newVector2 = new Vector2D(newPoint2.clientX, newPoint2.clientY);
 
-                const oldDistance = oldVector1.distanceTo(oldVector2);
-                const newDistance = newVector1.distanceTo(newVector2);
+                if (!isNull(oldPoint1) && !isNull(oldPoint2)) {
+                    const oldVector1 = new Vector2D(oldPoint1.clientX, oldPoint1.clientY);
+                    const oldVector2 = new Vector2D(oldPoint2.clientX, oldPoint2.clientY);
+                    const oldDistance = oldVector1.distanceTo(oldVector2);
 
-                if (oldDistance !== newDistance) {
-                    const ev = new Event("touchpinch");
-                    ev.centerX = (newPoint1.clientX + newPoint2.clientX) / 2;
-                    ev.centerY = (newPoint1.clientY + newPoint2.clientY) / 2;
-                    ev.deltaDist = newDistance - oldDistance;
-                    target.dispatchEvent(ev);
+                    const newVector1 = new Vector2D(newPoint1.clientX, newPoint1.clientY);
+                    const newVector2 = new Vector2D(newPoint2.clientX, newPoint2.clientY);
+                    const newDistance = newVector1.distanceTo(newVector2);
+
+                    if (oldDistance !== newDistance) {
+                        const ev = new Event("touchpinch");
+                        ev.centerX = (newPoint1.clientX + newPoint2.clientX) / 2;
+                        ev.centerY = (newPoint1.clientY + newPoint2.clientY) / 2;
+                        ev.deltaDist = newDistance - oldDistance;
+                        target.dispatchEvent(ev);
+                    }
                 }
             }
         }

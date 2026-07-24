@@ -1,6 +1,6 @@
 {
   "name": "@emcjs/fe",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Modular JS API - Frontend",
   "type": "module",
   "repository": {
