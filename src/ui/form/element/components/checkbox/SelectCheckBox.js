@@ -1,6 +1,7 @@
 import {isNull} from "@emcjs/core/util/helper/CheckType.js";
 import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import CustomElementDelegating from "../../../../element/CustomElementDelegating.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
 import TPL from "./SelectCheckBox.js.html" assert {type: "html"};
 import STYLE from "./SelectCheckBox.js.css" assert {type: "css"};
 
@@ -71,9 +72,17 @@ export default class SelectCheckBox extends CustomElementDelegating {
         return this.getBooleanAttribute("disabled");
     }
 
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
+    }
+
     #renderValue() {
         if (this.#value == null) {
-            this.#checkboxEl.classList.remove("checked");
+            this.#checkboxEl.classList.add("checked");
             this.#checkboxEl.classList.add("indeterminate");
         } else if (!this.#value) {
             this.#checkboxEl.classList.remove("checked");

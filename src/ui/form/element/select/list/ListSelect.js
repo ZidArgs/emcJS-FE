@@ -12,6 +12,7 @@ import {setAttributes} from "../../../../../util/node/NodeAttributes.js";
 import MutationObserverManager from "../../../../../util/observer/manager/MutationObserverManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import I18nOption from "../../../../i18n/builtin/I18nOption.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
 import ListSelectEntry from "./components/ListSelectEntry.js";
 import "../../../../dataview/datalist/DataListSelect.js";
 import "../../components/searchheader/SearchHeader.js";
@@ -182,6 +183,14 @@ export default class ListSelect extends AbstractFormElement {
         return this.getEnumAttribute("resize");
     }
 
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [
@@ -190,7 +199,8 @@ export default class ListSelect extends AbstractFormElement {
             "sorted",
             "multiple",
             "allowdeselect",
-            "selectend"
+            "selectend",
+            "checkstyle"
         ];
     }
 
@@ -226,6 +236,11 @@ export default class ListSelect extends AbstractFormElement {
                     const selectEnd = this.selectEnd;
                     this.#listEl.selectEnd = selectEnd;
                     this.#searchHeaderEl.selectEnd = selectEnd;
+                }
+            } break;
+            case "checkstyle": {
+                if (oldValue != newValue) {
+                    this.#listEl.checkStyle = this.checkStyle;
                 }
             } break;
         }

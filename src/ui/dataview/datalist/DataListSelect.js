@@ -1,5 +1,6 @@
 import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
 import {classExtends} from "@emcjs/core/util/helper/Class.js";
+import CheckBoxStyles from "../../../enum/form/CheckboxStyles.js";
 import DataList from "./DataList.js";
 import DataListSelectEntry from "./components/DataListSelectEntry.js";
 import STYLE from "./DataListSelect.js.css" assert {type: "css"};
@@ -75,6 +76,9 @@ export default class DataListSelect extends DataList {
         if (this.readOnly) {
             el.readOnly = true;
         }
+        if (this.checkStyle) {
+            el.checkStyle = this.checkStyle;
+        }
         if (this.#selected.has(key)) {
             el.selected = true;
         }
@@ -127,12 +131,21 @@ export default class DataListSelect extends DataList {
         return this.getBooleanAttribute("readonly");
     }
 
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
+    }
+
     static get observedAttributes() {
         return [
             "selectend",
             "multiple",
             "disabled",
-            "readonly"
+            "readonly",
+            "checkstyle"
         ];
     }
 
@@ -161,6 +174,12 @@ export default class DataListSelect extends DataList {
                     const els = this.getAllEntries();
                     for (const el of els) {
                         el.readOnly = this.readOnly;
+                    }
+                } break;
+                case "checkstyle": {
+                    const els = this.getAllEntries();
+                    for (const el of els) {
+                        el.checkStyle = this.checkStyle;
                     }
                 } break;
             }

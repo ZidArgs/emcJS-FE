@@ -2,6 +2,7 @@ import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../util/node/NodeAttributes.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
 import TPL from "./CheckboxInput.js.html" assert {type: "html"};
 import STYLE from "./CheckboxInput.js.css" assert {type: "css"};
 
@@ -61,6 +62,14 @@ export default class CheckboxInput extends AbstractFormElement {
 
     get defaultValue() {
         return this.getBooleanAttribute("value");
+    }
+
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
     }
 
     static get observedAttributes() {

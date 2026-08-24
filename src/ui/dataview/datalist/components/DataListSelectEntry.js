@@ -1,5 +1,6 @@
 import DataListEntry from "./DataListEntry.js";
 import SelectCheckBox from "../../../form/element/components/checkbox/SelectCheckBox.js";
+import CheckBoxStyles from "../../../../enum/form/CheckboxStyles.js";
 import TPL from "./DataListSelectEntry.js.html" assert {type: "html"};
 import STYLE from "./DataListSelectEntry.js.css" assert {type: "css"};
 
@@ -101,12 +102,21 @@ export default class DataListSelectEntry extends DataListEntry {
         return this.getBooleanAttribute("readonly");
     }
 
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [
             ...superObserved,
             "disabled",
-            "readonly"
+            "readonly",
+            "checkstyle"
         ];
     }
 
@@ -119,6 +129,11 @@ export default class DataListSelectEntry extends DataListEntry {
                 } break;
                 case "readonly": {
                     this.#selectCheckboxEl.readOnly = this.readOnly;
+                } break;
+                case "checkstyle": {
+                    if (oldValue != newValue) {
+                        this.#selectCheckboxEl.checkStyle = this.checkStyle;
+                    }
                 } break;
             }
         }

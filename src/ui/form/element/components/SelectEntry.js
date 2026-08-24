@@ -1,4 +1,5 @@
 import CustomElement from "../../../element/CustomElement.js";
+import CheckBoxStyles from "../../../../enum/form/CheckboxStyles.js";
 import "../../../i18n/I18nLabel.js";
 import "./checkbox/SelectCheckBox.js";
 import TPL from "./SelectEntry.js.html" assert {type: "html"};
@@ -43,11 +44,20 @@ export default class SelectEntry extends CustomElement {
         return this.getBooleanAttribute("selected");
     }
 
+    set checkStyle(value) {
+        this.setEnumAttribute("checkstyle", value, CheckBoxStyles);
+    }
+
+    get checkStyle() {
+        return this.getEnumAttribute("checkstyle");
+    }
+
     static get observedAttributes() {
         return [
             "value",
             "label",
-            "selected"
+            "selected",
+            "checkstyle"
         ];
     }
 
@@ -71,6 +81,11 @@ export default class SelectEntry extends CustomElement {
             case "selected": {
                 if (oldValue != newValue) {
                     this.#checkboxEl.value = this.selected;
+                }
+            } break;
+            case "checkstyle": {
+                if (oldValue != newValue) {
+                    this.#checkboxEl.checkStyle = this.checkStyle;
                 }
             } break;
         }
