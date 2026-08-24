@@ -60,6 +60,7 @@ export default class NavBar extends CustomElement {
             }
         });
         this.#coverEl.addEventListener("click", () => {
+            document.activeElement.blur();
             this.#closeAll();
         });
         this.addEventListener("blur", () => {
@@ -142,6 +143,7 @@ export default class NavBar extends CustomElement {
                 // action
                 if (isFunction(config.handler)) {
                     this.#navigationEventManager.set(btnEl, "click", (event) => {
+                        document.activeElement.blur();
                         this.#closeAll();
                         config.handler();
                         event.stopPropagation();
@@ -151,6 +153,7 @@ export default class NavBar extends CustomElement {
                 // href
                 if (isHttpUrl(config.href)) {
                     this.#navigationEventManager.set(btnEl, "click", (event) => {
+                        document.activeElement.blur();
                         this.#closeAll();
                         const target = event.ctrlKey ? "_blank" : config.target;
                         if (target) {
@@ -234,11 +237,9 @@ export default class NavBar extends CustomElement {
         this.#containerEl.classList.remove("open");
         for (const el of this.#contentEl.querySelectorAll(".open")) {
             el.classList.remove("open");
-            el.blur();
         }
         for (const el of this.#contentEl.querySelectorAll(".focus-open")) {
             el.classList.remove("focus-open");
-            el.blur();
         }
         this.#hamburgerEl.open = false;
     }
