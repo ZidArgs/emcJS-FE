@@ -2,7 +2,7 @@ import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../util/node/NodeAttributes.js";
-import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckBoxStyles.js";
 import TPL from "./CheckboxInput.js.html" assert {type: "html"};
 import STYLE from "./CheckboxInput.js.css" assert {type: "css"};
 

@@ -1,6 +1,6 @@
 import DataListEntry from "./DataListEntry.js";
 import SelectCheckBox from "../../../form/element/components/checkbox/SelectCheckBox.js";
-import CheckBoxStyles from "../../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../../enum/form/CheckBoxStyles.js";
 import TPL from "./DataListSelectEntry.js.html" assert {type: "html"};
 import STYLE from "./DataListSelectEntry.js.css" assert {type: "css"};
 

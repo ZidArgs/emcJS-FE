@@ -22,36 +22,31 @@ export default class DataGridCellBoolOrLogic extends DataGridCell {
         this.#valueEl = this.shadowRoot.getElementById("value");
         this.#inputEl = this.shadowRoot.getElementById("input");
         this.#inputEl.setValueRenderer((value) => this.#getRenderValue(value));
-        this.#inputEl.addEventListener("change", (event) => {
+        this.#inputEl.addEventListener("change", () => {
             if (this.editable) {
-                this.#onInput(event);
+                this.#onInput(this.#inputEl.value);
             }
         });
-        this.#inputEl.addEventListener("action", () => {
+        this.#inputEl.addEventListener("action", async () => {
             if (this.#boolOrLogicModal != null) {
-                this.#boolOrLogicModal.value = this.value;
-                this.#boolOrLogicModal.onsubmit = (event) => {
-                    this.value = this.#boolOrLogicModal.value;
-                    this.#onInput();
-                    event.stopPropagation();
-                    event.preventDefault();
-                };
-                this.#boolOrLogicModal.show();
+                const value = await this.#boolOrLogicModal.show(this.value);
+                this.#onInput(value);
             }
         });
     }
 
-    #onInput() {
-        const value = this.#inputEl.value;
-        this.value = value;
-        const ev = new Event("edit", {bubbles: true});
-        ev.data = {
-            value,
-            action: this.action,
-            columnName: this.columnName,
-            rowKey: this.rowKey
-        };
-        this.dispatchEvent(ev);
+    #onInput(value) {
+        if (value !== this.value) {
+            this.value = value;
+            const ev = new Event("edit", {bubbles: true});
+            ev.data = {
+                value,
+                action: this.action,
+                columnName: this.columnName,
+                rowKey: this.rowKey
+            };
+            this.dispatchEvent(ev);
+        }
     }
 
     set value(val) {

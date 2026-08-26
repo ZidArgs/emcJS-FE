@@ -1,5 +1,5 @@
 import CustomElement from "../../../element/CustomElement.js";
-import CheckBoxStyles from "../../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../../enum/form/CheckBoxStyles.js";
 import "../../../i18n/I18nLabel.js";
 import "./checkbox/SelectCheckBox.js";
 import TPL from "./SelectEntry.js.html" assert {type: "html"};

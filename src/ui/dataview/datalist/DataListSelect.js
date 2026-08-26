@@ -1,6 +1,6 @@
 import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
 import {classExtends} from "@emcjs/core/util/helper/Class.js";
-import CheckBoxStyles from "../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../enum/form/CheckBoxStyles.js";
 import DataList from "./DataList.js";
 import DataListSelectEntry from "./components/DataListSelectEntry.js";
 import STYLE from "./DataListSelect.js.css" assert {type: "css"};

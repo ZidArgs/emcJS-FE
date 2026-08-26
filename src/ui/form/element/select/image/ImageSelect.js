@@ -134,6 +134,14 @@ export default class ImageSelect extends AbstractFormElement {
         return this.getBooleanAttribute("dark");
     }
 
+    set noPreview(value) {
+        this.setBooleanAttribute("nopreview", value);
+    }
+
+    get noPreview() {
+        return this.getBooleanAttribute("nopreview");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [

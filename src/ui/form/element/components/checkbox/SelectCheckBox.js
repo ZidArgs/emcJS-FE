@@ -1,7 +1,7 @@
 import {isNull} from "@emcjs/core/util/helper/CheckType.js";
 import {isEqual} from "@emcjs/core/util/helper/Comparator.js";
 import CustomElementDelegating from "../../../../element/CustomElementDelegating.js";
-import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckBoxStyles.js";
 import TPL from "./SelectCheckBox.js.html" assert {type: "html"};
 import STYLE from "./SelectCheckBox.js.css" assert {type: "css"};
 

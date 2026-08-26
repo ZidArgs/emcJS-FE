@@ -12,7 +12,7 @@ import {setAttributes} from "../../../../../util/node/NodeAttributes.js";
 import MutationObserverManager from "../../../../../util/observer/manager/MutationObserverManager.js";
 import BusyIndicatorManager from "../../../../../util/busy/BusyIndicatorManager.js";
 import I18nOption from "../../../../i18n/builtin/I18nOption.js";
-import CheckBoxStyles from "../../../../../enum/form/CheckboxStyles.js";
+import CheckBoxStyles from "../../../../../enum/form/CheckBoxStyles.js";
 import ListSelectEntry from "./components/ListSelectEntry.js";
 import "../../../../dataview/datalist/DataListSelect.js";
 import "../../components/searchheader/SearchHeader.js";
