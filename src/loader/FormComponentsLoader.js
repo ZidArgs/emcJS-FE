@@ -1,4 +1,4 @@
-import MapLocker from "@emcjs/core/data/locker/MapLocker.js";
+import MapView from "@emcjs/core/data/view/MapView.js";
 
 // structural
 import FormSection from "../ui/form/FormSection.js";
@@ -7,7 +7,7 @@ import FormRow from "../ui/form/FormRow.js";
 import FormField from "../ui/form/FormField.js";
 import FormGroup from "../ui/form/FormGroup.js";
 
-export const FORM_STRUCTURE_MAPPING = new MapLocker(new Map([
+export const FORM_STRUCTURE_MAPPING = new MapView(new Map([
     ["Section", FormSection],
     ["Fieldset", FormFieldset],
     ["Row", FormRow],
@@ -23,7 +23,7 @@ import ResetButton from "../ui/form/button/ResetButton.js";
 import ErrorButton from "../ui/form/button/ErrorButton.js";
 import LinkButton from "../ui/form/button/LinkButton.js";
 
-export const FORM_BUTTON_MAPPING = new MapLocker(new Map([
+export const FORM_BUTTON_MAPPING = new MapView(new Map([
     ["Button", Button],
     ["ActionButton", ActionButton],
     ["SubmitButton", SubmitButton],
