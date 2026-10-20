@@ -8,6 +8,7 @@ import ControlButtonTypes from "../../enum/form/ControlButtonTypes.js";
 import {allNodesConnected} from "../../util/observer/IsConnectedObserver.js";
 import Toast from "../overlay/message/Toast.js";
 import AbstractFormElement from "./element/AbstractFormElement.js";
+import {copyToClipboard} from "../../util/Clipboard.js";
 import "../i18n/I18nLabel.js";
 import "../i18n/I18nTextbox.js";
 import "../i18n/I18nTooltip.js";
@@ -93,28 +94,43 @@ export default class FormField extends CustomElement {
         this.#descriptionEl = this.shadowRoot.getElementById("description");
         this.#subtextEl = this.shadowRoot.getElementById("subtext");
         this.#errorEl = this.shadowRoot.getElementById("error");
+        /* --- */
         this.#copyEl.addEventListener("click", (event) => {
             event.stopPropagation();
             event.preventDefault();
-            try {
-                navigator.clipboard.writeText(this.#getValue() ?? "");
-                Toast.success("copied to clipboard");
-            } catch {
-                Toast.error("could not write to clipboard");
+            this.#copy();
+        });
+        this.#copyEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                event.stopPropagation();
             }
         });
+        this.#copyEl.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+                this.#copy();
+            }
+        });
+        /* --- */
         this.#resetEl.addEventListener("click", (event) => {
             event.stopPropagation();
             event.preventDefault();
             this.#reset();
         });
         this.#resetEl.addEventListener("keydown", (event) => {
-            if (event.keyCode === 13) {
-                event.stopPropagation();
+            if (event.key === "Enter") {
                 event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+        this.#resetEl.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
                 this.#reset();
             }
         });
+        /* --- */
         this.#errorEl.addEventListener("click", () => {
             if (this.assignedElement != null) {
                 this.#assignedFormEl.focus();
@@ -145,6 +161,14 @@ export default class FormField extends CustomElement {
     connectedCallback() {
         super.connectedCallback?.();
         this.#resolveFormElements();
+    }
+
+    #copy() {
+        if (copyToClipboard(this.#getValue() ?? "")) {
+            Toast.success("copied to clipboard");
+        } else {
+            Toast.error("could not write to clipboard");
+        }
     }
 
     #reset() {

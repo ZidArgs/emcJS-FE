@@ -1,5 +1,6 @@
 import {immute} from "@emcjs/core/data/Immutable.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
+import IconStyleMixin from "../../../../mixin/IconStyleMixin.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../util/node/NodeAttributes.js";
@@ -9,7 +10,16 @@ import TPL from "./SearchInput.js.html" assert {type: "html"};
 import STYLE from "./SearchInput.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./SearchInput.js.json" assert {type: "json"};
 
-export default class SearchInput extends AbstractFormElement {
+// TODO add incremental and non-incremental "search"-event firing
+/* TODO should look more like this:
+┌───────────────────────────────────┬───┐
+│  Search Input...                × │ ⌕ │
+└───────────────────────────────────┴───┘
+Magnifying glass only clickable if non-incremental search
+*/
+// TODO do NOT submit form on enter press, this input has its own enter press behaviour
+// TODO add autocomplete attribute
+export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
 
     static get formConfigurationFields() {
         return immute([...super.formConfigurationFields, ...CONFIG_FIELDS]);
@@ -29,6 +39,18 @@ export default class SearchInput extends AbstractFormElement {
             this.value = this.#inputEl.value;
         });
         this.#buttonEl = this.shadowRoot.getElementById("button");
+        this.#buttonEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+        this.#buttonEl.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+                this.#buttonEl.click();
+            }
+        });
         this.#buttonEl.addEventListener("click", () => {
             this.value = "";
         });

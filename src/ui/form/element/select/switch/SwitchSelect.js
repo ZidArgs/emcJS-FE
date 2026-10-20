@@ -181,8 +181,8 @@ export default class SwitchSelect extends AbstractFormElement {
             if (!usedKeys.has(key)) {
                 usedKeys.add(key);
                 data.push({
-                    key: el.value || el.innerText,
-                    label: el.i18nValue || el.label || el.innerText,
+                    key,
+                    label: el.i18nValue || el.label || el.innerText || el.value,
                     readonly: this.readOnly
                 });
                 /* --- */

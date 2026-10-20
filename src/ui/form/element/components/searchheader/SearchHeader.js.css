@@ -33,15 +33,11 @@
 
     #search {
         flex: 1;
-    }
-}
 
-:host([selectend]:not([selectend="false"])) #container {
-    flex-direction: row-reverse;
-
-    #select {
-        margin-left: 6px;
-        margin-right: 0px;
+        & + #select {
+            margin-left: 6px;
+            margin-right: 0px;
+        }
     }
 }
 

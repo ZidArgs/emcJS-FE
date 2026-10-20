@@ -82,16 +82,19 @@
     }
 
     &::before {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        font-size: 1.2em;
+        font-family: "emcjs-icons";
+        font-size: 1em;
+        font-style: normal;
+        font-weight: bold;
+        speak: never;
+        display: inline-block;
+        text-decoration: inherit;
+        text-align: center;
+        font-variant: normal;
+        text-transform: none;
         line-height: 1em;
-        font-family: monospace;
-        content: "✖";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
 

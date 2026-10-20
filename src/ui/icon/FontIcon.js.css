@@ -30,3 +30,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
+:host([bold]:not([bold="false"])) #icon:before {
+    font-weight: bold;
+}

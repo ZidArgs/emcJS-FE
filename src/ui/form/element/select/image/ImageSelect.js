@@ -67,15 +67,8 @@ export default class ImageSelect extends AbstractFormElement {
             this.#buttonEl.focus();
         });
         this.#buttonEl = this.shadowRoot.getElementById("button");
-        this.#buttonEl.addEventListener("click", async () => {
-            const result = await this.#imageSelectModal.show(this.value);
-            if (result) {
-                this.value =  result;
-                this.dispatchEvent(new Event("input", {
-                    bubbles: true,
-                    cancelable: true
-                }));
-            }
+        this.#buttonEl.addEventListener("click", () => {
+            this.#showImageSelectModal();
         });
         this.#optionsSlotEl = this.shadowRoot.getElementById("options-slot");
         this.#optionsSlotEl.addEventListener("slotchange", () => {
@@ -94,6 +87,17 @@ export default class ImageSelect extends AbstractFormElement {
         this.#i18nEventManager.set("translation", () => {
             this.#imageSelectPreviewManager.sort();
         });
+    }
+
+    async #showImageSelectModal() {
+        const result = await this.#imageSelectModal.show(this.value);
+        if (result) {
+            this.value =  result;
+            this.dispatchEvent(new Event("input", {
+                bubbles: true,
+                cancelable: true
+            }));
+        }
     }
 
     formDisabledCallback(disabled) {

@@ -4,13 +4,20 @@ import {debounce} from "@emcjs/core/util/Debouncer.js";
 import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
 import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
-import ListSelectionHelper from "../../util/form/ListSelectionController.js";
+import ListSelectionController from "../../util/form/ListSelectionController.js";
 import {sortChildren} from "../../util/node/NodeListSort.js";
 import "../header/SelectionHeader.js";
 import "./Option.js";
 import TPL from "./ListSelect.js.html" assert {type: "html"};
 import STYLE from "./ListSelect.js.css" assert {type: "css"};
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
+
+const PASSING_EVENT_KEYS = [
+    "Escape",
+    "Enter",
+    "ArrowUp",
+    "ArrowDown"
+];
 
 /**
  * @deprecated
@@ -87,6 +94,11 @@ export default class ListSelect extends CustomElementDelegating {
         });
         /* header */
         this.#headerEl = this.shadowRoot.getElementById("header");
+        this.#headerEl.addEventListener("keydown", (event) => {
+            if (!PASSING_EVENT_KEYS.includes(event.key)) {
+                event.stopPropagation();
+            }
+        });
         this.#headerEl.addEventListener("check", (event) => {
             if (this.multiple) {
                 if (event.value) {
@@ -153,7 +165,7 @@ export default class ListSelect extends CustomElementDelegating {
         }, 300));
         /* --- */
         this.#scrollContainerEl = this.shadowRoot.getElementById("scroll-container");
-        this.#selectionHelper = new ListSelectionHelper(this, this.#scrollContainerEl);
+        this.#selectionHelper = new ListSelectionController(this, this.#scrollContainerEl);
         this.#selectionHelper.addEventListener("choose", (event) => {
             this.#choose(event.value);
         });
