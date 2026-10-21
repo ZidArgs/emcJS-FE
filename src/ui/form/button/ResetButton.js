@@ -1,4 +1,7 @@
-import {isStringNotEmpty} from "@emcjs/core/util/helper/CheckType.js";
+import {
+    isNull,
+    isStringNotEmpty
+} from "@emcjs/core/util/helper/CheckType.js";
 import {registerFocusable} from "../../../util/element/ElementFocusManager.js";
 import Button from "./Button.js";
 import STYLE from "./ResetButton.js.css" assert {type: "css"};
@@ -6,6 +9,8 @@ import STYLE from "./ResetButton.js.css" assert {type: "css"};
 export default class ResetButton extends Button {
 
     #buttonEl;
+
+    #fontIconEl;
 
     #textEl;
 
@@ -15,6 +20,8 @@ export default class ResetButton extends Button {
         /* --- */
         this.#buttonEl = this.shadowRoot.getElementById("button");
         this.#buttonEl.setAttribute("type", "reset");
+        this.#fontIconEl = this.shadowRoot.getElementById("font-icon");
+        this.#fontIconEl.setAttribute("icon", "reset");
         this.#textEl = this.shadowRoot.getElementById("text");
         this.#textEl.i18nValue = "Reset";
     }
@@ -32,6 +39,9 @@ export default class ResetButton extends Button {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "text" && !isStringNotEmpty(newValue)) {
             newValue = "Reset";
+        }
+        if (name === "icon" && isNull(newValue)) {
+            newValue = "reset";
         }
         super.attributeChangedCallback?.(name, oldValue, newValue);
     }

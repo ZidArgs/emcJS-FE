@@ -98,14 +98,6 @@ export default class Button extends CustomFormElement {
         return this.getStringAttribute("icon");
     }
 
-    set iconType(value) {
-        this.setStringAttribute("icon-type", value);
-    }
-
-    get iconType() {
-        return this.getStringAttribute("icon-type");
-    }
-
     set tooltip(value) {
         this.setStringAttribute("tooltip", value);
     }
@@ -158,7 +150,6 @@ export default class Button extends CustomFormElement {
         return [
             "text",
             "icon",
-            "icon-type",
             "tooltip",
             "variant"
         ];
@@ -173,12 +164,7 @@ export default class Button extends CustomFormElement {
             } break;
             case "icon": {
                 if (oldValue != newValue) {
-                    this.#applyIcon(this.iconType, newValue);
-                }
-            } break;
-            case "icon-type": {
-                if (oldValue != newValue) {
-                    this.#applyIcon(newValue, this.icon);
+                    this.#fontIconEl.setAttribute("icon", newValue);
                 }
             } break;
             case "tooltip": {
@@ -209,27 +195,6 @@ export default class Button extends CustomFormElement {
             this.#buttonEl.setAttribute("count-type", type);
         } else {
             this.#buttonEl.removeAttribute("count-type");
-        }
-    }
-
-    #applyIcon(type, value) {
-        this.#fontIconEl.removeAttribute("icon");
-        this.#buttonEl.removeAttribute("icon");
-        this.#buttonEl.style.removeProperty("--icon-image");
-
-        switch (type) {
-            case "font": {
-                this.#buttonEl.setAttribute("icon-type", "font");
-                this.#fontIconEl.setAttribute("icon", value);
-            } break;
-            case "image": {
-                this.#buttonEl.setAttribute("icon-type", "image");
-                this.#buttonEl.style.setProperty("--icon-image", value);
-            } break;
-            default: {
-                this.#buttonEl.setAttribute("icon-type", "char");
-                this.#buttonEl.setAttribute("icon", value);
-            } break;
         }
     }
 

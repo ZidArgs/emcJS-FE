@@ -88,38 +88,6 @@
     white-space: nowrap;
 }
 
-#button[icon-type="char"][icon]:not([icon=""])::before,
-#button:not([icon-type])[icon]:not([icon=""])::before {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    height: 1em;
-    min-width: 1em;
-    font-size: 1.3em;
-    line-height: 1em;
-    font-family: "monospace", monospace;
-    font-weight: bold;
-    transform-origin: center;
-    content: attr(icon);
-}
-
-#button[icon-type="image"]::before {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 1em;
-    height: 1em;
-    background-image: var(--icon-image);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    background-origin: content-box;
-    pointer-events: none;
-    content: "";
-}
-
 #font-icon {
     display: none;
     position: relative;
@@ -128,7 +96,7 @@
     width: 1.3em;
 }
 
-#button[icon-type="font"] #font-icon {
+#font-icon[icon]:not([icon=""]) {
     display: inline-flex;
 }
 
@@ -139,32 +107,10 @@
     width: 1em;
 }
 
-:host([text]:not([text=""])) #button::before,
 :host([text]:not([text=""])) #font-icon,
-:host(:not(:empty)) #button::before,
 :host(:not(:empty)) #font-icon,
 :host([text]:not([text=""])) ::slotted(:last-child) {
     margin-right: 0.3em;
-}
-
-:host(.rotate-icon-0) #button::before,
-:host(.rotate-icon-0) #font-icon {
-    rotate: 0deg;
-}
-
-:host(.rotate-icon-90) #button::before,
-:host(.rotate-icon-90) #font-icon {
-    rotate: 90deg;
-}
-
-:host(.rotate-icon-180) #button::before,
-:host(.rotate-icon-180) #font-icon {
-    rotate: 180deg;
-}
-
-:host(.rotate-icon-270) #button::before,
-:host(.rotate-icon-270) #font-icon {
-    rotate: 270deg;
 }
 
 #button[count-value]::after {

@@ -26,14 +26,6 @@ export default class DataGridCellButton extends DataGridCell {
         this.setAttribute("text", val);
     }
 
-    get iconType() {
-        return this.getAttribute("icon-type");
-    }
-
-    set iconType(val) {
-        this.setAttribute("icon-type", val);
-    }
-
     get icon() {
         return this.getAttribute("icon");
     }
@@ -55,7 +47,6 @@ export default class DataGridCellButton extends DataGridCell {
         return [
             ...superObserved,
             "text",
-            "icon-type",
             "icon",
             "tooltip",
             "disabled",
@@ -69,9 +60,6 @@ export default class DataGridCellButton extends DataGridCell {
             switch (name) {
                 case "text": {
                     this.onValueChange(this.value);
-                } break;
-                case "icon-type": {
-                    this.#inputEl.iconType = this.iconType;
                 } break;
                 case "icon": {
                     this.#inputEl.icon = this.icon;

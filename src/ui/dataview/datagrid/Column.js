@@ -126,14 +126,6 @@ export default class Column extends CustomElement {
         return this.getStringAttribute("backcolor");
     }
 
-    set iconType(value) {
-        this.setStringAttribute("icon-type", value);
-    }
-
-    get iconType() {
-        return this.getStringAttribute("icon-type");
-    }
-
     set icon(value) {
         this.setStringAttribute("icon", value);
     }
