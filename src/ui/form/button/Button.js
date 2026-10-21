@@ -119,7 +119,7 @@ export default class Button extends CustomFormElement {
     }
 
     get variant() {
-        return this.getEnumAttribute("variant");
+        return this.getEnumAttribute("variant", ButtonVariants);
     }
 
     set active(value) {

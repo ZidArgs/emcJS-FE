@@ -49,7 +49,7 @@ export default class SelectEntry extends CustomElement {
     }
 
     get checkStyle() {
-        return this.getEnumAttribute("checkstyle");
+        return this.getEnumAttribute("checkstyle", CheckBoxStyles);
     }
 
     static get observedAttributes() {

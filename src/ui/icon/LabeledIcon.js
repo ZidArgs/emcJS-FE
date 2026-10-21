@@ -48,7 +48,7 @@ export default class LabeledIcon extends CustomElement {
     }
 
     get halign() {
-        return this.getEnumAttribute("halign");
+        return this.getEnumAttribute("halign", HorizontalAlign);
     }
 
     set valign(value) {
@@ -56,7 +56,7 @@ export default class LabeledIcon extends CustomElement {
     }
 
     get valign() {
-        return this.getEnumAttribute("valign");
+        return this.getEnumAttribute("valign", VerticalAlign);
     }
 
     static get observedAttributes() {

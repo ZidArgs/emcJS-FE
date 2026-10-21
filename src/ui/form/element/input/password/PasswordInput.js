@@ -4,6 +4,7 @@ import IconStyleMixin from "../../../../mixin/IconStyleMixin.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {setBooleanAttribute} from "../../../../../util/node/NodeAttributes.js";
+import PasswordType from "../../../../../enum/form/PasswordType.js";
 import "../../../../i18n/I18nTooltip.js";
 import "../../../../i18n/builtin/I18nInput.js";
 import TPL from "./PasswordInput.js.html" assert {type: "html"};
@@ -90,6 +91,14 @@ export default class PasswordInput extends IconStyleMixin(AbstractFormElement) {
         return this.getIntAttribute("maxlength");
     }
 
+    set passwordType(value) {
+        this.setEnumAttribute("passwordtype", value, PasswordType);
+    }
+
+    get passwordType() {
+        return this.getEnumAttribute("passwordtype", PasswordType);
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [
@@ -97,7 +106,8 @@ export default class PasswordInput extends IconStyleMixin(AbstractFormElement) {
             "placeholder",
             "readonly",
             "minlength",
-            "maxlength"
+            "maxlength",
+            "passwordtype"
         ];
     }
 
@@ -118,6 +128,12 @@ export default class PasswordInput extends IconStyleMixin(AbstractFormElement) {
             case "maxlength": {
                 if (oldValue != newValue) {
                     this.revalidate();
+                }
+            } break;
+            case "passwordtype": {
+                if (oldValue != newValue) {
+                    const value = PasswordType.get(newValue) ?? PasswordType.defaultValue;
+                    this.#inputEl.autocomplete = value?.autocompleteValue ?? "off";
                 }
             } break;
         }

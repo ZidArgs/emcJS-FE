@@ -77,7 +77,7 @@ export default class SelectCheckBox extends CustomElementDelegating {
     }
 
     get checkStyle() {
-        return this.getEnumAttribute("checkstyle");
+        return this.getEnumAttribute("checkstyle", CheckBoxStyles);
     }
 
     #renderValue() {

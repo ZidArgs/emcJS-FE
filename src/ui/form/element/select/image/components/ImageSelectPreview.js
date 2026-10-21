@@ -42,7 +42,7 @@ export default class ImageSelectPreview extends CustomFormElement {
     }
 
     get background() {
-        return this.getEnumAttribute("background");
+        return this.getEnumAttribute("background", ImageBackgroundTypes);
     }
 
     static get observedAttributes() {

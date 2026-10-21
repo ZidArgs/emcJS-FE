@@ -91,7 +91,7 @@ export default class Column extends CustomElement {
     }
 
     get halign() {
-        return this.getEnumAttribute("halign");
+        return this.getEnumAttribute("halign", HorizontalAlign);
     }
 
     set valign(value) {
@@ -99,7 +99,7 @@ export default class Column extends CustomElement {
     }
 
     get valign() {
-        return this.getEnumAttribute("valign");
+        return this.getEnumAttribute("valign", VerticalAlign);
     }
 
     set fixed(value) {
@@ -107,7 +107,7 @@ export default class Column extends CustomElement {
     }
 
     get fixed() {
-        return this.getEnumAttribute("fixed");
+        return this.getEnumAttribute("fixed", FixedAnchor);
     }
 
     set textColor(value) {

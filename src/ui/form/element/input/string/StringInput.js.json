@@ -30,6 +30,12 @@
         "value": false
     },
     {
+        "type": "StringInput",
+        "name": "autocomplete",
+        "label": "Autocomplete",
+        "value": ""
+    },
+    {
         "type": "SimpleSelect",
         "name": "autocorrect",
         "label": "Activate autocorrect",

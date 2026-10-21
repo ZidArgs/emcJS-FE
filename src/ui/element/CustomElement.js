@@ -109,8 +109,8 @@ export default class CustomElement extends HTMLElement {
         setEnumAttribute(this, name, value, allowedValues);
     }
 
-    getEnumAttribute(name) {
-        return getEnumAttribute(this, name);
+    getEnumAttribute(name, allowedValues) {
+        return getEnumAttribute(this, name, allowedValues);
     }
 
     setListAttribute(name, value, allowedValues) {

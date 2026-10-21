@@ -123,7 +123,7 @@ export default class BoolOrLogicInput extends AbstractFormElement {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

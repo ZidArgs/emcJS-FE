@@ -1,3 +1,4 @@
+import Enum from "@emcjs/core/enum/Enum.js";
 import {
     isArrayOf, isStringNotEmpty
 } from "@emcjs/core/util/helper/CheckType.js";
@@ -167,15 +168,22 @@ export function getJSONAttribute(node, name) {
 }
 
 export function setEnumAttribute(node, name, value, allowedValues) {
-    if (value == null || !allowedValues.includes(value)) {
+    if (value == null || (allowedValues != null && !allowedValues.includes(value))) {
         node.removeAttribute(name);
     } else {
         node.setAttribute(name, value);
     }
 }
 
-export function getEnumAttribute(node, name) {
-    return node.getAttribute(name);
+export function getEnumAttribute(node, name, allowedValues) {
+    const value = node.getAttribute(name);
+    if (allowedValues == null || allowedValues.includes(value)) {
+        return value;
+    } else if (allowedValues.prototype instanceof Enum) {
+        return allowedValues.defaultValue?.value;
+    } else if (Array.isArray(allowedValues)) {
+        return allowedValues[0];
+    }
 }
 
 export function setListAttribute(node, name, value, allowedValues) {

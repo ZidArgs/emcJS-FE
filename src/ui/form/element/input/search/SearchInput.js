@@ -10,15 +10,6 @@ import TPL from "./SearchInput.js.html" assert {type: "html"};
 import STYLE from "./SearchInput.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./SearchInput.js.json" assert {type: "json"};
 
-// TODO add incremental and non-incremental "search"-event firing
-/* TODO should look more like this:
-┌───────────────────────────────────┬───┐
-│  Search Input...                × │ ⌕ │
-└───────────────────────────────────┴───┘
-Magnifying glass only clickable if non-incremental search
-*/
-// TODO do NOT submit form on enter press, this input has its own enter press behaviour
-// TODO add autocomplete attribute
 export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
 
     static get formConfigurationFields() {
@@ -27,7 +18,7 @@ export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
 
     #inputEl;
 
-    #buttonEl;
+    #clearEl;
 
     constructor() {
         super();
@@ -38,28 +29,17 @@ export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
         this.#inputEl.addEventListener("input", () => {
             this.value = this.#inputEl.value;
         });
-        this.#buttonEl = this.shadowRoot.getElementById("button");
-        this.#buttonEl.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-        });
-        this.#buttonEl.addEventListener("keyup", (event) => {
-            if (event.key === "Enter") {
-                event.stopPropagation();
-                this.#buttonEl.click();
-            }
-        });
-        this.#buttonEl.addEventListener("click", () => {
+        this.#clearEl = this.shadowRoot.getElementById("clear");
+        this.#clearEl.addEventListener("click", () => {
             this.value = "";
+            this.#inputEl.focus();
         });
     }
 
     formDisabledCallback(disabled) {
         super.formDisabledCallback(disabled);
         this.#inputEl.disabled = disabled;
-        this.#buttonEl.disabled = disabled;
+        this.#clearEl.disabled = disabled;
     }
 
     validityCallback(message) {
@@ -79,12 +59,21 @@ export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
         return this.getStringAttribute("placeholder");
     }
 
+    set autocomplete(value) {
+        this.setAttribute("autocomplete", value);
+    }
+
+    get autocomplete() {
+        return this.getAttribute("autocomplete");
+    }
+
     static get observedAttributes() {
         const superObserved = super.observedAttributes ?? [];
         return [
             ...superObserved,
             "placeholder",
-            "readonly"
+            "readonly",
+            "autocomplete"
         ];
     }
 
@@ -99,6 +88,11 @@ export default class SearchInput extends IconStyleMixin(AbstractFormElement) {
             case "readonly": {
                 if (oldValue != newValue) {
                     setBooleanAttribute(this.#inputEl, name, this.readOnly);
+                }
+            } break;
+            case "autocomplete": {
+                if (oldValue != newValue) {
+                    this.#inputEl.autocomplete = this.autocomplete;
                 }
             } break;
         }

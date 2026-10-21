@@ -131,7 +131,7 @@ export default class KeyValueListInput extends AbstractFormElement {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

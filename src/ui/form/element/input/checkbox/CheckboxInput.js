@@ -69,7 +69,7 @@ export default class CheckboxInput extends AbstractFormElement {
     }
 
     get checkStyle() {
-        return this.getEnumAttribute("checkstyle");
+        return this.getEnumAttribute("checkstyle", CheckBoxStyles);
     }
 
     static get observedAttributes() {

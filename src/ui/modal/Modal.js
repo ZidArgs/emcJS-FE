@@ -112,7 +112,7 @@ export default class Modal extends CustomElement {
     }
 
     get streched() {
-        return this.getEnumAttribute("streched");
+        return this.getEnumAttribute("streched", Direction);
     }
 
     set resize(value) {
@@ -120,7 +120,7 @@ export default class Modal extends CustomElement {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

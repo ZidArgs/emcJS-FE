@@ -151,7 +151,7 @@ export default class GridSelect extends DataReceiverMixin(AbstractFormElement) {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

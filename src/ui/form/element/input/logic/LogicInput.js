@@ -253,7 +253,7 @@ export default class LogicInput extends ContextMenuManagerMixin(AbstractFormElem
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {
