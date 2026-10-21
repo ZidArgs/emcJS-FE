@@ -180,7 +180,7 @@ export default class ListSelect extends AbstractFormElement {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     set checkStyle(value) {
@@ -188,7 +188,7 @@ export default class ListSelect extends AbstractFormElement {
     }
 
     get checkStyle() {
-        return this.getEnumAttribute("checkstyle");
+        return this.getEnumAttribute("checkstyle", CheckBoxStyles);
     }
 
     static get observedAttributes() {

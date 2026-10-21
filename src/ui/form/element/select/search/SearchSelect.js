@@ -32,6 +32,7 @@ const MUTATION_CONFIG = {
     attributeFilter: ["value", "label"]
 };
 
+// TODO add multiple mode (use pills only if multiple)
 export default class SearchSelect extends AbstractFormElement {
 
     static get formConfigurationFields() {

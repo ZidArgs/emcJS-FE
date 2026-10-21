@@ -1,5 +1,6 @@
 import {immute} from "@emcjs/core/data/Immutable.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
+import IconStyleMixin from "../../../../mixin/IconStyleMixin.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {
@@ -10,10 +11,9 @@ import "../../../../i18n/I18nTooltip.js";
 import "../../../../i18n/builtin/I18nInput.js";
 import TPL from "./NumberInput.js.html" assert {type: "html"};
 import STYLE from "./NumberInput.js.css" assert {type: "css"};
-import FONT_STYLE from "../../../../../_style/emcjs-icons-codes.css" assert {type: "css"};
 import CONFIG_FIELDS from "./NumberInput.js.json" assert {type: "json"};
 
-export default class NumberInput extends AbstractFormElement {
+export default class NumberInput extends IconStyleMixin(AbstractFormElement) {
 
     static get formConfigurationFields() {
         return immute([...super.formConfigurationFields, ...CONFIG_FIELDS]);
@@ -29,7 +29,6 @@ export default class NumberInput extends AbstractFormElement {
         super();
         TPL.apply(this.shadowRoot);
         STYLE.apply(this.shadowRoot);
-        FONT_STYLE.apply(this.shadowRoot);
         /* --- */
         this.#inputEl = this.shadowRoot.getElementById("input");
         this.#inputEl.addEventListener("input", () => {

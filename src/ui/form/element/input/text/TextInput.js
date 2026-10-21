@@ -41,9 +41,13 @@ export default class TextInput extends AbstractFormElement {
             this.#printTextLength();
         });
         this.#inputEl.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" && event.shiftKey === this.newlineOnShift) {
-                event.stopPropagation();
-                return false;
+            if (event.key === "Enter") {
+                if (event.shiftKey === this.newlineOnShift) {
+                    event.stopPropagation();
+                    return false;
+                } else {
+                    event.preventDefault();
+                }
             }
         });
         /* --- */
@@ -153,7 +157,7 @@ export default class TextInput extends AbstractFormElement {
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

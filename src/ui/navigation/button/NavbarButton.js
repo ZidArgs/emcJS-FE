@@ -26,7 +26,7 @@ export default class NavbarButton extends CustomElement {
     }
 
     get expands() {
-        return this.getEnumAttribute("expands");
+        return this.getEnumAttribute("expands", EXPANDABLE_VALUES);
     }
 
     set content(val) {

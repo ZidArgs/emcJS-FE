@@ -136,7 +136,7 @@ export default class DataListSelect extends DataList {
     }
 
     get checkStyle() {
-        return this.getEnumAttribute("checkstyle");
+        return this.getEnumAttribute("checkstyle", CheckBoxStyles);
     }
 
     static get observedAttributes() {

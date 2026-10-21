@@ -4,6 +4,7 @@ import KeySequence from "@emcjs/core/util/keyboard/KeySequence.js";
 import {I18nValueObserver} from "@emcjs/core/util/observer/i18n/I18nValueObserver.js";
 import {toStartUppercaseEndLowercase} from "@emcjs/core/util/helper/string/ConvertCase.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
+import IconStyleMixin from "../../../../mixin/IconStyleMixin.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
 import {
@@ -15,7 +16,7 @@ import TPL from "./KeyBindInput.js.html" assert {type: "html"};
 import STYLE from "./KeyBindInput.js.css" assert {type: "css"};
 import CONFIG_FIELDS from "./KeyBindInput.js.json" assert {type: "json"};
 
-export default class KeyBindInput extends AbstractFormElement {
+export default class KeyBindInput extends IconStyleMixin(AbstractFormElement) {
 
     static get formConfigurationFields() {
         return [...super.formConfigurationFields, ...deepClone(CONFIG_FIELDS)];

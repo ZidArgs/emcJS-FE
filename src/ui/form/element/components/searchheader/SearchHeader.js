@@ -10,6 +10,8 @@ export default class SearchHeader extends CustomFormElement {
         return 0;
     }
 
+    #containerEl;
+
     #searchEl;
 
     #selectEl;
@@ -19,6 +21,7 @@ export default class SearchHeader extends CustomFormElement {
         TPL.apply(this.shadowRoot);
         STYLE.apply(this.shadowRoot);
         /* --- */
+        this.#containerEl = this.shadowRoot.getElementById("container");
         this.#selectEl = this.shadowRoot.getElementById("select");
         this.#searchEl = this.shadowRoot.getElementById("search");
         this.#selectEl.addEventListener("change", (event) => {
@@ -106,6 +109,15 @@ export default class SearchHeader extends CustomFormElement {
             case "readonly": {
                 if (oldValue != newValue) {
                     this.#selectEl.readOnly = this.readOnly;
+                }
+            } break;
+            case "selectend": {
+                if (oldValue != newValue) {
+                    if (this.selectEnd) {
+                        this.#containerEl.append(this.#selectEl);
+                    } else {
+                        this.#containerEl.prepend(this.#selectEl);
+                    }
                 }
             } break;
         }

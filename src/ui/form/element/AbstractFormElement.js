@@ -78,9 +78,6 @@ export default class AbstractFormElement extends CustomFormElement {
                     bubbles: true,
                     cancelable: true
                 }));
-                event.preventDefault();
-                event.stopPropagation();
-                return false;
             }
         });
     }

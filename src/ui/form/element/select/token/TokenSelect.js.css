@@ -233,34 +233,6 @@
     }
 }
 
-/* --- */
-#value .token {
-    padding: 2px 2px 2px 6px;
-    margin: 0px 1px;
-    color: var(--button-text-color, #000000);
-    background-color: var(--button-back-color, #cdcdcd);
-    border-style: solid;
-    border-width: var(--button-border-width, 2px);
-    border-color: var(--button-border-color, #222222);
-    border-radius: var(--button-border-radius, 6px);
-    font-size: 1em;
-    line-height: 1em;
-    white-space: pre;
-    word-break: keep-all;
-    cursor: pointer;
-    pointer-events: all;
-
-    &:hover {
-        color: var(--button-hover-color, #ffffff);
-        background-color: var(--button-hover-background-color, #444444);
-        border-color: var(--button-hover-border-color, #222222);
-    }
-
-    &::after {
-        margin-left: 4px;
-        content: "🗙";
-    }
-}
 
 #token-container {
     display: flex;

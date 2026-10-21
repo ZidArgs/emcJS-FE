@@ -1,9 +1,9 @@
 import CustomElement from "../element/CustomElement.js";
+import IconStyleMixin from "../mixin/IconStyleMixin.js";
 import TPL from "./FontIcon.js.html" assert {type: "html"};
 import STYLE from "./FontIcon.js.css" assert {type: "css"};
-import FONT_STYLE from "../../_style/emcjs-icons-codes.css" assert {type: "css"};
 
-export default class FontIcon extends CustomElement {
+export default class FontIcon extends IconStyleMixin(CustomElement) {
 
     #iconEl;
 
@@ -11,17 +11,24 @@ export default class FontIcon extends CustomElement {
         super();
         this.shadowRoot.append(TPL.generate());
         STYLE.apply(this.shadowRoot);
-        FONT_STYLE.apply(this.shadowRoot);
         /* --- */
         this.#iconEl = this.shadowRoot.getElementById("icon");
+    }
+
+    set icon(val) {
+        this.setAttribute("icon", val);
     }
 
     get icon() {
         return this.getAttribute("icon");
     }
 
-    set icon(val) {
-        this.setAttribute("icon", val);
+    set bold(val) {
+        this.setBooleanAttribute("bold", val);
+    }
+
+    get bold() {
+        return this.getBooleanAttribute("bold");
     }
 
     static get observedAttributes() {

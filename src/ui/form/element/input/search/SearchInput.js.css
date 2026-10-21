@@ -10,28 +10,31 @@
     display: flex;
     width: 100%;
     height: 100%;
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+    border-color: var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    &:focus-within {
+        box-shadow: 0 0 2px 3px var(--focus-color);
+        z-index: 1;
+    }
 }
 
 #input {
     flex-grow: 1;
     width: 100%;
     height: 100%;
-    padding: 0px 7px;
+    padding: 0px calc(7px + 2em) 0px 7px;
     color: var(--color);
     background-color: var(--background-color);
-    border-style: var(--border-style);
-    border-width: var(--border-width);
-    border-color: var(--border-color);
-    border-radius: var(--border-radius);
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border: none;
     font-size: 1em;
     text-align: inherit;
 
     &:focus {
-        box-shadow: 0 0 2px 3px var(--focus-color);
         outline: none;
-        z-index: 1;
     }
 
     &::placeholder {
@@ -39,55 +42,62 @@
     }
 }
 
-#button {
-    position: relative;
-    display: flex;
+#clear {
+    position: absolute;
+    display: none;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 2em;
-    height: 2em;
+    top: calc(-1 * var(--border-width));
+    right: calc(-1 * var(--border-width));
+    width: 1em;
+    height: 1em;
     padding: 0px;
-    margin: 0px;
-    margin-left: calc(-1 * var(--border-width));
-    color: var(--button-color);
-    background-color: var(--button-background-color);
-    border-style: solid;
-    border-width: var(--border-width);
-    border-color: var(--border-color);
-    border-radius: var(--border-radius);
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    font-size: 1rem;
+    margin: .5em;
+    color: var(--color);
+    background-color: transparent;
+    border: none;
+    font-size: 1em;
     font-weight: bold;
     cursor: pointer;
     appearance: none;
-
-    &:focus {
-        box-shadow: 0 0 2px 3px var(--focus-color, #06b5ff);
-        outline: none;
-        z-index: 1;
-    }
+    opacity: 0.6;
 
     &:hover {
-        color: var(--button-hover-color);
-        background-color: var(--button-hover-background-color);
+        opacity: 1;
     }
 
     &::before {
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        font-size: 1.2em;
+        font-family: "emcjs-icons";
+        font-size: 0.6em;
+        font-style: normal;
+        font-weight: bold;
+        speak: never;
+        display: inline-block;
+        text-decoration: inherit;
+        text-align: center;
+        font-variant: normal;
+        text-transform: none;
         line-height: 1em;
-        font-family: monospace;
-        content: "✖";
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 }
 
-:host([readonly]:not([readonly="false"])) #button {
+#input:not(:placeholder-shown) + #clear {
+    display: flex;
+}
+
+:host([readonly]:not([readonly="false"])) #clear {
     pointer-events: none;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* remove unwanted native clear button styling */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+    display: none;
 }

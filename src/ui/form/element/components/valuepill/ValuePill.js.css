@@ -1,0 +1,35 @@
+:host {
+    pointer-events: all;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    padding: 0px 4px;
+    margin: 0px 1px;
+    color: var(--button-text-color, #000000);
+    background-color: var(--button-back-color, #cdcdcd);
+    border-style: solid;
+    border-width: var(--button-border-width, 2px);
+    border-color: var(--button-border-color, #222222);
+    border-radius: var(--button-border-radius, 6px);
+    font-size: 1em;
+    line-height: 1em;
+    white-space: pre;
+    word-break: keep-all;
+
+    * {
+        flex-shrink: 0;
+    }
+
+    #remove {
+        margin-left: 4px;
+        font-size: 0.8em;
+        opacity: 0.7;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

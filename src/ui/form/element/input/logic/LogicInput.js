@@ -86,9 +86,50 @@ export default class LogicInput extends ContextMenuManagerMixin(AbstractFormElem
         /* --- */
         mutationObserver.observe(this, MUTATION_CONFIG);
         this.#logicContainerEl = this.shadowRoot.getElementById("logic-container");
+        /* --- */
         this.#optimizeButtonEl = this.shadowRoot.getElementById("optimize");
+        this.#optimizeButtonEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+            }
+        });
+        this.#optimizeButtonEl.addEventListener("click", (event) => {
+            this.value = reduceLogic(this.value);
+            event.stopPropagation();
+        });
+        /* --- */
         this.#jsonButtonEl = this.shadowRoot.getElementById("json");
+        this.#jsonButtonEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+            }
+        });
+        this.#jsonButtonEl.addEventListener("click", async (event) => {
+            event.stopPropagation();
+            const result = await this.#logicJSONModal.show(this.value);
+            if (result) {
+                this.value =  result;
+            }
+        });
+        /* --- */
         this.#placeholderEl = this.shadowRoot.getElementById("droptarget");
+        this.#placeholderEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+            }
+        });
+        this.#placeholderEl.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        });
+        this.#placeholderEl.addEventListener("keyup", (event) => {
+            if (event.key === "Enter") {
+                event.stopPropagation();
+                this.#placeholderEl.click();
+            }
+        });
         this.#placeholderEl.ondragover = (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -114,17 +155,7 @@ export default class LogicInput extends ContextMenuManagerMixin(AbstractFormElem
             this.dispatchEvent(e);
             event.stopPropagation();
         });
-        this.#optimizeButtonEl.addEventListener("click", (event) => {
-            this.value = reduceLogic(this.value);
-            event.stopPropagation();
-        });
-        this.#jsonButtonEl.addEventListener("click", async (event) => {
-            event.stopPropagation();
-            const result = await this.#logicJSONModal.show(this.value);
-            if (result) {
-                this.value =  result;
-            }
-        });
+        /* --- */
         this.addEventListener("click", (event) => {
             event.stopImmediatePropagation();
             event.preventDefault();
@@ -222,7 +253,7 @@ export default class LogicInput extends ContextMenuManagerMixin(AbstractFormElem
     }
 
     get resize() {
-        return this.getEnumAttribute("resize");
+        return this.getEnumAttribute("resize", Direction);
     }
 
     static get observedAttributes() {

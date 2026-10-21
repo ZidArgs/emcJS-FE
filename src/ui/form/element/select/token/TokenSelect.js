@@ -17,7 +17,7 @@ import {
     setAttributes, setBooleanAttribute
 } from "../../../../../util/node/NodeAttributes.js";
 import MutationObserverManager from "../../../../../util/observer/manager/MutationObserverManager.js";
-import TokenSelectedElementManager from "./manager/TokenSelectedElementManager.js";
+import MultiValueSelectedPillManager from "../../../../../util/form/manager/MultiValueSelectedPillManager.js";
 import I18nOption from "../../../../i18n/builtin/I18nOption.js";
 import SelectEntryManager from "../../../../../util/form/manager/SelectEntryManager.js";
 import I18nOptionManager from "../../../../../util/form/manager/I18nOptionManager.js";
@@ -38,6 +38,8 @@ const MUTATION_CONFIG = {
 
 // TODO add manage token option (?)
 // TODO add token usage detection (?)
+// TODO rename to TagEditor? (in favor of searchselect getting multiple attribute)
+// -> as TagEditor, move to own folder
 export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement) {
 
     static get formConfigurationFields() {
@@ -64,7 +66,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
 
     #placeholderEl;
 
-    #tokenContainerEl;
+    #valueContainerEl;
 
     #overflowCounterEl;
 
@@ -88,7 +90,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         this.#onSlotChange();
     });
 
-    #tokenSelectedManager;
+    #valueSelectedManager;
 
     #selectEntryManager;
 
@@ -108,7 +110,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         this.#optionSelectEventManager.set("click", (event) => {
             const el = event.currentTarget;
             const value = el.getAttribute("value");
-            this.#toggleToken(value, el);
+            this.#toggleValue(value, el);
             event.preventDefault();
             event.stopPropagation();
         });
@@ -125,7 +127,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         this.#nativeEmptyEl = this.shadowRoot.getElementById("native-empty");
         this.#valueEl = this.shadowRoot.getElementById("value");
         this.#viewEl = this.shadowRoot.getElementById("view");
-        this.#tokenContainerEl = this.shadowRoot.getElementById("token-container");
+        this.#valueContainerEl = this.shadowRoot.getElementById("value-container");
         this.#overflowCounterEl = this.shadowRoot.getElementById("overflow-counter");
         this.#emptyEl = this.shadowRoot.getElementById("empty");
         this.#nomatchEl = this.shadowRoot.getElementById("nomatch");
@@ -179,11 +181,11 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
                         event.preventDefault();
                         event.stopPropagation();
                     } else if (key === "Enter") {
-                        this.#createToken();
+                        this.#createValue();
                         event.preventDefault();
                         event.stopPropagation();
                     } else if (key === " ") {
-                        this.#toggleMarkedToken();
+                        this.#toggleMarkedValue();
                         event.preventDefault();
                         event.stopPropagation();
                     } else if (ESCAPE_KEYS.includes(key)) {
@@ -242,9 +244,9 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
             }
         }, {passive: true});
         /* --- */
-        this.#tokenSelectedManager = new TokenSelectedElementManager(this.#tokenContainerEl);
-        this.#tokenSelectedManager.registerSortFunction(this.#sortByNameFunction);
-        this.#tokenSelectedManager.addEventListener("afterrender", () => {
+        this.#valueSelectedManager = new MultiValueSelectedPillManager(this.#valueContainerEl);
+        this.#valueSelectedManager.registerSortFunction(this.#sortByNameFunction);
+        this.#valueSelectedManager.addEventListener("afterrender", () => {
             this.#handleOverflowItems();
         });
         this.#selectEntryManager = new SelectEntryManager(this.#optionsContainerEl, this.#optionSelectEventManager);
@@ -262,12 +264,12 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         this.#i18nEventManager.set("language", () => {
             this.#selectEntryManager.sort();
             this.#i18nOptionManager.sort();
-            this.#tokenSelectedManager.sort();
+            this.#valueSelectedManager.sort();
         });
         this.#i18nEventManager.set("translation", () => {
             this.#selectEntryManager.sort();
             this.#i18nOptionManager.sort();
-            this.#tokenSelectedManager.sort();
+            this.#valueSelectedManager.sort();
         });
     }
 
@@ -282,7 +284,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
     }
 
     resizeCallback() {
-        this.#tokenSelectedManager.rerender();
+        this.#valueSelectedManager.rerender();
         super.resizeCallback();
     }
 
@@ -412,18 +414,25 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
                     data.push({
                         key: val,
                         label: selectedEl.label ?? selectedEl.innerText,
-                        tokenAction: this.#tokenAction
+                        toggleValue: (event) => {
+                            const el = event.currentTarget;
+                            if (el != null) {
+                                const value = el.dataset.value;
+                                this.#toggleValue(value, el);
+                            }
+                            event.stopPropagation();
+                        }
                     });
                 }
             }
         }
         if (data.length) {
-            this.#tokenSelectedManager.manage(data);
+            this.#valueSelectedManager.manage(data);
             this.#valueEl.classList.remove("hidden");
             this.#placeholderEl.classList.add("hidden");
         } else {
             this.#nativeSelectEl.value = "";
-            this.#tokenContainerEl.innerHTML = "";
+            this.#valueContainerEl.innerHTML = "";
             this.#valueEl.classList.add("hidden");
             this.#placeholderEl.classList.remove("hidden");
         }
@@ -466,7 +475,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         }
     }
 
-    #createToken() {
+    #createValue() {
         const value = this.#inputEl.value;
         this.#inputEl.value = "";
         this.#nomatchEl.style.display = "";
@@ -511,17 +520,17 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         if (marked != null) {
             marked.classList.remove("marked");
         }
-        this.#tokenSelectedManager.rerender();
+        this.#valueSelectedManager.rerender();
     }
 
     #handleOverflowItems() {
-        const els = [...this.#tokenContainerEl.children];
+        const els = [...this.#valueContainerEl.children];
         let overflowItems = 0;
         this.#overflowCounterEl.innerText = "";
         for (let i = 0; i < els.length; ++i) {
             const el = els[i];
             if (el != null) {
-                const containerWidth = this.#tokenContainerEl.clientWidth;
+                const containerWidth = this.#valueContainerEl.clientWidth;
                 const elLeft = el.offsetLeft;
                 const elWidth = el.offsetWidth;
                 const elRight = elLeft + elWidth;
@@ -656,24 +665,15 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
         this.#resolveSlottedElements();
     });
 
-    #tokenAction = (event) => {
-        const el = event.currentTarget;
-        if (el != null) {
-            const value = el.dataset.value;
-            this.#toggleToken(value, el);
-        }
-        event.stopPropagation();
-    };
-
-    #toggleMarkedToken() {
+    #toggleMarkedValue() {
         const el = this.#optionsContainerEl.querySelector(".marked");
         if (el != null) {
             const value = el.getAttribute("value");
-            this.#toggleToken(value, el);
+            this.#toggleValue(value, el);
         }
     }
 
-    #toggleToken(value, toggledEl) {
+    #toggleValue(value, toggledEl) {
         if (!this.readOnly) {
             const valueBuffer = new Set(this.value);
             if (this.multiple) {

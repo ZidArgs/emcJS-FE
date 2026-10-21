@@ -27,7 +27,7 @@ export default class LogEntry extends CustomElement {
     }
 
     get type() {
-        return this.getEnumAttribute("type");
+        return this.getEnumAttribute("type", LogTypes);
     }
 
     set time(value) {

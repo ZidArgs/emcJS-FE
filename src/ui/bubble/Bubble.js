@@ -52,7 +52,7 @@ export default class Bubble extends CustomElement {
     }
 
     get position() {
-        return this.getEnumAttribute("position");
+        return this.getEnumAttribute("position", POSITIONS);
     }
 
     static get observedAttributes() {
