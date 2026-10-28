@@ -1,8 +1,10 @@
 {
   "name": "@emcjs/fe",
-  "version": "0.1.14",
+  "version": "0.2.0",
   "description": "Modular JS API - Frontend",
-  "type": "module",
+  "author": "Denis Weiß (ZidArgs)",
+  "license": "MIT",
+  "homepage": "https://github.com/ZidArgs/emcJS-FE",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:ZidArgs/emcJS-FE.git"
@@ -10,12 +12,10 @@
   "bugs": {
     "url": "https://github.com/ZidArgs/emcJS-FE/issues"
   },
-  "author": "Denis Weiß (ZidArgs)",
-  "license": "MIT",
-  "homepage": "https://github.com/ZidArgs/emcJS-FE",
+  "type": "module",
   "dependencies": {
-    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.3.1",
-    "@emcjs/logic": "https://github.com/ZidArgs/emcJS-Logic.git/#0.2.1"
+    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.4.0",
+    "@emcjs/logic": "https://github.com/ZidArgs/emcJS-Logic.git/#0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",
@@ -23,7 +23,7 @@
     "@babel/plugin-syntax-import-assertions": "^7.27.1",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@stylistic/eslint-plugin": "^5.3.1",
-    "@zidargs/buildtools": "https://github.com/ZidArgs/buildtools.git/#1.2.1",
+    "@zidargs/buildtools": "https://github.com/ZidArgs/BuildTools.git/#1.2.1",
     "eslint": "^9.35.0",
     "gulp": "^4.0.2",
     "gulp-changed": "^5.0.4"
