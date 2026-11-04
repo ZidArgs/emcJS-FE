@@ -1,6 +1,6 @@
 {
   "name": "@emcjs/fe",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Modular JS API - Frontend",
   "author": "Denis Weiß (ZidArgs)",
   "license": "MIT",
@@ -14,7 +14,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.4.2",
+    "@emcjs/core": "https://github.com/ZidArgs/emcJS-Core.git/#1.4.3",
     "@emcjs/logic": "https://github.com/ZidArgs/emcJS-Logic.git/#0.3.0"
   },
   "devDependencies": {
