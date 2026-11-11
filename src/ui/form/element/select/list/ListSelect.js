@@ -3,7 +3,7 @@ import i18n from "@emcjs/core/util/I18n.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import SimpleDataProvider from "@emcjs/core/util/dataprovider/SimpleDataProvider.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
@@ -134,7 +134,7 @@ export default class ListSelect extends AbstractFormElement {
 
     set value(value) {
         if (typeof value === "string") {
-            value = jsonParseSafe(value);
+            value = safeParseJSON(value);
         }
         super.value = value;
     }

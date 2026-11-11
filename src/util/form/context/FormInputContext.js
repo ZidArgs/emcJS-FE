@@ -1,6 +1,6 @@
+import {parseJSON} from "@emcjs/core/util/json/JSON.js";
 import AppStateStorageWrapper from "@emcjs/core/data/state/AppStateStorageWrapper.js";
 import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableStorage.js";
-import jsonParse from "@emcjs/core/patches/JSONParser.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import StatementCompiler from "@emcjs/logic/compiler/StatementCompiler.js";
@@ -18,11 +18,11 @@ const mutationObserver = new MutationObserver((mutationsList) => {
             const target = mutation.target;
             const context = CONTEXTS.get(target);
             if (mutation.attributeName === "visible") {
-                context.setVisibleLogic(jsonParse(target.getAttribute("visible")));
+                context.setVisibleLogic(parseJSON(target.getAttribute("visible")));
             } else if (mutation.attributeName === "enabled") {
-                context.setEnabledLogic(jsonParse(target.getAttribute("enabled")));
+                context.setEnabledLogic(parseJSON(target.getAttribute("enabled")));
             } else if (mutation.attributeName === "editable") {
-                context.setEditableLogic(jsonParse(target.getAttribute("editable")));
+                context.setEditableLogic(parseJSON(target.getAttribute("editable")));
             }
         }
     }
@@ -134,7 +134,7 @@ export default class FormInputContext {
         });
         /* --- */
         const visibleValue = this.#element.getAttribute("visible");
-        this.setVisibleLogic(jsonParse(visibleValue));
+        this.setVisibleLogic(parseJSON(visibleValue));
         /* --- */
         const message = this.#element.validationMessage;
         if (this.#validationMessage != message) {

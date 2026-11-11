@@ -2,7 +2,7 @@ import Enum from "@emcjs/core/enum/Enum.js";
 import {
     isArrayOf, isStringNotEmpty
 } from "@emcjs/core/util/helper/CheckType.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import {dashedToCamelCase} from "@emcjs/core/util/helper/string/ConvertCase.js";
 
 export function setAttributes(el, attr) {
@@ -153,7 +153,7 @@ export function setJSONAttribute(node, name, value) {
         node.removeAttribute(name);
     } else {
         if (typeof value === "string") {
-            value = jsonParseSafe(value);
+            value = safeParseJSON(value);
         }
         node.setAttribute(name, JSON.stringify(value));
     }
@@ -161,7 +161,7 @@ export function setJSONAttribute(node, name, value) {
 
 export function getJSONAttribute(node, name) {
     try {
-        return jsonParseSafe(node.getAttribute(name));
+        return safeParseJSON(node.getAttribute(name));
     } catch {
         return null;
     }

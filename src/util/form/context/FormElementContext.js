@@ -1,5 +1,4 @@
-
-import jsonParse from "@emcjs/core/patches/JSONParser.js";
+import {parseJSON} from "@emcjs/core/util/json/JSON.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableStorage.js";
 import AppStateStorageWrapper from "@emcjs/core/data/state/AppStateStorageWrapper.js";
@@ -46,11 +45,11 @@ const mutationObserver = new MutationObserver((mutationsList) => {
                     target.value = context.storage.get(elName);
                 }
             } else if (mutation.attributeName === "visible") {
-                context.setVisibleLogic(jsonParse(target.getAttribute("visible")));
+                context.setVisibleLogic(parseJSON(target.getAttribute("visible")));
             } else if (mutation.attributeName === "enabled") {
-                context.setEnabledLogic(jsonParse(target.getAttribute("enabled")));
+                context.setEnabledLogic(parseJSON(target.getAttribute("enabled")));
             } else if (mutation.attributeName === "editable") {
-                context.setEditableLogic(jsonParse(target.getAttribute("editable")));
+                context.setEditableLogic(parseJSON(target.getAttribute("editable")));
             }
         }
     }
@@ -134,13 +133,13 @@ export default class FormElementContext {
         });
         /* --- */
         const visibleLogicAttribute = this.#element.getAttribute("visible");
-        this.setVisibleLogic(jsonParse(visibleLogicAttribute));
+        this.setVisibleLogic(parseJSON(visibleLogicAttribute));
         /* --- */
         const enabledLogicAttribute = this.#element.getAttribute("enabled");
-        this.setEnabledLogic(jsonParse(enabledLogicAttribute));
+        this.setEnabledLogic(parseJSON(enabledLogicAttribute));
         /* --- */
         const editableLogicAttribute = this.#element.getAttribute("editable");
-        this.setEditableLogic(jsonParse(editableLogicAttribute));
+        this.setEditableLogic(parseJSON(editableLogicAttribute));
     }
 
     set storage(value) {

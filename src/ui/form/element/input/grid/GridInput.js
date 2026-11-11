@@ -3,7 +3,7 @@ import SimpleDataProvider from "@emcjs/core/util/dataprovider/SimpleDataProvider
 import {
     deleteAtIndexImmuted, sortDictListByArrayImmuted
 } from "@emcjs/core/util/helper/collection/ArrayMutations.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import ModalDialog from "../../../../modal/ModalDialog.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
@@ -128,7 +128,7 @@ export default class GridInput extends AbstractFormElement {
 
     set value(value) {
         if (typeof value === "string") {
-            value = jsonParseSafe(value);
+            value = safeParseJSON(value);
         }
         super.value = value;
     }

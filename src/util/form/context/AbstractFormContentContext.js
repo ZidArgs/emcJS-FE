@@ -1,7 +1,7 @@
 import AppStateStorageWrapper from "@emcjs/core/data/state/AppStateStorageWrapper.js";
 import ObservableStorage from "@emcjs/core/data/storage/observable/ObservableStorage.js";
-import jsonParse from "@emcjs/core/patches/JSONParser.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
+import {parseJSON} from "@emcjs/core/util/json/JSON.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import StatementCompiler from "@emcjs/logic/compiler/StatementCompiler.js";
 import LogicStatement from "@emcjs/logic/compiler/statement/LogicStatement.js";
@@ -73,13 +73,13 @@ export default class AbstractFormContentContext extends EventTarget {
         });
         /* --- */
         const visibleLogicAttribute = this.#element.getAttribute("visible");
-        this.setVisibleLogic(jsonParse(visibleLogicAttribute));
+        this.setVisibleLogic(parseJSON(visibleLogicAttribute));
         /* --- */
         const enabledLogicAttribute = this.#element.getAttribute("enabled");
-        this.setEnabledLogic(jsonParse(enabledLogicAttribute));
+        this.setEnabledLogic(parseJSON(enabledLogicAttribute));
         /* --- */
         const editableLogicAttribute = this.#element.getAttribute("editable");
-        this.setEditableLogic(jsonParse(editableLogicAttribute));
+        this.setEditableLogic(parseJSON(editableLogicAttribute));
     }
 
     set storage(value) {
@@ -120,7 +120,7 @@ export default class AbstractFormContentContext extends EventTarget {
         } else if (this.#element.hasAttribute(this.#valueAttributeName)) {
             const value = this.#element.getAttribute(this.#valueAttributeName);
             try {
-                this.#storage.setBaseValue(jsonParse(value));
+                this.#storage.setBaseValue(parseJSON(value));
             } catch {
                 this.#storage.setBaseValue(value);
             }

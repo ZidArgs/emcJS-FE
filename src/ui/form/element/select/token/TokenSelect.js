@@ -2,7 +2,7 @@ import {immute} from "@emcjs/core/data/Immutable.js";
 import i18n from "@emcjs/core/util/I18n.js";
 import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import CharacterSearch from "@emcjs/core/util/search/CharacterSearch.js";
 import {
@@ -318,7 +318,7 @@ export default class TokenSelect extends ResizeObserverMixin(AbstractFormElement
             value = [];
         }
         if (typeof value === "string") {
-            value = jsonParseSafe(value);
+            value = safeParseJSON(value);
         }
         if (!Array.isArray(value)) {
             throw new TypeError("value must be an array or null");

@@ -1,4 +1,4 @@
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import Logger from "@emcjs/core/util/log/Logger.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import LogicValidator from "@emcjs/logic/util/LogicValidator.js";
@@ -32,12 +32,12 @@ export default class LogicJSONModal extends ModalDialogCodeInput {
     }
 
     getSubmitValue() {
-        return jsonParseSafe(this.#inputEl.value);
+        return safeParseJSON(this.#inputEl.value);
     }
 
     submit() {
         if (this.#inputEl.validationMessage === "") {
-            const value = jsonParseSafe(this.#inputEl.value);
+            const value = safeParseJSON(this.#inputEl.value);
             if (value != null) {
                 const errors = LogicValidator.validate(value);
                 if (errors.length > 0) {
@@ -55,7 +55,7 @@ export default class LogicJSONModal extends ModalDialogCodeInput {
 
     #validateInput = debounce(() => {
         try {
-            jsonParseSafe(this.#inputEl.value);
+            safeParseJSON(this.#inputEl.value);
             this.#inputEl.setCustomValidity("");
             this.#submitEl.disabled = false;
         } catch {

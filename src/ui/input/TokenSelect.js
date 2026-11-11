@@ -3,7 +3,7 @@ import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import i18n from "@emcjs/core/util/I18n.js";
 import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import ElementManager from "../../util/element/ElementManager.js";
 import {sortChildren} from "../../util/node/NodeListSort.js";
@@ -291,7 +291,7 @@ export default class TokenSelect extends CustomElementDelegating {
     get value() {
         let val = this.getAttribute("value");
         if (val != null) {
-            val = jsonParseSafe(val) ?? [];
+            val = safeParseJSON(val) ?? [];
         } else {
             val = [];
         }

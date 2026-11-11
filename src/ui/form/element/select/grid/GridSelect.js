@@ -2,7 +2,7 @@ import {immute} from "@emcjs/core/data/Immutable.js";
 import i18n from "@emcjs/core/util/I18n.js";
 import EventTargetManager from "@emcjs/core/util/event/EventTargetManager.js";
 import DataReceiverMixin from "@emcjs/core/util/datareceiver/DataReceiverMixin.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import AbstractFormElement from "../../AbstractFormElement.js";
 import FormElementRegistry from "../../../../../registry/form/FormElementRegistry.js";
 import {registerFocusable} from "../../../../../util/element/ElementFocusManager.js";
@@ -105,7 +105,7 @@ export default class GridSelect extends DataReceiverMixin(AbstractFormElement) {
 
     set value(value) {
         if (typeof value === "string") {
-            value = jsonParseSafe(value);
+            value = safeParseJSON(value);
         }
         super.value = value;
     }

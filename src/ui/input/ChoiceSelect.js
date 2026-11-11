@@ -1,11 +1,10 @@
-
+import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import CustomElement from "../element/CustomElement.js";
 import ChildlistMutationObserverMixin from "../mixin/ChildlistMutationObserverMixin.js";
 import "./Option.js";
 import TPL from "./ChoiceSelect.js.html" assert {type: "html"};
 import STYLE from "./ChoiceSelect.js.css" assert {type: "css"};
-import EventMultiTargetManager from "@emcjs/core/util/event/EventMultiTargetManager.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
 
 /**
  * @deprecated
@@ -111,7 +110,7 @@ export default class ChoiceSelect extends ChildlistMutationObserverMixin(CustomE
         let val = this.getAttribute("value");
         if (this.multiple) {
             if (val != null) {
-                val = jsonParseSafe(val) ?? [];
+                val = safeParseJSON(val) ?? [];
             } else {
                 val = [];
             }
@@ -155,7 +154,7 @@ export default class ChoiceSelect extends ChildlistMutationObserverMixin(CustomE
             case "multiple":
                 if (oldValue != newValue) {
                     if (newValue != "true") {
-                        const arr = jsonParseSafe(this.getAttribute("value")) ?? [];
+                        const arr = safeParseJSON(this.getAttribute("value")) ?? [];
                         if (arr.length > 1) {
                             this.value = arr[0];
                         }

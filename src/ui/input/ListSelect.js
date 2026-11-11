@@ -2,7 +2,7 @@
 import i18n from "@emcjs/core/util/I18n.js";
 import {debounce} from "@emcjs/core/util/Debouncer.js";
 import SearchEvery from "@emcjs/core/util/search/SearchEvery.js";
-import {jsonParseSafe} from "@emcjs/core/util/helper/JSON.js";
+import {safeParseJSON} from "@emcjs/core/util/json/JSON.js";
 import CustomElementDelegating from "../element/CustomElementDelegating.js";
 import ListSelectionController from "../../util/form/ListSelectionController.js";
 import {sortChildren} from "../../util/node/NodeListSort.js";
@@ -245,7 +245,7 @@ export default class ListSelect extends CustomElementDelegating {
         let val = this.getAttribute("value");
         if (this.multiple) {
             if (val != null) {
-                val = jsonParseSafe(val) ?? [];
+                val = safeParseJSON(val) ?? [];
             } else {
                 val = [];
             }
@@ -293,7 +293,7 @@ export default class ListSelect extends CustomElementDelegating {
             case "multiple": {
                 if (oldValue != newValue) {
                     if (newValue != "true") {
-                        const arr = jsonParseSafe(this.getAttribute("value")) ?? [];
+                        const arr = safeParseJSON(this.getAttribute("value")) ?? [];
                         if (arr.length > 1) {
                             this.value = arr[0];
                         }
