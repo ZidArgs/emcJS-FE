@@ -39,7 +39,7 @@ export default class PasswordInput extends IconStyleMixin(AbstractFormElement) {
         this.#buttonEl = this.shadowRoot.getElementById("button");
         this.#buttonEl.addEventListener("change", (event) => {
             const showValue = this.#buttonEl.checked;
-            this.#buttonEl.className = showValue ? "icon-eye" : "icon-eye-striked";
+            this.#buttonEl.className = showValue ? "emcjs-icon-eye" : "emcjs-icon-eye-striked";
             this.#tooltipEl.i18nTooltip = showValue ? "Value visible" : "Value hidden";
             this.#inputEl.type = showValue ? "text" : "password";
             event.stopPropagation();
