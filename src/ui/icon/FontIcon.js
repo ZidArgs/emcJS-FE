@@ -37,7 +37,7 @@ export default class FontIcon extends IconStyleMixin(CustomElement) {
 
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === "icon" && oldValue != newValue) {
-            this.#iconEl.className = `icon-${newValue}`;
+            this.#iconEl.className = `emcjs-icon-${newValue}`;
         }
     }
 
