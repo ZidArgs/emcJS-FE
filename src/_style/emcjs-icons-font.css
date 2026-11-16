@@ -1,11 +1,11 @@
 @font-face {
     font-family: "emcjs-icons";
-    src: url('../font/emcjs-icons.eot?t=1794780743861'); /* IE9*/
-    src: url('../font/emcjs-icons.eot?t=1794780743861#iefix') format('embedded-opentype') /* IE6-IE8 */,
-        url('../font/emcjs-icons.woff2?t=1794780743861') format('woff2'),
-        url('../font/emcjs-icons.woff?t=1794780743861') format('woff'),
-        url('../font/emcjs-icons.ttf?t=1794780743861') format('truetype'),
-        url('../font/emcjs-icons.svg?t=1794780743861') format('svg');
+    src: url('../_fonts/emcjs-icons.eot?t=1794850512259');
+    src: url('../_fonts/emcjs-icons.eot?t=1794850512259#iefix') format('embedded-opentype'),
+        url('../_fonts/emcjs-icons.woff2?t=1794850512259') format('woff2'),
+        url('../_fonts/emcjs-icons.woff?t=1794850512259') format('woff'),
+        url('../_fonts/emcjs-icons.ttf?t=1794850512259') format('truetype'),
+        url('../_fonts/emcjs-icons.svg?t=1794850512259') format('svg');
     font-weight: normal;
     font-style: normal;
 }
