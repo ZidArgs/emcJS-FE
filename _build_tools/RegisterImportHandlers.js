@@ -22,7 +22,7 @@ SourceImport.registerImportHandler("html", (sourceDir, name, contentPath) => {
         const fileContent = fs.readFileSync(resolvedPath).toString();
         return `const ${name} = new Template(\`\n${fileContent.replace(/\\/g, "\\\\").split("\n").map((l) => `    ${l}`).join("\n")}\n\`);\n`;
     }
-    return `throw new Error("the imported file ${resolvedPath} does not exist");\n`;
+    return `throw new Error("the imported file ${resolvedPath.replace(/\\/g, "/")} does not exist");\n`;
 }, () => {
     const modulePath = normalizePath(`${PACKAGE_NAME}/${HTMLTemplatePath}`);
     return `import Template from "${modulePath}";`;
@@ -35,7 +35,7 @@ SourceImport.registerImportHandler("css", (sourceDir, name, contentPath) => {
         const fileContent = fs.readFileSync(resolvedPath).toString();
         return `const ${name} = new GlobalStyle(\`\n${fileContent.replace(/\\/g, "\\\\").split("\n").map((l) => `    ${l}`).join("\n")}\n\`);\n`;
     }
-    return `throw new Error("the imported file ${resolvedPath} does not exist");\n`;
+    return `throw new Error("the imported file ${resolvedPath.replace(/\\/g, "/")} does not exist");\n`;
 }, () => {
     const modulePath = normalizePath(`${PACKAGE_NAME}/${CSSTemplatePath}`);
     return `import GlobalStyle from "${modulePath}";`;
