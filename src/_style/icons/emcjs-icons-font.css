@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "emcjs-icons";
+    src: url('font/emcjs-icons.eot?t=1794866650415');
+    src: url('font/emcjs-icons.eot?t=1794866650415#iefix') format('embedded-opentype'),
+        url('font/emcjs-icons.woff2?t=1794866650415') format('woff2'),
+        url('font/emcjs-icons.woff?t=1794866650415') format('woff'),
+        url('font/emcjs-icons.ttf?t=1794866650415') format('truetype'),
+        url('font/emcjs-icons.svg?t=1794866650415') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

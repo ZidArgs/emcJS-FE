@@ -1,7 +1,7 @@
 @import "./theme.css";
 @import "./prestyle.css";
 @import "./scrollbar.css";
-@import "./emcjs-icons-font.css";
+@import "./icons/emcjs-icons-font.css";
 
 body {
     width: 100vw;
